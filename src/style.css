@@ -1,0 +1,44 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+}
+.logo{
+    padding: 20px;
+    width: 300px;
+}
+.entrance-nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(248, 229, 250, 0.666);
+    
+    
+
+}
+.options > button{
+    background-color:transparent;
+    border:none;
+    display:flex;
+    align-items: center;
+    cursor:grab;
+}
+.options > button:hover{
+    color : rgb(207, 203, 203)
+}
+.options{
+    align-items: center; 
+    display: flex;
+    padding-right: 40px;
+    
+    /* border: 2px solid black; */
+}
+.login{
+    font-size: large;
+    
+    margin-left: 20px;
+    margin-right: 40px;
+}
+.signup{
+    font-size: large;
+    margin-right: 20px;
+}
