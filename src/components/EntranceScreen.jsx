@@ -7,30 +7,9 @@ import "../styles/EntranceScreen.css"
 import Navbar from "../components/Nav.jsx"
 
 export default function EntranceScreen(){
-    const handleClick = () =>{
-        Navigate("/login");
-    }
     return(
         <div>
             <Navbar/>
-            {/* <nav className="entrance-nav">            
-                <img src = {logo} className= "logo"/>
-                <div className="options">
-                    <button className="signup">
-                        <CiEdit style={{fontSize : "30px", marginRight:"10px"}}/>
-                        <h3><Link to ="/login">Signup</Link></h3>  
-                    </button>
-                    <button className="login">
-                        <CiLogin style={{fontSize : "30px", marginRight:"10px"}}/>
-                        <h3><Link to ="/login">Login</Link></h3>    
-                    </button>
-                    <button>
-                        <CiSettings style={{fontSize : "30px"}}/>
-                    </button>
-                </div>
-                
-                      
-            </nav> */}
             <div className='bodycover'>
                 <div className='textbox'>
                     <h1 className='textmain'>Wander around safely and efficiently</h1>

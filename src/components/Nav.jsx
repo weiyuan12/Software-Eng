@@ -8,10 +8,12 @@ export default function Navbar(props) {
         <nav className='header'> 
             <div className='Logobar'>
                 <img src='assets/barmenu.png'/>
-                <img className='logo' src='assets/Logomain.png'/>
+                <Link to="/">
+                    <img className='logo' src='assets/Logomain.png'/>
+                </Link>
             </div>
             <div className='Accessbar'>
-            <button className='invis'>
+                <button className='invis'>
                     <Link to="/signup">
                         <img className='signup' src='assets/IconSignup.png'/>
                         Signup
