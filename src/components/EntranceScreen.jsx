@@ -1,6 +1,8 @@
 import React from "react"
 import logo from "../assets/logo.png"
 import {CiLogin, CiEdit, CiSettings} from "react-icons/ci"
+import {Link} from "react-router-dom"
+import "../styles/EntranceScreen.css"
 export default function EntranceScreen(){
     return(
         <div>
@@ -9,11 +11,11 @@ export default function EntranceScreen(){
                 <div className="options">
                     <button className="signup">
                         <CiEdit style={{fontSize : "30px", marginRight:"10px"}}/>
-                        <h3>Signup</h3>  
+                        <h3><Link to ="/login">Signup</Link></h3>  
                     </button>
                     <button className="login">
                         <CiLogin style={{fontSize : "30px", marginRight:"10px"}}/>
-                        <h3>Login</h3>  
+                        <h3><Link to ="/login">Login</Link></h3>    
                     </button>
                     <button>
                         <CiSettings style={{fontSize : "30px"}}/>
