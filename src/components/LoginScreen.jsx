@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Form.css";
+import "../styles/LoginScreen.css";
+import Navbar from "./Nav";
 
 export default function LoginScreen() {
 
@@ -20,7 +22,19 @@ export default function LoginScreen() {
 
   }
   return (
-      <div className="page">
+    <div>
+      <Navbar/>
+      <div class='bodymain'>
+          <div class='Interface_login'>
+              <h3 class='white '>Login Page</h3> 
+              <input type='text' placeholder='Username'/>  
+              <input type='password' placeholder='Password'/>
+              <button>Forgot Password?</button>
+              <button>Login</button>
+               
+          </div>
+      </div>
+      {/* <div className="page">
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -36,7 +50,7 @@ export default function LoginScreen() {
           </div>
           <Link to = "/dashboard">Login</Link>
         </form>
-      </div>
-    
+      </div> */}
+    </div>
   )
 }

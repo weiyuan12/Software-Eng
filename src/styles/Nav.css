@@ -1,0 +1,53 @@
+.header{
+  background-color: white;
+  color: black;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.Logobar{
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.Accessbar{
+  display: flex;
+  align-items: center;
+  font-size: small;
+}
+
+.logo{
+  height: 40px;
+}
+
+.signup{
+  height: 25px;
+  width: 25px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.login{
+  height: 30px;
+  width: 30px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.setting{
+  height: 30px;
+  width: 30px;
+  margin: 20px;
+}
+.invis{
+  background-color: transparent;
+  border: none; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

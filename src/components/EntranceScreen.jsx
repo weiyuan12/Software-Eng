@@ -3,10 +3,17 @@ import logo from "../assets/logo.png"
 import {CiLogin, CiEdit, CiSettings} from "react-icons/ci"
 import {Link} from "react-router-dom"
 import "../styles/EntranceScreen.css"
+
+import Navbar from "../components/Nav.jsx"
+
 export default function EntranceScreen(){
+    const handleClick = () =>{
+        Navigate("/login");
+    }
     return(
         <div>
-            <nav className="entrance-nav">            
+            <Navbar/>
+            {/* <nav className="entrance-nav">            
                 <img src = {logo} className= "logo"/>
                 <div className="options">
                     <button className="signup">
@@ -23,14 +30,22 @@ export default function EntranceScreen(){
                 </div>
                 
                       
-            </nav>
-            <main>
-                <div className="body-text">
-                    <h1 className="text-1">Wander around safely and efficiently</h1>
-                    <h2 className="text-2">Navigate with ease using Wanderful as we aim to support the lifestyle that you want!</h2>
+            </nav> */}
+            <div className='bodycover'>
+                <div className='textbox'>
+                    <h1 className='textmain'>Wander around safely and efficiently</h1>
+                    <p className='textsub'>
+                        Navigate with ease using Wanderful as we aim to support the lifestyle that you want!
+                    </p>
+                    <div className='bookride'>
+                        <button className='bookridebutton'>
+                            <Link to ="/login">
+                                Book ride now
+                            </Link>
+                        </button>
+                    </div>
                 </div>
-                
-            </main>
+            </div>
         </div>
     )
 }
