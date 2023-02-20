@@ -45,19 +45,6 @@
   width: 30px;
   margin: 20px;
 }
-.invis{
-  background-color: transparent;
-  border: none; 
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-a{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  cursor: pointer;
-}
+
+

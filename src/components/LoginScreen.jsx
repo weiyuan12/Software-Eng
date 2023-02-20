@@ -24,33 +24,21 @@ export default function LoginScreen() {
   return (
     <div>
       <Navbar/>
-      <div class='bodymain'>
-          <div class='Interface_login'>
-              <h3 class='white '>Login Page</h3> 
-              <input type='text' placeholder='Username'/>  
-              <input type='password' placeholder='Password'/>
-              <button>Forgot Password?</button>
-              <button>Login</button>
+        <div className='bodymain'>
+          <div className='Interface_login'>
+            <form className="form-group" onSubmit={handleSubmit}>
+              <div style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+                <h2 style={{color:"white", display:"flex",justifyContent:"center"}}>Login Page</h2> 
+                <input type={"text"} placeholder='Username' className="login-input" onChange={e => setUsername(e.target.value)} />
+                <input type={"password"} placeholder='Password' className="login-input" onChange={e => setPassword(e.target.value)} />
+                <Link to = "/dashboard" style={{width:'60%'}}>Forget Password?</Link>
+                <Link to = "/dashboard" className='login-button'>Login</Link>
+              </div>
+            </form>
+              
                
           </div>
       </div>
-      {/* <div className="page">
-        
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <h2 className="title-text">Login</h2>
-            <label>Username</label>
-            <input type={"text"} className="form-control" value={username} onChange={e => setUsername(e.target.value)} />
-            <label>Password</label>
-            <input type={"password"} className="form-control" value={password} onChange={e => setPassword(e.target.value)} />
-          
-            <button type="submit" className="btn btn-primary" disabled={!validateForm()}>
-            Submit
-            </button>
-          </div>
-          <Link to = "/dashboard">Login</Link>
-        </form>
-      </div> */}
     </div>
   )
 }
