@@ -7,7 +7,6 @@ export default function Navbar(props) {
     return (
         <nav className='header'> 
             <div className='Logobar'>
-                <img src='assets/barmenu.png'/>
                 <Link to="/">
                     <img className='logo' src='assets/Logomain.png'/>
                 </Link>
@@ -26,8 +25,8 @@ export default function Navbar(props) {
                     </Link>
                 </button>
                 <button className='invis'>
-                    <Link to="/settings">
-                        <img className='setting' src='assets/IconSetting.png'/>
+                    <Link to="/settings"> {/* need edit */}
+                        <img className='setting' src='assets/IconSearch.png'/>
                     </Link>
                 </button>
             </div>

@@ -4,7 +4,7 @@ import "../styles/Form.css";
 import "../styles/LoginScreen.css";
 import Navbar from "./Nav";
 
-export default function LoginScreen() {
+export default function LoginScre() {
 
   const [username, setUsername] = useState("");
 
@@ -25,14 +25,13 @@ export default function LoginScreen() {
     <div>
       <Navbar/>
       <div class='bodymain'>
-          <div class='Interface_login'>
-              <h3 class='white '>Login Page</h3> 
-              <input type='text' placeholder='Username'/>  
-              <input type='password' placeholder='Password'/>
-              <button>Forgot Password?</button>
-              <button>Login</button>
-               
-          </div>
+        <div class='Interface_login'>
+          <h3 class='white '>Login Page</h3> 
+          <input type='text' placeholder='Username'/>  
+          <input type='password' placeholder='Password'/>
+          <button>Forgot Password?</button>
+          <button>Login</button>
+        </div>
       </div>
     </div>
   )

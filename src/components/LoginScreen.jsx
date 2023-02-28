@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Form.css";
 import "../styles/LoginScreen.css";
-import Navbar from "./Nav";
+import Navblank from "./Navblank";
 
 export default function LoginScreen() {
-
+  
   const [username, setUsername] = useState("");
 
   const [password, setPassword] = useState("");
@@ -17,13 +17,12 @@ export default function LoginScreen() {
   }
 
   function handleSubmit(event) {
-
     event.preventDefault();
-
+    console.log("submitted");
   }
   return (
     <div>
-      <Navbar/>
+      <Navblank/>
         <div className='bodymain'>
           <div className='Interface_login'>
             <form className="form-group" onSubmit={handleSubmit}>
@@ -32,7 +31,7 @@ export default function LoginScreen() {
                 <input type={"text"} placeholder='Username' className="login-input" onChange={e => setUsername(e.target.value)} />
                 <input type={"password"} placeholder='Password' className="login-input" onChange={e => setPassword(e.target.value)} />
                 <Link to = "/dashboard" style={{width:'60%'}}>Forget Password?</Link>
-                <Link to = "/dashboard" className='login-button'>Login</Link>
+                <input type="submit" className='login-button' value="Login"/>
               </div>
             </form>
               

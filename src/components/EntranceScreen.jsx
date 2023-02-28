@@ -1,15 +1,16 @@
-import React from "react"
-import logo from "../assets/logo.png"
-import {CiLogin, CiEdit, CiSettings} from "react-icons/ci"
+import React, {useContext} from "react"
 import {Link} from "react-router-dom"
 import "../styles/EntranceScreen.css"
 
-import Navbar from "../components/Nav.jsx"
+import NavGuest from "./NavGuest"
+import NavUser from "./NavUser"
+import { UserContext } from "./Usercontext"
 
 export default function EntranceScreen(){
+    const {user} = useContext(UserContext);
     return(
         <div>
-            <Navbar/>
+            {user.id ? <NavUser/> : <NavGuest/>}
             <div className='bodycover'>
                 <div className='textbox'>
                     <h1 className='textmain'>Wander around safely and efficiently</h1>
@@ -18,7 +19,7 @@ export default function EntranceScreen(){
                     </p>
                     <div className='bookride'>
                         <button className='bookridebutton'>
-                            <Link to ="/login">
+                            <Link to ={user.id ? "/main" : "/login"}>
                                 Book ride now
                             </Link>
                         </button>
