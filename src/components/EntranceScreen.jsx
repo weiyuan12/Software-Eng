@@ -10,7 +10,6 @@ export default function EntranceScreen(){
     const {user} = useContext(UserContext);
     return(
         <div>
-            {user.id ? <NavUser/> : <NavGuest/>}
             <div className='bodycover'>
                 <div className='textbox'>
                     <h1 className='textmain'>Wander around safely and efficiently</h1>

@@ -12,9 +12,6 @@ function Main(){
     return(
         <div>
             {!user.id && <Navigate to="/"/>}
-            <SelectionContext.Provider value={{selection, setSelection}}>
-                <NavMain/>
-            </SelectionContext.Provider>
             <DynamicMap/> {/*try some safer way*/}
         </div>
     )
