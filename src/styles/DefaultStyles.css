@@ -1,0 +1,24 @@
+a{
+  text-decoration: none;
+  cursor: pointer;
+  color:black;
+}
+/* DefaultBackground */
+.bodymain{
+  background-image: url('assets/BGmain.png');
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 1000px;
+  display: flex;
+  max-width: 100%;
+  position: relative;
+}
+
+.invis{
+  background-color: transparent;
+  border: none; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

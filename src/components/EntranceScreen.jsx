@@ -1,36 +1,31 @@
-import React from "react"
-import logo from "../assets/logo.png"
-import {CiLogin, CiEdit, CiSettings} from "react-icons/ci"
+import React, {useContext} from "react"
 import {Link} from "react-router-dom"
 import "../styles/EntranceScreen.css"
+
+import NavGuest from "./NavGuest"
+import NavUser from "./NavUser"
+import { UserContext } from "./Usercontext"
+
 export default function EntranceScreen(){
+    const {user} = useContext(UserContext);
     return(
         <div>
-            <nav className="entrance-nav">            
-                <img src = {logo} className= "logo"/>
-                <div className="options">
-                    <button className="signup">
-                        <CiEdit style={{fontSize : "30px", marginRight:"10px"}}/>
-                        <h3><Link to ="/login">Signup</Link></h3>  
-                    </button>
-                    <button className="login">
-                        <CiLogin style={{fontSize : "30px", marginRight:"10px"}}/>
-                        <h3><Link to ="/login">Login</Link></h3>    
-                    </button>
-                    <button>
-                        <CiSettings style={{fontSize : "30px"}}/>
-                    </button>
+            {user.id ? <NavUser/> : <NavGuest/>}
+            <div className='bodycover'>
+                <div className='textbox'>
+                    <h1 className='textmain'>Wander around safely and efficiently</h1>
+                    <p className='textsub'>
+                        Navigate with ease using Wanderful as we aim to support the lifestyle that you want!
+                    </p>
+                    <div className='bookride'>
+                        <button className='bookridebutton'>
+                            <Link to ={user.id ? "/main" : "/login"}>
+                                Book ride now
+                            </Link>
+                        </button>
+                    </div>
                 </div>
-                
-                      
-            </nav>
-            <main>
-                <div className="body-text">
-                    <h1 className="text-1">Wander around safely and efficiently</h1>
-                    <h2 className="text-2">Navigate with ease using Wanderful as we aim to support the lifestyle that you want!</h2>
-                </div>
-                
-            </main>
+            </div>
         </div>
     )
 }
