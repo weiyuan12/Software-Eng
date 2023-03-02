@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import credentials from '../Credentials';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+//import { Map, GoogleApiWrapper } from 'google-maps-react';
 
 function DynamicMap(props) {
     // initial center is singapore
@@ -22,4 +22,4 @@ function DynamicMap(props) {
   
 export default GoogleApiWrapper({
     apiKey: credentials.GOOGLE_API_KEY,
-})(DynamicMap);
+})(DynamicMap);*/

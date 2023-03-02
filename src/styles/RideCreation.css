@@ -1,0 +1,21 @@
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    width : 40%;
+    border: 2px solid #9d00fe;
+    background-color: antiquewhite;
+    justify-content: flex-start;
+}
+.ride-creation-input{
+    display: flex;
+    flex-direction: column;
+}
+.ride-creation-header{
+    display: flex;
+    flex-direction: row;
+    border:2px solid #9d00fe;
+    justify-content: space-between;
+    
+}

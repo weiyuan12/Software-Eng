@@ -28,8 +28,8 @@ export default function LoginScreen() {
             <form className="form-group" onSubmit={handleSubmit}>
               <div style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
                 <h2 style={{color:"white", display:"flex",justifyContent:"center"}}>Login Page</h2> 
-                <input type={"text"} placeholder='Username' className="login-input" onChange={e => setUsername(e.target.value)} />
-                <input type={"password"} placeholder='Password' className="login-input" onChange={e => setPassword(e.target.value)} />
+                <input type={"text"} placeholder='Username' className="login-input" onChange={e => setUsername(e.target.value)} required />
+                <input type={"password"} placeholder='Password' className="login-input" onChange={e => setPassword(e.target.value)} required />
                 <Link to = "/dashboard" style={{width:'60%'}}>Forget Password?</Link>
                 <input type="submit" className='login-button' value="Login"/>
               </div>

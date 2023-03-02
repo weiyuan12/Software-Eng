@@ -5,7 +5,7 @@ import LoginScreen from './components/LoginScreen';
 import Dashboard from './components/Dashboard';
 import Signup from './components/SignupScreen';
 import Main from './components/Main';
-import DynamicMap from './components/Map';
+//import DynamicMap from './components/Map';
 import "./styles/DefaultStyles.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { UserContext } from './components/Usercontext';
