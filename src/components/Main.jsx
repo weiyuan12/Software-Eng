@@ -1,25 +1,37 @@
 import React, {useContext, useState} from "react";
 import Navbar from "./NavGuest.jsx";
 import NavMain from "./NavMain";
-//import DynamicMap from "./Map";
+import DynamicMap from "./Map";
 import { UserContext, SelectionContext } from "./Usercontext";
 import { Navigate } from "react-router-dom";
+import RideCreation from "./RideCreation.jsx";
+import "../styles/main.css"
 
-function Main(){
+
+const handleSelection =  (selection) => {
+        
+        switch (selection.selection){
+            case "Create Ride" :
+                return <RideCreation/>
+        }
+    }
+
+function Main( selection ){
     const {user} = useContext(UserContext);
-    const [selection, setSelection] = useState("");
-
+    console.log(selection)
+    
     return(
-        <div>
-            {!user.id && <Navigate to="/"/>}
-            <div>
-                
+        <div className="page">
+            <div className="form">
+            {handleSelection(selection)}
             </div>
-            <SelectionContext.Provider value={{selection, setSelection}}>
-                <NavMain/>
-            </SelectionContext.Provider>
-             {/*try some safer way*/}
+            {!user.id && <Navigate to="/"/>}
+            <div className="map">
+                {/* <DynamicMap  className="map"/> */}
+            </div>
+            
         </div>
+
     )
 }
 

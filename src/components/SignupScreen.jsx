@@ -8,7 +8,6 @@ export default function Signup(props) {
   
     return (
         <div> 
-            <Navblank/>
             <div className='bodymain'>
                 <div className='Interface_signup'>
                     <h3 style={{color:'white'}}>Signup Page</h3> 

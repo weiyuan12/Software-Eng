@@ -22,7 +22,6 @@ export default function LoginScreen() {
   }
   return (
     <div>
-      <Navblank/>
         <div className='bodymain'>
           <div className='Interface_login'>
             <form className="form-group" onSubmit={handleSubmit}>

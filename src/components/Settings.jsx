@@ -10,7 +10,6 @@ export default function Settings(){
     const {user, setUser} = useContext(UserContext);
     return(
         <div>
-            {user.id ? <NavUser/> : <NavGuest/>}
             <button onClick={()=>{setUser({name:null,id:null})}}>Logout</button>
         </div>
     )
