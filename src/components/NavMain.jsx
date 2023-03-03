@@ -12,7 +12,7 @@ export default function NavMain(props) {
     const renderedlist = selectionlist.map((a)=>{
         if(a===selection){
             return (
-                <li key={a} className='nav-tab-selected' onClick={()=>{setSelection(a); console.log(a)}}>
+                <li key={a} className='nav-tab-selected' onClick={()=>{setSelection(a);}}>
                     <Link to="/main">{a}</Link>
                 </li>
             )
@@ -23,23 +23,10 @@ export default function NavMain(props) {
             </li>
         );
     })
-    const displaySelection = selection => {
-        switch(selection){
-            case "Create Ride":
-                return <RideCreation/>;
-            case "Search Ride":
-                return <h1>Search Ride</h1>;
-            case "My Rides":
-                return <h1>My Rides</h1>;
-            case "Carparks":
-                return <h1>Carparks</h1>;
-            default:
-                return <h1>Default</h1>;
-        }
-    }
+
     console.log(props);
     return (
-        <>
+        
         <nav className='header'> 
             <div style={{height:'100%',display:"flex"}}>
                 <div className='Logobar'>
@@ -66,10 +53,8 @@ export default function NavMain(props) {
             </div>
             
         </nav>
-        <div className='bodymain'>
-            {displaySelection(selection)}
-        </div>
-        </>
+
+        
     );
 }
   

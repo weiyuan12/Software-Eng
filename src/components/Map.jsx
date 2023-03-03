@@ -1,25 +1,36 @@
-/*import React, { useState, useEffect } from 'react';
-import credentials from '../Credentials';
-//import { Map, GoogleApiWrapper } from 'google-maps-react';
+import React, { useState, useEffect } from 'react';
 
-function DynamicMap(props) {
+import { Map, GoogleApiWrapper } from 'google-maps-react';
+import styles from "../styles/main.css"
+
+export function DynamicMap(props) {
     // initial center is singapore
     const [mapCenter, setMapCenter] = useState({
       lat: 1.352178, 
       lng: 103.804899
     });
+    const mapStyle = {
+        width: "90%", 
+        height: "80%",
+        marginLeft : "70px",
+        marginTop : "20px",
+        alignItems : "center",
+        
+    }
   
     return (
+        
         <Map
             google={props.google}
             zoom={11}
-            style={{width: '100%', height: '100%'}}
+            style={mapStyle}
             initialCenter={mapCenter}
             center={mapCenter}
         />
+        
     );
 }
   
 export default GoogleApiWrapper({
-    apiKey: credentials.GOOGLE_API_KEY,
-})(DynamicMap);*/
+    apiKey: "AIzaSyDYGr_HjF-fweWsSFmtKc2_Jc802Dcb7Fc",
+})(DynamicMap);

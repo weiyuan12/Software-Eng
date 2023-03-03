@@ -27,7 +27,7 @@ function Main( selection ){
             </div>
             {!user.id && <Navigate to="/"/>}
             <div className="map">
-                {/* <DynamicMap  className="map"/> */}
+                <DynamicMap  className="map"/> 
             </div>
             
         </div>

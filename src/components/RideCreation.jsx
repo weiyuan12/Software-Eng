@@ -1,20 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/RideCreation.css"
 
 export default function RideCreation() {
+
+    const [start, setStart] = useState("")
+    const [end,  setEnd] = useState("")
+
+    const handleSubmit = (event) =>{
+        event.preventDefault();
+        console.log(start, end)
+    }
   return (
         
-        <form className="form-group">
+        <form className="form-group" >
             <div className = "ride-creation-header">
-                <h2>Drive</h2>
-                <h2>Ride</h2>
+                <button className="ride-header-button">
+                    <img className = "img" src='assets/steeringWheel.png'/>
+                    Drive
+                </button>  
+                <button className="ride-header-button">
+                    <img className = "img" src='assets/rideHailing.png'/>
+                    Ride
+                </button>
             </div>
             <div className="ride-creation-input">
-                <label htmlFor="start">Start Location</label>
-                <input type="text" id="start" name="start" placeholder="Start Location"/> 
-                <label htmlFor="end">End Location</label>
-                <input type="text" id="end" name="end" placeholder="End Location"/>     
+                <h1>Enter your drive details</h1>
+                <input type= "text" placeholder="Add a pick-up location" onChange={e => {setStart(e.target.value)}}/>
+                <input type= "text" placeholder="Enter your destination" onChange={e => {setEnd(e.target.value)}}/>
+                
             </div>
+            <button onClick={handleSubmit}>Submit</button>
+
         </form>
         
     );
