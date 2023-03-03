@@ -29,10 +29,10 @@ export default function App(){
                         <Route path="/dashboard" element={<Dashboard/>}/>
                         <Route path="/login" element={<LoginScreen/>}/>
                         <Route path="/signup" element={<Signup/>}/>
-                        <Route path="/main" element={<Main selection = {selection}/>}/>
+                        <Route path="/main" element={<Main/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>
-                    </SelectionContext.Provider>
+                </SelectionContext.Provider>
                 </UserContext.Provider>
             </BrowserRouter>
         </div>

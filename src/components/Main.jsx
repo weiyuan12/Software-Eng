@@ -16,14 +16,18 @@ const handleSelection =  (selection) => {
         }
     }
 
-function Main( selection ){
+function Main(){
     const {user} = useContext(UserContext);
-    console.log(selection)
+    const {selection, setSelection} = useContext(SelectionContext);
+    console.log(selection); 
     
     return(
         <div className="page">
             <div className="form">
-            {handleSelection(selection)}
+                {selection==="Create Ride" && <RideCreation/>};
+                {selection==="Search Ride" && </* fill in this part*/></>};
+                {selection==="My Rides" && </* fill in this part*/></>};
+                {selection==="Carparks" && </* fill in this part*/></>}
             </div>
             {!user.id && <Navigate to="/"/>}
             <div className="map">
