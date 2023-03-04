@@ -6,16 +6,15 @@ import DateTimePicker from "react-datetime-picker";
 
 
 const CreateRide = (props) =>{
+    
+    const [value, onChange] = useState(new Date())
     const [details, setDetails] = useState({
         start : "",
         end : "",
-        time: new Date(),
-        model: "",
-        seats: "",
-        type : props.type
-    }) 
-    const [value, onChange] = useState(new Date())
-    
+        time : new Date(),
+        type : props.type,
+        seats : ""
+    })
 
     const text = ["Enter your drive details","Enter your ride details"]
 
@@ -23,6 +22,7 @@ const CreateRide = (props) =>{
         event.preventDefault();
         setDetails({...details, time : value})
         console.log(details)
+        props.parentCallBack(details,1)
 
     }
     
@@ -59,8 +59,15 @@ export default function RideCreation() {
         event.preventDefault();
         
     }
-    const [type, setType] = useState("drive")  
-
+    const [type, setType] = useState("drive") 
+    const [step, setStep] = useState(0)
+    let details = {}; 
+    const handleCallback = (childData, step) =>{
+        details = childData
+        console.log("Details" , details)
+        setStep(step);
+        console.log("now ->",step)
+    }
     
     return (
         
@@ -76,7 +83,7 @@ export default function RideCreation() {
                 </button>
             </div>
             <div>
-              <CreateRide type = {type}/>   
+              <CreateRide type = {type} parentCallBack = {handleCallback}/>   
             </div>
         
 
