@@ -61,7 +61,7 @@ const DisplayComplete = (props) =>{
     return(
         <div>
             <h1>Ride Created Successfully</h1>
-            <button onClick={closeWindow()}>
+            <button onClick={closeWindow}>
                 Close
             </button>
         </div>
