@@ -19,12 +19,19 @@ const handleSelection =  (selection) => {
 function Main(){
     const {user} = useContext(UserContext);
     const {selection, setSelection} = useContext(SelectionContext);
+    
     console.log(selection); 
+    const handleComplete =(complete)=>{
+        if(complete){
+            setSelection("")
+        }
+    }
     
     return(
         <div className="page">
+            
             <div className="form">
-                {selection==="Create Ride" && <RideCreation/>};
+                {selection==="Create Ride" && <RideCreation parentCallBack = {handleComplete}/>};
                 {selection==="Search Ride" && </* fill in this part*/></>};
                 {selection==="My Rides" && </* fill in this part*/></>};
                 {selection==="Carparks" && </* fill in this part*/></>}

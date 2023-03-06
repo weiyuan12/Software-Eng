@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom"
 import "../styles/RideCreation.css"
 import DateTimePicker from "react-datetime-picker";
@@ -53,7 +53,23 @@ const CreateRide = (props) =>{
         </form>
     )
     }
-export default function RideCreation() {
+
+const DisplayComplete = (props) =>{
+    const closeWindow = () =>{
+        props.parentCallBack(true)
+    }
+    return(
+        <div>
+            <h1>Ride Created Successfully</h1>
+            <button onClick={closeWindow()}>
+                Close
+            </button>
+        </div>
+    )
+}
+
+
+export default function RideCreation(props) {
 
     const handleSubmit = (event) =>{
         event.preventDefault();
@@ -61,6 +77,7 @@ export default function RideCreation() {
     }
     const [type, setType] = useState("drive") 
     const [step, setStep] = useState(0)
+    const [complete, setComplete] = useState(false)
     let details = {}; 
     const handleCallback = (childData, step) =>{
         details = childData
@@ -68,10 +85,17 @@ export default function RideCreation() {
         setStep(step);
         console.log("now ->",step)
     }
-    
+    const handleComplete = (complete) =>{
+        setComplete(complete)
+        console.log(complete)
+        props.parentCallBack(complete)
+    }
+
     return (
         
+        
         <div className="form-group" >
+            
             <div className = "ride-creation-header">
                 <button type ="button"className={type === "drive" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("drive")} >
                     <img className = "img" src='assets/steeringWheel.png'/>
@@ -82,12 +106,9 @@ export default function RideCreation() {
                     Ride
                 </button>
             </div>
-            <div>
-              <CreateRide type = {type} parentCallBack = {handleCallback}/>   
-            </div>
-        
-
-        </div>
+            {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback}/>   : <DisplayComplete parentCallBack = {handleComplete}/> }
+        </div>  
+         
         
     );
   
