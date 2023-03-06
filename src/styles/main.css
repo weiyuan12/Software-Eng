@@ -6,8 +6,9 @@
 
 .form{
     position: absolute;
-    top : 30%;
-    right : 30%;
+    top : 15%;
+    right : 50%;
     z-index: 1;
+    
    
 }

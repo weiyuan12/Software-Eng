@@ -1,0 +1,24 @@
+.search-ride{
+    background-color: bisque;
+    width: 600px;
+    height: 500px;
+    border-radius: 15px;
+    
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+.search-ride-header{
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    align-items: center;
+    
+}
+.search-ride-headerText{
+    margin:0%;
+    margin-bottom: 10px;
+    font-size: 20px;
+}

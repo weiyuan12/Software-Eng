@@ -6,6 +6,7 @@ import { UserContext, SelectionContext } from "./Usercontext";
 import { Navigate } from "react-router-dom";
 import RideCreation from "./RideCreation.jsx";
 import "../styles/main.css"
+import SearchRide from "./SearchRide.jsx";
 
 
 const handleSelection =  (selection) => {
@@ -32,7 +33,7 @@ function Main(){
             
             <div className="form">
                 {selection==="Create Ride" && <RideCreation parentCallBack = {handleComplete}/>};
-                {selection==="Search Ride" && </* fill in this part*/></>};
+                {selection==="Search Ride" && <SearchRide/>};
                 {selection==="My Rides" && </* fill in this part*/></>};
                 {selection==="Carparks" && </* fill in this part*/></>}
             </div>
