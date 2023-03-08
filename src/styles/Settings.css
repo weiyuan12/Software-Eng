@@ -1,0 +1,38 @@
+.settings-body{
+    background-color: #DAF0F7;
+    height: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.settings-profileinfo{
+    background-color: rgba(217, 217, 217, 0.75);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 700px;
+}
+
+.settings-leftnav{
+    margin: 0px;   
+    width: 200px;
+}
+
+.settings-leftnav-listitems{
+    margin:0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.settings-leftnav-listitems:hover{
+    background-color: rgba(217, 217, 217, 0.75);
+}
+
+.settings-leftnav-listitems-selected{
+    background-color: rgba(217, 217, 217, 0.75);
+    margin:0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

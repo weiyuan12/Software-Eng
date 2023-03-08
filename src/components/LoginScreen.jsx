@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "./Usercontext";
 import "../styles/Form.css";
 import "../styles/LoginScreen.css";
 import Navblank from "./Navblank";
 
 export default function LoginScreen() {
-  
   const [username, setUsername] = useState("");
-
   const [password, setPassword] = useState("");
-
-  function validateForm() {
-
-    return username.length > 0 && password.length > 0;
-
-  }
+  const [fdata, setFdata] = useState({});
+  const {user, setUser} = useContext(UserContext);
+  useEffect(() => {
+    if(fdata.username === username && fdata.password===password){
+      setUser({
+        name: fdata.name,
+        phonenumber: "87654321",
+        email: "Johnjohn@gmail.com",
+        dateofbirth: fdata.dob, 
+        homeaddress: fdata.address, 
+        member: fdata.member,
+        id:fdata.id,
+      })
+    }
+  },[fdata]);
 
   function handleSubmit(event) {
     event.preventDefault();
+    fetch("http://127.0.0.1:8000/polls/"+username+'/'+password) //formatting ask backend haha this is juz my own server
+    .then((response) => response.json())
+    .then((data) => {console.log(data); setFdata(data)});
     console.log("submitted");
   }
   return (
@@ -27,8 +38,8 @@ export default function LoginScreen() {
             <form className="form-group" onSubmit={handleSubmit}>
               <div style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
                 <h2 style={{color:"white", display:"flex",justifyContent:"center"}}>Login Page</h2> 
-                <input type={"text"} placeholder='Username' className="login-input" onChange={e => setUsername(e.target.value)} />
-                <input type={"password"} placeholder='Password' className="login-input" onChange={e => setPassword(e.target.value)} />
+                <input type="text" placeholder='Username' className="login-input" onChange={e => setUsername(e.target.value)} />
+                <input type="password" placeholder='Password' className="login-input" onChange={e => setPassword(e.target.value)} />
                 <Link to = "/dashboard" style={{width:'60%'}}>Forget Password?</Link>
                 <input type="submit" className='login-button' value="Login"/>
               </div>

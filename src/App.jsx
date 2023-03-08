@@ -14,7 +14,7 @@ import { UserContext ,SelectionContext } from './components/Usercontext';
 import Settings from './components/Settings';
 
 export default function App(){
-    const [user, setUser] = useState({name:"John",id:"404"});
+    const [user, setUser] = useState({name:"John",phonenumber:"87654321",email:"Johnjohn@gmail.com",dateofbirth:"00 Jan 0000", homeaddress:"FarAwayPlox", member:"paper",id:"404"});
     const [selection, setSelection] = useState("");
     return(
         <div>
