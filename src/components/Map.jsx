@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import credentials from '../Credentials';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 
 function DynamicMap(props) {
@@ -21,5 +20,5 @@ function DynamicMap(props) {
 }
   
 export default GoogleApiWrapper({
-    apiKey: credentials.GOOGLE_API_KEY,
+    apiKey: "AIzaSyDYGr_HjF-fweWsSFmtKc2_Jc802Dcb7Fc",
 })(DynamicMap);
