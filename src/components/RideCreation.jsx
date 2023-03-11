@@ -4,8 +4,10 @@ import "../styles/RideCreation.css"
 import DateTimePicker from "react-datetime-picker";
 
 
-
 const CreateRide = (props) =>{
+    
+    
+    
     
     const [value, onChange] = useState(new Date())
     const [details, setDetails] = useState({
@@ -32,6 +34,8 @@ const CreateRide = (props) =>{
     const handleClick = ( bool) =>{
         event.preventDefault();
         setDetails({...details, recurring : bool})
+        bool ? document.getElementById("but-1").classList.add("selected") : document.getElementById("but-1").classList.remove("selected")
+        !bool ? document.getElementById("but-2").classList.add("selected") : document.getElementById("but-2").classList.remove("selected")
         
     }
     
@@ -48,8 +52,9 @@ const CreateRide = (props) =>{
             <div className="ride-creation-misc">
                 
                 <div className="button-array">
-                    <button onClick={(e) => handleClick(true)}>Recurring</button>
-                    <button onClick={(e) => handleClick(false)}>One-Time</button>
+                    <button id = "but-1"onClick={(e) => handleClick(true)}>Recurring</button>
+                    <button id = "but-2"onClick={(e) => handleClick(false)}>One-Time</button>
+                    
                 </div>
                 <input type= "text" className = "ride-creation-model"placeholder="seats" value = {details.seats} onChange={e => {setDetails({...details, seats : e.target.value})}}/>
             </div> 
