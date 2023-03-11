@@ -12,9 +12,12 @@ const CreateRide = (props) =>{
         start : "",
         end : "",
         time : new Date(),
-        type : props.type,
-        seats : ""
+        seats : "",
+        type : ""
     })
+    useEffect(() => {
+        setDetails({...details, type : props.type});
+      }, [props.type]);
 
     const text = ["Enter your drive details","Enter your ride details"]
 
@@ -38,7 +41,10 @@ const CreateRide = (props) =>{
             { props.type === "drive" ?
             <div className="ride-creation-misc">
                 
-                <input type= "text" className = "ride-creation-model" placeholder="model" value = {details.model} onChange={e => {setDetails({...details, model : e.target.value})}}/> 
+                <div className="button-array">
+                    <button>Recurring</button>
+                    <button>One-Time</button>
+                </div>
                 <input type= "text" className = "ride-creation-model"placeholder="seats" value = {details.seats} onChange={e => {setDetails({...details, seats : e.target.value})}}/>
             </div> 
             :
@@ -81,9 +87,9 @@ export default function RideCreation(props) {
     let details = {}; 
     const handleCallback = (childData, step) =>{
         details = childData
-        console.log("Details" , details)
         setStep(step);
         console.log("now ->",step)
+        console.log(details)
     }
     const handleComplete = (complete) =>{
         setComplete(complete)
@@ -103,7 +109,7 @@ export default function RideCreation(props) {
                 </button>  
                 <button type ="button" className={type === "taxi" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("taxi")}>
                     <img className = "img" src='assets/rideHailing.png'/>
-                    Ride
+                    Taxi
                 </button>
             </div>
             {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback}/>   : <DisplayComplete parentCallBack = {handleComplete}/> }
