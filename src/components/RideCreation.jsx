@@ -13,6 +13,7 @@ const CreateRide = (props) =>{
         end : "",
         time : new Date(),
         seats : "",
+        recurring : false,
         type : ""
     })
     useEffect(() => {
@@ -28,6 +29,11 @@ const CreateRide = (props) =>{
         props.parentCallBack(details,1)
 
     }
+    const handleClick = ( bool) =>{
+        event.preventDefault();
+        setDetails({...details, recurring : bool})
+        
+    }
     
     return (
         <form className="ride-creation-body" onSubmit={handleSubmit}>
@@ -42,8 +48,8 @@ const CreateRide = (props) =>{
             <div className="ride-creation-misc">
                 
                 <div className="button-array">
-                    <button>Recurring</button>
-                    <button>One-Time</button>
+                    <button onClick={(e) => handleClick(true)}>Recurring</button>
+                    <button onClick={(e) => handleClick(false)}>One-Time</button>
                 </div>
                 <input type= "text" className = "ride-creation-model"placeholder="seats" value = {details.seats} onChange={e => {setDetails({...details, seats : e.target.value})}}/>
             </div> 

@@ -8,6 +8,7 @@ export default function (){
     const [prevSearch, setPrevSearch] = useState("-")
     const [re, setRe] = useState(new RegExp("none"))
     const [display, setDisplay] = useState([])
+    const [selection , setSelection] = useState({})
     const handleSearch =(event) =>{
         event.preventDefault();
         setPrevSearch(search)
@@ -22,11 +23,9 @@ export default function (){
         let arr = []
         defaultVals.map((a) => {
             if(re.test(a["Pick-up Location"].toLowerCase())){
-                console.log("Pushing" , a)
                 arr.push(a)
             }
         })
-        console.log("Your final arr" , arr)
         setDisplay(arr)
 
     },[prevSearch])
@@ -78,7 +77,7 @@ export default function (){
                     <h1>Destination:   {a.Destination}</h1>
                     <h1>{a["Car model"]}</h1>
                 </div>
-                <button className="book-button"> Book Now</button>
+                <button className="book-button" onClick={() => {setSelection(a)}}> Book Now</button>
             </div>
 
         )
