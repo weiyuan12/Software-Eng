@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
 import RideCreation from "./RideCreation.jsx";
 import "../styles/main.css"
 import SearchRide from "./SearchRide.jsx";
+import Carpark from "./Carpark.jsx";
 
 
 const handleSelection =  (selection) => {
@@ -29,16 +30,18 @@ function Main(){
     }
     
     return(
+        <div>
         <div className="page">
-            
             <div className="form">
                 {selection==="Create Ride" && <RideCreation parentCallBack = {handleComplete}/>};
                 {selection==="Search Ride" && <SearchRide/>};
                 {selection==="My Rides" && </* fill in this part*/></>};
-                {selection==="Carparks" && </* fill in this part*/></>}
+                {selection==="Carparks" && <Carpark/>}
             </div>
             {!user.id && <Navigate to="/"/>}
-            <div className="map">
+            
+        </div>
+        <div className="map">
                 <DynamicMap  className="map"/> 
             </div>
             

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import styles from "../styles/main.css"
 
 export function DynamicMap(props) {
@@ -11,10 +11,11 @@ export function DynamicMap(props) {
     });
     const mapStyle = {
         width: "90%", 
-        height: "80%",
+        height: "90%",
         marginLeft : "70px",
-        marginTop : "20px",
+        marginTop : "10px",
         alignItems : "center",
+       
         
     }
   
@@ -26,7 +27,11 @@ export function DynamicMap(props) {
             style={mapStyle}
             initialCenter={mapCenter}
             center={mapCenter}
-        />
+            
+        >
+            <Marker title = "Location" id = {1} position = {{lat: 1.352178, 
+      lng: 103.804899}}/>
+        </Map>
         
     );
 }

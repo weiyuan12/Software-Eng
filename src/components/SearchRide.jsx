@@ -37,28 +37,32 @@ export default function (){
             "Driver" : "John",
             "Pick-up Location" : "Bukit Timah2",
             "Destination" : "harbourfront2",
-            "Car model" : "mazda 3"
+            "Car model" : "mazda 3",
+            "seats" : 2
         },
         {   
             "id " : "2",
             "Driver" : "John2",
             "Pick-up Location" : "2nd place",
             "Destination" : "harbourfront2",
-            "Car model" : "mazda 2"
+            "Car model" : "mazda 2",
+            "seats" : 2
         },
         {   
             "id " : "3",
             "Driver" : "John2",
             "Pick-up Location" : "BUKIT Timah3",
             "Destination" : "harbourfront2",
-            "Car model" : "mazda 2"
+            "Car model" : "mazda 2",
+            "seats" : 2
         },
         {   
             "id " : "4",
             "Driver" : "John2",
             "Pick-up Location" : "BUKIT Timah3",
             "Destination" : "harbourfront2",
-            "Car model" : "mazda 2"
+            "Car model" : "mazda 2",
+            "seats" : 2
         }
     ]
     
@@ -72,10 +76,20 @@ export default function (){
                     <h1>Insert image</h1>
                 </div>
                 <div className="search-result-entry-info">
-                    <h1>Driver:{a.Driver}</h1>
-                    <h1>Pick Up location:{a["Pick-up Location"]}</h1>
-                    <h1>Destination:   {a.Destination}</h1>
-                    <h1>{a["Car model"]}</h1>
+                    <div className = "text">
+                        <h1>Driver: </h1>
+                        <h1>{a.Driver}</h1>
+                    </div>
+                    <div className = "text">
+                        <h1>Pick Up location:</h1>
+                        <h1>{a["Pick-up Location"]}</h1></div>
+                    <div className = "text">
+                        <h1>Destination:</h1>  
+                        <h1>{a.Destination}</h1>
+                    </div>
+                    <div className = "text">
+                        <h1>{a["Car model"]}</h1>
+                    </div>
                 </div>
                 <button className="book-button" onClick={() => {setSelection(a)}}> Book Now</button>
             </div>

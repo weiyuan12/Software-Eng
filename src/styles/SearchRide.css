@@ -85,21 +85,25 @@ textarea{
     position: relative;
 
 }
+.text{
+    display: flex;
+    flex-direction: row;
+}
 .search-result-entry h1{
-    margin: 0;
+    margin: 5px;
     font-size: medium;
     
 }
 .search-result-entry-info{
     display: flex;
     flex-direction: column;
-
     border: solid;
 
 }
 h4{
     margin : 0
 }
+
 .book-button{
     position: absolute;
     right: 10px;

@@ -1,13 +1,16 @@
 .page{
-    display: flex;
-    flex-direction: column;
-
+    /* display: flex;
+    flex-direction: column; */
+    position: relative;
+    width: 0;
+    height: 0;
+    border: solid;
 }
 
 .form{
     position: absolute;
-    top : 15%;
-    right : 50%;
+    left : 30px;
+    top: 10px;
     z-index: 1;
     
    
