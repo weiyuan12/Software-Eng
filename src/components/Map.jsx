@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-import {DirectionsService, DirectionsRenderer} from 'google-maps-react'
+
 import styles from "../styles/main.css"
 
 export function DynamicMap(props) {
@@ -19,9 +19,7 @@ export function DynamicMap(props) {
        
         
     }
-    var directionService = new DirectionsService()
-    var directionsRenderer = new DirectionsRenderer()
-  
+
     return (
         
         <Map

@@ -85,6 +85,16 @@ textarea{
     position: relative;
 
 }
+.search-result-entry-2{
+    background-color:darksalmon;
+    margin: 15px;
+    margin-right: 25px;
+    display: flex;
+    flex-direction: row;
+    height: 40%;
+    position: relative;
+
+}
 .text{
     display: flex;
     flex-direction: row;
@@ -94,14 +104,23 @@ textarea{
     font-size: medium;
     
 }
+.search-result-entry-2 h1{
+    margin: 5px;
+    font-size: medium;
+    
+}
 .search-result-entry-info{
     display: flex;
     flex-direction: column;
-    border: solid;
+    
 
 }
 h4{
     margin : 0
+}
+.search-title-text h1{
+    font-size: 1.5em;
+    margin-left : 30px
 }
 
 .book-button{

@@ -38,6 +38,7 @@ export default function (){
             "Pick-up Location" : "Bukit Timah2",
             "Destination" : "harbourfront2",
             "Car model" : "mazda 3",
+            "type" : "Drive",
             "seats" : 2
         },
         {   
@@ -46,6 +47,7 @@ export default function (){
             "Pick-up Location" : "2nd place",
             "Destination" : "harbourfront2",
             "Car model" : "mazda 2",
+            "type" : "Drive",
             "seats" : 2
         },
         {   
@@ -54,6 +56,7 @@ export default function (){
             "Pick-up Location" : "BUKIT Timah3",
             "Destination" : "harbourfront2",
             "Car model" : "mazda 2",
+            "type" : "Taxi",
             "seats" : 2
         },
         {   
@@ -62,6 +65,7 @@ export default function (){
             "Pick-up Location" : "BUKIT Timah3",
             "Destination" : "harbourfront2",
             "Car model" : "mazda 2",
+            "type" : "Taxi",
             "seats" : 2
         }
     ]
@@ -71,13 +75,16 @@ export default function (){
         
         return(
             
-            <div className="search-result-entry" key={a["id "]}>
+            <div className={a.type === "Drive" ? "search-result-entry" : "search-result-entry-2"} key={a["id "]}>
                 <div className="profile-pic">
                     <h1>Insert image</h1>
                 </div>
                 <div className="search-result-entry-info">
+                    <div className = "search-title-text">
+                        {a.type === "Drive" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
+                    </div>
                     <div className = "text">
-                        <h1>Driver: </h1>
+                        {a.type === "Drive" ? <h1>Driver: </h1> : <h1>Name: </h1>}
                         <h1>{a.Driver}</h1>
                     </div>
                     <div className = "text">
@@ -87,9 +94,18 @@ export default function (){
                         <h1>Destination:</h1>  
                         <h1>{a.Destination}</h1>
                     </div>
+                    {a.type === "Drive" ? 
                     <div className = "text">
                         <h1>{a["Car model"]}</h1>
-                    </div>
+                        <h1 style={{marginLeft:"20px"}}>Seats:</h1>
+                        <h1>{a.seats}</h1>
+                    </div> :
+                    <div className = "text">
+                    
+                    <h1>Passangers:</h1>
+                    <h1>{a.seats}</h1>
+                </div> 
+                    }
                 </div>
                 <button className="book-button" onClick={() => {setSelection(a)}}> Book Now</button>
             </div>
@@ -121,9 +137,7 @@ export default function (){
             </div>
             <div className="search-ride-body">
                {displayResults}
-            </div>
-        
-            
+            </div>  
         </div>
     )
 }
