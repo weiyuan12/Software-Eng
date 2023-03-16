@@ -22,7 +22,6 @@ export default function App(){
                 <UserContext.Provider value={{user, setUser}}>
                 <SelectionContext.Provider value={{selection, setSelection}}>
                     {user.id ? <NavMain/> : <Navbar/>}
-                </SelectionContext.Provider>
                     <Routes>
                         <Route path="/" element={<EntranceScreen/>}/>
                         <Route path="/dashboard" element={<Dashboard/>}/>
@@ -31,6 +30,7 @@ export default function App(){
                         <Route path="/main" element={<Main/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>
+                </SelectionContext.Provider>
                 </UserContext.Provider>
             </BrowserRouter>
         </div>

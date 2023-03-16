@@ -31,6 +31,7 @@ export default function LoginScreen() {
     .then((data) => {console.log(data); setFdata(data)});
     console.log("submitted");
   }
+  
   return (
     <div>
         <div className='bodymain'>
