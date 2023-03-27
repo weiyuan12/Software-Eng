@@ -7,7 +7,9 @@ import Settings from './Settings';
 export default function NavMain(props) {
     const {user} = useContext(UserContext);
     const {selection , setSelection} = useContext(SelectionContext);
+
     const selectionlist = ["Create Ride","Search Ride","My Rides","Carparks"];
+
     const renderedlist = selectionlist.map((a)=>{
         if(a===selection){
             return (
@@ -22,7 +24,10 @@ export default function NavMain(props) {
             </li>
         );
     })
+
+    console.log(props);
     return (
+        
         <nav className='header'> 
             <div style={{height:'100%',display:"flex"}}>
                 <div className='Logobar'>
@@ -49,6 +54,8 @@ export default function NavMain(props) {
             </div>
             
         </nav>
+
+        
     );
 }
   
