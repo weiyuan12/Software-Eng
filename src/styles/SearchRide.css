@@ -1,0 +1,148 @@
+.search-ride{
+    background-color: bisque;
+    width: 600px;
+    height: 500px;
+    border-radius: 15px;
+    
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.search-ride-header{
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    align-items: center;
+    width: 100%;
+    
+}
+.search-ride-headerText{
+    margin:0%;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.search-ride-body{
+    overflow-y: scroll;
+    margin-top: 10px;
+    background-color: aliceblue;
+    width: 90%;
+    height: 80%;
+    border-radius: 5%;
+}
+.search-ride-upper{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+
+
+}
+textarea{
+    background: none;
+    border: none;
+    width: 90%;
+    overflow: hidden;
+    margin-right: 5px;
+    box-shadow: none;
+    outline: none;
+    resize: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    
+}
+.search-ride-searchbar{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(193, 134, 57);
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+
+}
+.search-ride-searchIcon{
+
+    align-items: center;
+    justify-content: center;
+}
+.search-ride-result{
+    margin-top:5px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    font-size: small;
+  
+}
+.search-result-entry{
+    background-color: beige;
+    margin: 15px;
+    margin-right: 25px;
+    display: flex;
+    flex-direction: row;
+    height: 40%;
+    position: relative;
+
+}
+.search-result-entry-2{
+    background-color:darksalmon;
+    margin: 15px;
+    margin-right: 25px;
+    display: flex;
+    flex-direction: row;
+    height: 40%;
+    position: relative;
+
+}
+.text{
+    display: flex;
+    flex-direction: row;
+}
+.search-result-entry h1{
+    margin: 5px;
+    font-size: medium;
+    
+}
+.search-result-entry-2 h1{
+    margin: 5px;
+    font-size: medium;
+    
+}
+.search-result-entry-info{
+    display: flex;
+    flex-direction: column;
+    
+
+}
+h4{
+    margin : 0
+}
+.search-title-text h1{
+    font-size: 1.5em;
+    margin-left : 30px
+}
+
+.book-button{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    height: 40px;
+    width: 100px;
+    border-radius: 20px;
+    border: 1px solid;
+    
+}
+.profile-pic{
+    
+    width: 130px;
+    height: 90px;
+    
+}
+.deselected{
+    color: blue
+}
+.selected{
+    color : red
+}
+

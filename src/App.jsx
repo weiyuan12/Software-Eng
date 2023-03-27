@@ -5,7 +5,7 @@ import LoginScreen from './components/LoginScreen';
 import Dashboard from './components/Dashboard';
 import Signup from './components/SignupScreen';
 import Main from './components/Main';
-import DynamicMap from './components/Map';
+import initMap from './components/Map';
 import Navbar from './components/NavGuest';
 import NavMain from './components/NavMain';
 import "./styles/DefaultStyles.css";
@@ -13,16 +13,17 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { UserContext ,SelectionContext } from './components/Usercontext';
 import Settings from './components/Settings';
 
+
 export default function App(){
     const [user, setUser] = useState({name:"John",phonenumber:"87654321",email:"Johnjohn@gmail.com",dateofbirth:"00 Jan 0000", homeaddress:"FarAwayPlox", member:"paper",id:"404"});
     const [selection, setSelection] = useState("");
+    
     return(
         <div>
             <BrowserRouter>
                 <UserContext.Provider value={{user, setUser}}>
                 <SelectionContext.Provider value={{selection, setSelection}}>
                     {user.id ? <NavMain/> : <Navbar/>}
-                </SelectionContext.Provider>
                     <Routes>
                         <Route path="/" element={<EntranceScreen/>}/>
                         <Route path="/dashboard" element={<Dashboard/>}/>
@@ -31,6 +32,7 @@ export default function App(){
                         <Route path="/main" element={<Main/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>
+                </SelectionContext.Provider>
                 </UserContext.Provider>
             </BrowserRouter>
         </div>

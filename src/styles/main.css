@@ -1,0 +1,17 @@
+.page{
+    /* display: flex;
+    flex-direction: column; */
+    position: relative;
+    width: 0;
+    height: 0;
+    border: solid;
+}
+
+.form{
+    position: absolute;
+    left : 30px;
+    top: 10px;
+    z-index: 1;
+    
+   
+}
