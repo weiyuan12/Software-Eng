@@ -24,6 +24,7 @@
 .logo{
   height: 40px;
   width:auto;
+  padding: 0px;
   padding-left: 5px;
 }
 
@@ -50,7 +51,6 @@
 .setting{
   height: 30px;
   width: 30px;
-  margin: 20px;
 }
 
 .nav-tab{

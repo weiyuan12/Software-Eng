@@ -1,0 +1,52 @@
+.MyRide__body{
+    background-color: #DAF0F7;
+    height: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.MyRide__body h1{
+    margin: 0px;
+}
+
+.MyRide__body p{
+    display: block;
+    margin: 0px;
+    max-width: 100%;
+    text-overflow: ellipsis;
+}
+
+.MyRide__rightbody{
+    width: calc(100% - 200px);
+}
+.MyRide__profileinfo{
+    background-color: rgba(217, 217, 217, 0.75);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 700px;
+}
+
+.MyRide__leftnav{
+    margin: 0px;   
+    width: 200px;
+}
+
+.MyRide__leftnav__listitems{
+    margin:0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.MyRide__leftnav__listitems:hover{
+    background-color: rgba(217, 217, 217, 0.75);
+}
+
+.MyRide__leftnav__listitems--selected{
+    background-color: rgba(217, 217, 217, 0.75);
+    margin:0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

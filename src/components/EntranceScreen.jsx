@@ -9,7 +9,7 @@ import { UserContext } from "./Usercontext"
 export default function EntranceScreen(){
     const {user} = useContext(UserContext);
     return(
-        <div>
+        
             <div className='bodycover'>
                 <div className='textbox'>
                     <h1 className='textmain'>Wander around safely and efficiently</h1>
@@ -19,12 +19,12 @@ export default function EntranceScreen(){
                     <div className='bookride'>
                         <button className='bookridebutton'>
                             <Link to ={user.id ? "/main" : "/login"}>
-                                Book ride now
+                                Weiyuan search/create ride component
                             </Link>
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
+        
     )
 }
