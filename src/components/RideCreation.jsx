@@ -5,11 +5,61 @@ import DateTimePicker from "react-datetime-picker";
 
 
 
+/**
+ * Rerturns the CreateRideUI that allows Users to select "Drive" or "Taxi"
+ * @param {parentCallBack} props complete
+ * @returns the CreateRideUI
+ */
+export default function RideCreation(props) {
+
+    const handleSubmit = (event) =>{
+        event.preventDefault();
+        
+    }
+    const [type, setType] = useState("drive") 
+    const [step, setStep] = useState(0)
+    const [complete, setComplete] = useState(false)
+    let details = {}; 
+    const handleCallback = (childData, step) =>{
+        details = childData
+        setStep(step);
+        console.log("now ->",step)
+        console.log(details)
+    }
+    const handleComplete = (complete) =>{
+        setComplete(complete)
+        console.log(complete)
+        props.parentCallBack(complete)
+    }
+
+    return (
+        
+        
+        <div className="form-group" >
+            
+            <div className = "ride-creation-header">
+                <button type ="button"className={type === "drive" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("drive")} >
+                    <img className = "img" src='assets/steeringWheel.png'/>
+                    Drive
+                </button>  
+                <button type ="button" className={type === "taxi" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("taxi")}>
+                    <img className = "img" src='assets/rideHailing.png'/>
+                    Taxi
+                </button>
+            </div>
+            {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback}/>   : <DisplayComplete parentCallBack = {handleComplete}/> }
+        </div>  
+         
+        
+    );
+  
+}
+/**
+ *  displays a form requiring the user to input the necessary details based on props.type
+ * @param {type} props
+ * @returns ride details input form
+ */
 const CreateRide = (props) =>{
-    
-    
-    
-    
     const [value, onChange] = useState(new Date())
     const [details, setDetails] = useState({
         start : "",
@@ -72,6 +122,7 @@ const CreateRide = (props) =>{
     )
     }
 
+
 const DisplayComplete = (props) =>{
     const closeWindow = () =>{
         props.parentCallBack(true)
@@ -87,47 +138,3 @@ const DisplayComplete = (props) =>{
 }
 
 
-export default function RideCreation(props) {
-
-    const handleSubmit = (event) =>{
-        event.preventDefault();
-        
-    }
-    const [type, setType] = useState("drive") 
-    const [step, setStep] = useState(0)
-    const [complete, setComplete] = useState(false)
-    let details = {}; 
-    const handleCallback = (childData, step) =>{
-        details = childData
-        setStep(step);
-        console.log("now ->",step)
-        console.log(details)
-    }
-    const handleComplete = (complete) =>{
-        setComplete(complete)
-        console.log(complete)
-        props.parentCallBack(complete)
-    }
-
-    return (
-        
-        
-        <div className="form-group" >
-            
-            <div className = "ride-creation-header">
-                <button type ="button"className={type === "drive" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("drive")} >
-                    <img className = "img" src='assets/steeringWheel.png'/>
-                    Drive
-                </button>  
-                <button type ="button" className={type === "taxi" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("taxi")}>
-                    <img className = "img" src='assets/rideHailing.png'/>
-                    Taxi
-                </button>
-            </div>
-            {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback}/>   : <DisplayComplete parentCallBack = {handleComplete}/> }
-        </div>  
-         
-        
-    );
-  
-}

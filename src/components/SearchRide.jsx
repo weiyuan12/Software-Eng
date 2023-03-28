@@ -2,6 +2,10 @@ import React, {useEffect, useState} from "react";
 import { createRoutesFromChildren } from "react-router-dom";
 import "../styles/SearchRide.css"
 
+/**
+ * Returns a search ride UI that allows user to search for a ride by location
+ * @returns SearchRide UI
+ */
 export default function (){
 
     const [search, setSearch] = useState("")
@@ -9,6 +13,11 @@ export default function (){
     const [re, setRe] = useState(new RegExp("none"))
     const [display, setDisplay] = useState([])
     const [selection , setSelection] = useState({})
+
+    /**
+     * sets search result to input
+     * @param {*} event user search input
+     */
     const handleSearch =(event) =>{
         event.preventDefault();
         setPrevSearch(search)
@@ -70,7 +79,7 @@ export default function (){
         }
     ]
     
-
+    
     const displayResults = display.map((a)=>{
         
         return(

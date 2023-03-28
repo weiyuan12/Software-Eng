@@ -2,6 +2,10 @@ import React, { useState, useContext } from "react";
 import { UserContext, SelectionContext } from "./Usercontext";
 import "../styles/MyRides.css"
 
+/**
+ * 
+ * @returns 
+ */
 export default function MyRides() {
   const { user, setUser } = useContext(UserContext);
   const [myrideselection, setMyRideSelection] = useState("My Rides");
