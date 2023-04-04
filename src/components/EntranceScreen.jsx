@@ -17,7 +17,6 @@ export default function EntranceScreen(){
                         Navigate with ease using Wanderful as we aim to support the lifestyle that you want!
                     </p>
                     <div className='bookride'>
-                        <img className='MenuBG' src='assets/MenuNavBG.png'/>
                         <button className='bookridebutton'>
                             <Link to ={user.id ? "/main" : "/login"}>
                                 Weiyuan search/create ride component
