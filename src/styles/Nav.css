@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela&display=swap');
+
 .header{
   background-color: white;
   color: black;
@@ -6,6 +8,7 @@
   height: 60px;
   justify-content: space-between;
   margin: 0;
+  font-family: 'Varela', sans-serif;
 }
 
 .Logobar{
@@ -73,4 +76,15 @@
   justify-content: center;
   align-items: center;
   border-bottom: 5px solid black;
+}
+.container{
+  display: flex;
+}
+.signup{
+  height: 17px;
+  width: 20px;
+}
+.login{
+  height: 17px;
+  width: 20px;
 }
