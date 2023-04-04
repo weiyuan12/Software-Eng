@@ -1,18 +1,21 @@
 import React, {useEffect, useState} from "react";
 import { createRoutesFromChildren } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 import "../styles/SearchRide.css"
+import {Link} from "react-router-dom"
 
 /**
  * Returns a search ride UI that allows user to search for a ride by location
  * @returns SearchRide UI
  */
-export default function (){
-
-    const [search, setSearch] = useState("")
-    const [prevSearch, setPrevSearch] = useState("-")
-    const [re, setRe] = useState(new RegExp("none"))
-    const [display, setDisplay] = useState([])
-    const [selection , setSelection] = useState({})
+export default function SearchRide (props){
+    const [step ,setStep] = useState("Search") //Search, Book, Complete
+    const [search, setSearch] = useState("")     //Constantly changing search 
+    const [prevSearch, setPrevSearch] = useState("-")   //Sets the search based on the last search when u click on search button
+    const [re, setRe] = useState(new RegExp("none"))   //regex used to filter search
+    const [display, setDisplay] = useState([])    //Returned array of filtered rides
+    const [selection , setSelection] = useState({}) //Selected ride
+    const [status, setStatus] = useState("Unconfirmed")   //Unconfirmed, Confirmed
 
     /**
      * sets search result to input
@@ -20,9 +23,17 @@ export default function (){
      */
     const handleSearch =(event) =>{
         event.preventDefault();
+        setStep("Search")
         setPrevSearch(search)
+    }
+    const handleBooking =() =>{
+        setStep("Book")
         
-
+    }
+    const handleComplete = (complete) =>{
+        props.parentCallBack(complete)
+        //Pass the selection
+        console.log(selection)
     }
     useEffect(() =>{
         console.log("Changed search = ", prevSearch);
@@ -38,7 +49,7 @@ export default function (){
         setDisplay(arr)
 
     },[prevSearch])
-
+    
 
     const defaultVals = [
         {
@@ -78,6 +89,67 @@ export default function (){
             "seats" : 2
         }
     ]
+    const handleCallBack = (step)=>{
+        setStep(step)
+    }
+
+    
+    const DisplayBooking = (props) =>{
+        const handleComplete = (action) =>{
+            {action === "return" ? props.parentCallBack("Search") : props.parentCallBack("Confirmed")} 
+            
+
+        }
+        return (
+            <div className = "search-ride">
+                <div className="search-ride-header">
+                    <img src ="assets/bookRideIcon.png" width="30px" style={{marginTop:"10px"}}></img>
+                    <h1 className="search-ride-headerText">Book Ride</h1>
+                </div>
+                <div className="search-ride-body"  >       
+                    <div className = "search-title-text" >
+                        {selection.type === "Drive" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
+                    </div>
+                    <div className="booking-body" style={{display:"flex", flexDirection: "row", justifyContent:"center", marginTop:"20px"}}>
+                        <div className="profile-pic">
+                            <h1>InsertPic</h1>
+                        </div>
+                        <div className="search-text" style={{marginBottom:"2em"}}>
+                            <div className = "text">
+                                {selection.type === "Drive" ? <h1>Driver: </h1> : <h1>Name: </h1>}
+                                <h1>{selection.Driver}</h1>
+                            </div>
+                            <div className = "text">
+                                <h1>Pick Up location:</h1>
+                                <h1>{selection["Pick-up Location"]}</h1></div>
+                            <div className = "text">
+                                <h1>Destination:</h1>  
+                                <h1>{selection.Destination}</h1>
+                            </div>
+                            {selection.type === "Drive" ? 
+                            <div className = "text">
+                                <h1>{selection["Car model"]}</h1>
+                                <h1 style={{marginLeft:"20px"}}>Seats:</h1>
+                                <h1>{selection.seats}</h1>
+                            </div> :
+                            <div className = "text">
+                            
+                                <h1>Passangers:</h1>
+                                <h1>{selection.seats}</h1>
+                            </div> 
+                            }
+                        </div>
+                    </div>
+                    <div className="booking-buttons">
+                        <button onClick={()=>handleComplete("return")}>&lt; Go back</button>
+                        <button onClick={()=>handleComplete("confirm")}>Confirm Booking &gt;</button>
+                        
+
+                    </div>
+                </div>
+            </div>
+        )
+    }
     
     
     const displayResults = display.map((a)=>{
@@ -111,19 +183,19 @@ export default function (){
                     </div> :
                     <div className = "text">
                     
-                    <h1>Passangers:</h1>
-                    <h1>{a.seats}</h1>
-                </div> 
+                        <h1>Passangers:</h1>
+                        <h1>{a.seats}</h1>
+                    </div> 
                     }
                 </div>
-                <button className="book-button" onClick={() => {setSelection(a)}}> Book Now</button>
+                <button className="book-button" onClick={() => {setSelection(a); handleBooking()}}> Book Now</button>
             </div>
 
         )
     }
     )
-    
-    return(
+    const SearchRide = () =>{
+        return(
         <div className="search-ride">
             <div className="search-ride-header">
                 
@@ -147,6 +219,33 @@ export default function (){
             <div className="search-ride-body">
                {displayResults}
             </div>  
+        </div>
+    )
+    }
+    const DisplayComplete = (props) =>{
+        const closeWindow = () =>{
+            props.parentCallBack("My Rides")
+        }
+        return(
+            <div className = "search-ride">
+                <div className="search-ride-header">
+                    <img src ="assets/bookRideIcon.png" width="30px" style={{marginTop:"10px"}}></img>
+                    <h1 className="search-ride-headerText">Booking Confirmed</h1>
+                </div>
+                <div className="search-ride-body" style={{border:"solid"}} >
+                    Booking Confirmed Successfully       
+                </div>
+                <button onClick = {closeWindow}>Go to MyRides</button>
+            </div>
+        
+        )
+
+    }
+
+    return(
+        <div>
+             {step === "Search" ? SearchRide() : step === "Book"? <DisplayBooking parentCallBack = {handleCallBack}/> : <DisplayComplete parentCallBack = {handleComplete}/>} 
+            
         </div>
     )
 }

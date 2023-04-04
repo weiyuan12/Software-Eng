@@ -40,11 +40,11 @@ export default function RideCreation(props) {
             <div className = "ride-creation-header">
                 <button type ="button"className={type === "drive" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("drive")} >
                     <img className = "img" src='assets/steeringWheel.png'/>
-                    Drive
+                    <h1 className="ride-header-button-text">Drive</h1>
                 </button>  
                 <button type ="button" className={type === "taxi" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("taxi")}>
                     <img className = "img" src='assets/rideHailing.png'/>
-                    Taxi
+                    <h1 className="ride-header-button-text">Taxi</h1>
                 </button>
             </div>
             {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback}/>   : <DisplayComplete parentCallBack = {handleComplete}/> }
@@ -78,8 +78,10 @@ const CreateRide = (props) =>{
     const handleSubmit = (event)=>{
         event.preventDefault();
         setDetails({...details, time : value})
+        console.log(details.time.toDateString)
         console.log(details)
         props.parentCallBack(details,1)
+        
 
     }
     const handleClick = ( bool) =>{
@@ -125,7 +127,7 @@ const CreateRide = (props) =>{
 
 const DisplayComplete = (props) =>{
     const closeWindow = () =>{
-        props.parentCallBack(true)
+        props.parentCallBack("")
     }
     return(
         <div>

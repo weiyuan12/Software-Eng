@@ -39,4 +39,4 @@ export function DynamicMap(props) {
   
 export default GoogleApiWrapper({
     apiKey: "AIzaSyDYGr_HjF-fweWsSFmtKc2_Jc802Dcb7Fc",
-})(DynamicMap);
+})(DynamicMap)

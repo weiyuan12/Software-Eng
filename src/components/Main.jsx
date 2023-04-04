@@ -8,6 +8,7 @@ import RideCreation from "./RideCreation.jsx";
 import "../styles/main.css"
 import SearchRide from "./SearchRide.jsx";
 import Carpark from "./Carpark.jsx";
+import MyRides from "./MyRides.jsx"
 
 
 const handleSelection =  (selection) => {
@@ -23,19 +24,17 @@ function Main(){
     const {selection, setSelection} = useContext(SelectionContext);
     
     console.log(selection); 
-    const handleComplete =(complete)=>{
-        if(complete){
-            setSelection("")
-        }
+    const handleSelection =(complete)=>{
+        setSelection(complete)
     }
     
     return(
         <div>
         <div className="page">
             <div className="form">
-                {selection==="Create Ride" && <RideCreation parentCallBack = {handleComplete}/>};
-                {selection==="Search Ride" && <SearchRide/>};
-                {selection==="My Rides" && </* fill in this part*/></>};
+                {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection}/>};
+                {selection==="Search Ride" && <SearchRide parentCallBack = {handleSelection}/>};
+                {selection==="My Rides" && <MyRides/>};
                 {selection==="Carparks" && <Carpark/>}
             </div>
             {!user.id && <Navigate to="/"/>}
