@@ -22,17 +22,29 @@ const handleSelection =  (selection) => {
 function Main(){
     const {user} = useContext(UserContext);
     const {selection, setSelection} = useContext(SelectionContext);
-    
+    const [startMarker, setStartMarker] = useState({
+        lat: 1.352178, 
+        lng: 103.804899
+      })
+    const [endMarker, setEndMarker] = useState({
+        lat:1.352178,
+        lng:103.904899
+    })
     console.log(selection); 
     const handleSelection =(complete)=>{
         setSelection(complete)
+    }
+    const HandleMarker =(start, end) =>{
+        console.log(start, end)
+        setEndMarker(end)
+        setStartMarker(start)
     }
     
     return(
         <div>
         <div className="page">
             <div className="form">
-                {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection}/>};
+                {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection} markerCallback = {HandleMarker}/>};
                 {selection==="Search Ride" && <SearchRide parentCallBack = {handleSelection}/>};
                 {selection==="My Rides" && <MyRides/>};
                 {selection==="Carparks" && <Carpark/>}
@@ -41,7 +53,7 @@ function Main(){
             
         </div>
         <div className="map">
-                <DynamicMap  className="map"/> 
+                <DynamicMap  className="map" start = {startMarker} end = {endMarker}/> 
             </div>
             
         </div>

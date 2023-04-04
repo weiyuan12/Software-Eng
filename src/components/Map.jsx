@@ -6,6 +6,14 @@ import styles from "../styles/main.css"
 
 export function DynamicMap(props) {
     // initial center is singapore
+    const [marker1,setMarker1] = useState({
+        lat:1.352178,
+        lng:103.804899
+    });
+    const [marker2,setMarker2] = useState({
+        lat:1.352178,
+        lng:103.904899
+    });
     const [mapCenter, setMapCenter] = useState({
       lat: 1.352178, 
       lng: 103.804899
@@ -19,6 +27,11 @@ export function DynamicMap(props) {
        
         
     }
+    useEffect(()=>{
+        console.log("Changed->", props.start)
+        setMarker1(props.start)
+        setMarker2(props.end)
+    },[props.start, props.end])
 
     return (
         
@@ -30,8 +43,8 @@ export function DynamicMap(props) {
             center={mapCenter}
             
         >
-            <Marker title = "Location" id = {1} position = {{lat: 1.352178, 
-      lng: 103.804899}}/>
+            <Marker title = "Location 1" id = {1} position = {marker1}/>
+            <Marker title = "Location 2" id = {2} position = {marker2}/>
         </Map>
         
     );
