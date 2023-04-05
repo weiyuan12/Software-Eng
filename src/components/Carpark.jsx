@@ -81,12 +81,8 @@ async function getGeoCode (addr){
     // })
     const handleClick = async() =>{
         console.log("HI")
-        const response = await fetch('https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Availability', {
-            headers : {
-                AccessKey : ACCESSKEY,
-                Token : TOKEN
-            },
-            mode: "no-cors"
+        const response = await fetch('https://developers.onemap.sg/commonapi/convert/4326to3414?latitude=1.319728905&longitude=103.8421581', {
+            
             
         })
         console.log("HII")

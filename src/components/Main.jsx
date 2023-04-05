@@ -34,17 +34,20 @@ function Main(){
     const handleSelection =(complete)=>{
         setSelection(complete)
     }
-    const HandleMarker =(start, end) =>{
-        console.log(start, end)
-        setEndMarker(end)
+    const HandleMarker1 =(start) =>{
+        console.log(start)
         setStartMarker(start)
+    }
+    const HandleMarker2 =(end) =>{
+        console.log(end)
+        setEndMarker(end)
     }
     
     return(
         <div>
         <div className="page">
             <div className="form">
-                {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection} markerCallback = {HandleMarker}/>};
+                {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection} marker1CallBack = {HandleMarker1} marker2CallBack = {HandleMarker2}/>};
                 {selection==="Search Ride" && <SearchRide parentCallBack = {handleSelection}/>};
                 {selection==="My Rides" && <MyRides/>};
                 {selection==="Carparks" && <Carpark/>}

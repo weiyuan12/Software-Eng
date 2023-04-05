@@ -58,7 +58,7 @@ export default function SearchRide (props){
             "Pick-up Location" : "Bukit Timah2",
             "Destination" : "harbourfront2",
             "Car model" : "mazda 3",
-            "type" : "Drive",
+            "type" : "Personal Car",
             "seats" : 2
         },
         {   
@@ -67,7 +67,7 @@ export default function SearchRide (props){
             "Pick-up Location" : "2nd place",
             "Destination" : "harbourfront2",
             "Car model" : "mazda 2",
-            "type" : "Drive",
+            "type" : "Personal Car",
             "seats" : 2
         },
         {   
@@ -108,7 +108,7 @@ export default function SearchRide (props){
                 </div>
                 <div className="search-ride-body"  >       
                     <div className = "search-title-text" >
-                        {selection.type === "Drive" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
+                        {selection.type === "Personal Car" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
                     </div>
                     <div className="booking-body" style={{display:"flex", flexDirection: "row", justifyContent:"center", marginTop:"20px"}}>
                         <div className="profile-pic">
@@ -116,7 +116,7 @@ export default function SearchRide (props){
                         </div>
                         <div className="search-text" style={{marginBottom:"2em"}}>
                             <div className = "text">
-                                {selection.type === "Drive" ? <h1>Driver: </h1> : <h1>Name: </h1>}
+                                {selection.type === "Personal Car" ? <h1>Driver: </h1> : <h1>Name: </h1>}
                                 <h1>{selection.Driver}</h1>
                             </div>
                             <div className = "text">
@@ -126,7 +126,7 @@ export default function SearchRide (props){
                                 <h1>Destination:</h1>  
                                 <h1>{selection.Destination}</h1>
                             </div>
-                            {selection.type === "Drive" ? 
+                            {selection.type === "Personal Car" ? 
                             <div className = "text">
                                 <h1>{selection["Car model"]}</h1>
                                 <h1 style={{marginLeft:"20px"}}>Seats:</h1>
@@ -156,16 +156,16 @@ export default function SearchRide (props){
         
         return(
             
-            <div className={a.type === "Drive" ? "search-result-entry" : "search-result-entry-2"} key={a["id "]}>
+            <div className={a.type === "Personal Car" ? "search-result-entry" : "search-result-entry-2"} key={a["id "]}>
                 <div className="profile-pic">
                     <h1>Insert image</h1>
                 </div>
                 <div className="search-result-entry-info">
                     <div className = "search-title-text">
-                        {a.type === "Drive" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
+                        {a.type === "Personal Car" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
                     </div>
                     <div className = "text">
-                        {a.type === "Drive" ? <h1>Driver: </h1> : <h1>Name: </h1>}
+                        {a.type === "Personal Car" ? <h1>Driver: </h1> : <h1>Name: </h1>}
                         <h1>{a.Driver}</h1>
                     </div>
                     <div className = "text">
@@ -175,7 +175,7 @@ export default function SearchRide (props){
                         <h1>Destination:</h1>  
                         <h1>{a.Destination}</h1>
                     </div>
-                    {a.type === "Drive" ? 
+                    {a.type === "Personal Car" ? 
                     <div className = "text">
                         <h1>{a["Car model"]}</h1>
                         <h1 style={{marginLeft:"20px"}}>Seats:</h1>
