@@ -40,19 +40,15 @@ export default function NavMain(props) {
                 </ul>
             </div>
             <div className='Accessbar'>
-                <div style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                    <img className='profile' src='assets/IconProfile.png'/>
-                    <p style={{margin:"0px"}}>Welcome {user.name}</p>
-                </div>
-                <div className={selection==="Settings" ? 'nav-tab-selected' : 'nav-tab'} style={{width:"40px",marginLeft:"10px",marginRight:"10px"}}>
-                    <button className='invis' onClick={()=>setSelection("Settings")}>
-                        <Link to="/settings">
-                            <img className='setting' src='assets/IconSetting.png'/>
-                        </Link>
-                    </button>
-                </div>
+                <button className='invis' onClick={()=>setSelection("Settings")}>
+                    <Link to="/settings">
+                        <div style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
+                         <img className='profile' src='assets/IconProfile.png'/>
+                            <p style={{margin:"0px"}}>Welcome {user.name}</p>
+                        </div>
+                    </Link>
+                </button>
             </div>
-            
         </nav>
 
         
