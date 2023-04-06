@@ -7,6 +7,19 @@ import Settings from './Settings';
 export default function NavMain(props) {
     const {user} = useContext(UserContext);
     const {selection , setSelection} = useContext(SelectionContext);
+    const [UserName, setUserName] = useState("");
+    useEffect(()=>{
+        fetch('http://127.0.0.1:8000/core/user-info/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token '+ user.token
+            }
+        })
+        .then(response => response.json())
+        .then(data => {console.log(data) ;setUserName(data.data.username); console.log(UserName);})
+        .catch(error => console.error(error));
+    },[user])
 
     const selectionlist = ["Create Ride","Search Ride","My Rides","Carparks"];
 
@@ -40,17 +53,14 @@ export default function NavMain(props) {
                 </ul>
             </div>
             <div className='Accessbar'>
-                <div style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                    <img className='profile' src='assets/IconProfile.png'/>
-                    <p style={{margin:"0px"}}>Welcome {user.name}</p>
-                </div>
-                <div className={selection==="Settings" ? 'nav-tab-selected' : 'nav-tab'} style={{width:"40px",marginLeft:"10px",marginRight:"10px"}}>
-                    <button className='invis' onClick={()=>setSelection("Settings")}>
-                        <Link to="/settings">
-                            <img className='setting' src='assets/IconSetting.png'/>
-                        </Link>
-                    </button>
-                </div>
+                <button className='invis' onClick={()=>setSelection("Settings")}>
+                    <Link to="/settings">
+                        <div style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
+                         <img className='profile' src='assets/IconProfile.png'/>
+                            <p style={{margin:"0px"}}>Welcome {UserName}</p>
+                        </div>
+                    </Link>
+                </button>
             </div>
             
         </nav>

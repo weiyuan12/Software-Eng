@@ -23,7 +23,7 @@ export default function App(){
             <BrowserRouter>
                 <UserContext.Provider value={{user, setUser}}>
                 <SelectionContext.Provider value={{selection, setSelection}}>
-                    {user.id ? <NavMain/> : <Navbar/>}
+                    {user.token ? <NavMain/> : <Navbar/>}
                     <Routes>
                         <Route path="/" element={<EntranceScreen/>}/>
                         <Route path="/dashboard" element={<Dashboard/>}/>

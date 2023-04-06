@@ -1,11 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext, SelectionContext } from "./Usercontext";
 import "../styles/MyRides.css"
 
 export default function MyRides() {
   const { user, setUser } = useContext(UserContext);
   const [myrideselection, setMyRideSelection] = useState("My Rides");
-
+  userdata = 5
+  useEffect(()=>{
+    fetch("http://127.0.0.1:8000/polls/"+user.auth)
+    .then((response) => response.json())
+    .then((data) => {console.log(data); setFdata(data)});
+    console.log("submitted");
+  },[])
 
   const Rides = () => {
     return (

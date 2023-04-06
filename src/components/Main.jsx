@@ -28,23 +28,22 @@ function Main(){
             setSelection("")
         }
     }
+    // can juz use usecontext for this
     
     return(
         <div>
         <div className="page">
             <div className="form">
-                {selection==="Create Ride" && <RideCreation parentCallBack = {handleComplete}/>};
-                {selection==="Search Ride" && <SearchRide/>};
-                {selection==="My Rides" && </* fill in this part*/></>};
+                {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection} marker1CallBack = {HandleMarker1} marker2CallBack = {HandleMarker2}/>}
+                {selection==="Search Ride" && <SearchRide parentCallBack = {handleSelection}/>} 
                 {selection==="Carparks" && <Carpark/>}
             </div>
             {!user.id && <Navigate to="/"/>}
-            
         </div>
+            {selection==="My Rides" && <MyRides/>}
         <div className="map">
-                <DynamicMap  className="map"/> 
-            </div>
-            
+            {selection!=="My Rides" && <DynamicMap  className="map" start = {startMarker} end = {endMarker}/>}
+        </div>
         </div>
 
     )
