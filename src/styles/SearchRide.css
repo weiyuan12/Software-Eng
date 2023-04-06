@@ -1,7 +1,7 @@
 .search-ride{
-    background-color: bisque;
+    background-color: #DAF0F7;
     width: 600px;
-    height: 500px;
+    height: 600px;
     border-radius: 15px;
     
     box-sizing: border-box;
@@ -14,7 +14,7 @@
     border-top-left-radius: 15px;
     display: flex;
     flex-direction: column;
-    background-color: aqua;
+    background-color: #A8B5E0;
     align-items: center;
     width: 100%;
     
@@ -25,11 +25,11 @@
     font-size: 20px;
 }
 .search-ride-body{
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-top: 10px;
-    background-color: aliceblue;
+    background-color: #D9D9D9;
     width: 90%;
-    height: 80%;
+    height: 70%;
     border-radius: 5%;
 }
 .search-ride-upper{
@@ -56,7 +56,7 @@ textarea{
     margin-top: 5px;
     display: flex;
     flex-direction: row;
-    background-color: rgb(193, 134, 57);
+    background-color: #D9D9D9;
     width: 100%;
     height: auto;
     border-radius: 4px;
@@ -115,6 +115,11 @@ textarea{
     
 
 }
+.search-ride h1{
+    margin:5px;
+    font-size: medium;
+}
+
 h4{
     margin : 0
 }
@@ -139,6 +144,10 @@ h4{
     height: 90px;
     
 }
+.profile-pic-2{
+    width: 200px;
+    height:140px;
+}
 .deselected{
     color: blue
 }
@@ -146,3 +155,22 @@ h4{
     color : red
 }
 
+.search-title-text{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+}
+
+.search-text .text{
+    margin-bottom:10px
+}
+.booking-buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.booking-buttons button{
+    height: 50px;
+}

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Varela&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Varela&display=swap');
+
 body{
     box-sizing: border-box;
     margin: 0;
@@ -53,29 +56,31 @@ body{
 .textbox{
   display: flex;
   flex-direction: column;
-  width:45%;
+  width:50%;
   position:relative;
   top: 50px;
+  left: 75px;
   transform: translateY(25%);
-  margin-right: 50px;
-  height: 75%;
+  height:75%;
 }
 
 .textmain{
+  font-family: 'Montserrat', sans-serif;
   color: white;
   display: flex;
   height: auto;
-  font-family: Montserrat;
-  font-size: 60px;
+  font-size: 55px;
   margin: 0px;
   margin-bottom: 10px;
+  width: 85%;
 }
 
 .textsub{
+  width: 65%;
+  font-family: 'Montserrat', sans-serif;
   color: white;
   display: flex;
-  font-family: Montserrat;
-  font-size: 35px;
+  font-size: 25px;
   margin: 0px;
 }
 
@@ -93,7 +98,6 @@ body{
   background: rgba(160, 32, 240, 0.75);
   opacity: 0.6;
   border-radius: 500px;
-  font-family: 'Montserrat';
   color: white;
   font-style: normal;
   font-weight: 700;

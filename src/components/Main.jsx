@@ -8,6 +8,7 @@ import RideCreation from "./RideCreation.jsx";
 import "../styles/main.css"
 import SearchRide from "./SearchRide.jsx";
 import Carpark from "./Carpark.jsx";
+import MyRides from "./MyRides.jsx"
 
 
 const handleSelection =  (selection) => {
@@ -21,12 +22,25 @@ const handleSelection =  (selection) => {
 function Main(){
     const {user} = useContext(UserContext);
     const {selection, setSelection} = useContext(SelectionContext);
-    
+    const [startMarker, setStartMarker] = useState({
+        lat: 1.352178, 
+        lng: 103.804899
+      })
+    const [endMarker, setEndMarker] = useState({
+        lat:1.352178,
+        lng:103.904899
+    })
     console.log(selection); 
-    const handleComplete =(complete)=>{
-        if(complete){
-            setSelection("")
-        }
+    const handleSelection =(complete)=>{
+        setSelection(complete)
+    }
+    const HandleMarker1 =(start) =>{
+        console.log(start)
+        setStartMarker(start)
+    }
+    const HandleMarker2 =(end) =>{
+        console.log(end)
+        setEndMarker(end)
     }
     // can juz use usecontext for this
     
@@ -42,8 +56,9 @@ function Main(){
         </div>
             {selection==="My Rides" && <MyRides/>}
         <div className="map">
-            {selection!=="My Rides" && <DynamicMap  className="map" start = {startMarker} end = {endMarker}/>}
-        </div>
+                <DynamicMap  className="map"/> 
+            </div>
+            
         </div>
 
     )

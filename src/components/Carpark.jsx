@@ -8,8 +8,8 @@ export default function Carpark(){
     const [searchResults, setSearchResults] = useState([])
     const [geoCode, setGeoCode] = useState({})
     const OFFSET = 0.0045045
-    const TOKEN = 'fK5t3eccd8-97VDR@QXZE43z033Cc4NJ4-0@d7fR3Jbzf-1wDnyH3K3qE3aYp-4b6s-4DcUAYKp7kGdF7F9-vc8z+MS-833914m-'
-    const ACCESSKEY = '9c313ff0-75da-4cb1-9fca-03f73b67e0c3'
+    // const TOKEN = 'fK5t3eccd8-97VDR@QXZE43z033Cc4NJ4-0@d7fR3Jbzf-1wDnyH3K3qE3aYp-4b6s-4DcUAYKp7kGdF7F9-vc8z+MS-833914m-'
+    // const ACCESSKEY = '9c313ff0-75da-4cb1-9fca-03f73b67e0c3'
     const handleSearch = async(event) =>{
         event.preventDefault();
         setPrevSearch(search)
@@ -81,12 +81,8 @@ async function getGeoCode (addr){
     // })
     const handleClick = async() =>{
         console.log("HI")
-        const response = await fetch('https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Availability', {
-            headers : {
-                AccessKey : ACCESSKEY,
-                Token : TOKEN
-            },
-            mode: "no-cors"
+        const response = await fetch('https://developers.onemap.sg/commonapi/convert/4326to3414?latitude=1.319728905&longitude=103.8421581', {
+            
             
         })
         console.log("HII")

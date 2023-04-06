@@ -14,24 +14,25 @@ export default function Navbar(props) {
             <div className='Accessbar'>
                 <button className='invis'>
                     <Link to="/signup">
-                        <img className='signup' src='assets/IconSignup.png'/>
-                        Signup
+                        <div class="container">
+                            <img className='signup' src='assets/IconSignup.png'/>
+                            <div>  
+                                Signup
+                            </div>  
+                        </div>
                     </Link>
                 </button>
                 <button className='invis'>   
                     <Link to="/login">
-                        <img className='login' src='assets/IconLogin.png'/>
-                        Login
-                    </Link>
-                </button>
-                <button className='invis'>
-                    <Link to="/settings"> {/* need edit */}
-                        <img className='setting' src='assets/IconSearch.png'/>
+                        <div class="container">
+                            <img className='login' src='assets/IconLogin.png'/>
+                            <div>   
+                                Login
+                            </div> 
+                        </div>
                     </Link>
                 </button>
             </div>
-            
         </nav>
     );
 }
-  

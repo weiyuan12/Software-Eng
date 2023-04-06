@@ -11,7 +11,6 @@ export default function LoginScre() {
   const [password, setPassword] = useState("");
 
   function validateForm() {
-
     return username.length > 0 && password.length > 0;
 
   }
