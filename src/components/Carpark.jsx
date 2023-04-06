@@ -81,9 +81,8 @@ async function getGeoCode (addr){
     // })
     const handleClick = async() =>{
         console.log("HI")
-        const response = await fetch('https://developers.onemap.sg/commonapi/convert/4326to3414?latitude=1.319728905&longitude=103.8421581', {
-            
-            
+        //const response = await fetch('https://developers.onemap.sg/commonapi/convert/4326to3414?latitude=1.319728905&longitude=103.8421581', {
+        const response = await fetch("https://data.gov.sg/dataset/taxi-availability",{ 
         })
         console.log("HII")
         const responseData = await response.json()

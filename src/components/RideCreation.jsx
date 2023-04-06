@@ -96,7 +96,7 @@ const CreateRide = (props) =>{
     
     const handleSubmit = async (event)=>{  
         event.preventDefault();
-        if (verify1 && verify2 && typeof details.seats === Number){
+        if (verify1 && verify2){
             setDetails({...details, time : value})
             console.log(details.time.toDateString)
             console.log(typeof details.seats)
@@ -108,9 +108,7 @@ const CreateRide = (props) =>{
         else if (!verify2){
             alert("Please Verify End location")
         }
-        else if (typeof details.seats !== Number){
-            alert("Please enter a valid number of seats")
-        }
+
     }
     const handleClick = ( bool) =>{
         event.preventDefault();
@@ -155,7 +153,7 @@ const CreateRide = (props) =>{
                     <button id = "but-2"onClick={(e) => handleClick(false)}>One-Time</button>
                     
                 </div>
-                <input type= "text" className = "ride-creation-model"placeholder="seats" value = {details.seats} onChange={e => {setDetails({...details, seats : e.target.value})}} required/>
+                <input type= "number" className = "ride-creation-model"placeholder="seats" value = {details.seats} onChange={e => {setDetails({...details, seats : e.target.value})}} required/>
             </div> 
             :
             <div className="rid-creation-misc">
