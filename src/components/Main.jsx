@@ -52,7 +52,7 @@ function Main(){
                 {selection==="Search Ride" && <SearchRide parentCallBack = {handleSelection}/>} 
                 {selection==="Carparks" && <Carpark/>}
             </div>
-            {!user.id && <Navigate to="/"/>}
+            {!user && <Navigate to="/"/>}
         </div>
             {selection==="My Rides" && <MyRides/>}
         <div className="map">

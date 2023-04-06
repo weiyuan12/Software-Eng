@@ -9,7 +9,6 @@ import "../styles/MyRides.css"
 export default function MyRides() {
   const { user, setUser } = useContext(UserContext);
   const [myrideselection, setMyRideSelection] = useState("My Rides");
-  userdata = 5
   useEffect(()=>{
     fetch("http://127.0.0.1:8000/polls/"+user.auth)
     .then((response) => response.json())
