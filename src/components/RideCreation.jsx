@@ -62,13 +62,9 @@ export default function RideCreation(props) {
                     <h1 className="ride-header-button-text">Taxi</h1>
                 </button>
             </div>
-            {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback} geoCallBack = {handleGeoCallBack}/>   : <DisplayComplete parentCallBack = {handleComplete}/> }
+            {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback} geoCallBack = {handleGeoCallBack}/>   : <DisplayComplete type = {type} parentCallBack = {handleComplete}/> }
         </div> 
-        
-         
-        
     );
-  
 }
 /**
  *  displays a form requiring the user to input the necessary details based on props.type
@@ -151,7 +147,6 @@ const CreateRide = (props) =>{
                 <div className="button-array">
                     <button id = "but-1" className = "selected" onClick={(e) => handleClick(true)}>Recurring</button>
                     <button id = "but-2"onClick={(e) => handleClick(false)}>One-Time</button>
-                    
                 </div>
                 <input type= "number" className = "ride-creation-model"placeholder="seats" value = {details.seats} onChange={e => {setDetails({...details, seats : e.target.value})}} required/>
             </div> 
@@ -166,7 +161,7 @@ const CreateRide = (props) =>{
 
         </form>
     )
-    }
+}
 
 
 const DisplayComplete = (props) =>{
@@ -176,11 +171,9 @@ const DisplayComplete = (props) =>{
     return(
         <div>
             <h1>Ride Created Successfully</h1>
-            <button onClick={closeWindow}>
-                Close
-            </button>
+            <div className="rideCreationButton">
+                <button className="closeButton" onClick={closeWindow}>Close</button>
+            </div>
         </div>
     )
 }
-
-
