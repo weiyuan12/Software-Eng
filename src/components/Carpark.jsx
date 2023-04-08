@@ -1,57 +1,21 @@
-import React , {useState} from "react";
-
+import React , {useContext, useEffect, useState} from "react";
+import { getGeoCode , convertLatLngToCoords, getCarpark } from "./Helper";
+import { CarparkMarkerContext, SelectionContext } from "./Usercontext";
 import "../styles/SearchRide.css"
 
 export default function Carpark(){
+    const {selection, setSelection} = useContext(SelectionContext)
+    const {carparkMarker, setCarparkMarker} = useContext(CarparkMarkerContext)
     const [search, setSearch] = useState("")
     const [prevSearch, setPrevSearch] = useState("-")
-    const [searchResults, setSearchResults] = useState([])
-    const [geoCode, setGeoCode] = useState({})
-    const OFFSET = 0.0045045
-    // const TOKEN = 'fK5t3eccd8-97VDR@QXZE43z033Cc4NJ4-0@d7fR3Jbzf-1wDnyH3K3qE3aYp-4b6s-4DcUAYKp7kGdF7F9-vc8z+MS-833914m-'
-    // const ACCESSKEY = '9c313ff0-75da-4cb1-9fca-03f73b67e0c3'
-    const handleSearch = async(event) =>{
-        event.preventDefault();
-        setPrevSearch(search)
-        const geoCode = await getGeoCode(search)
-        setGeoCode(geoCode)
-        console.log(geoCode)
-
-}
-//Also validates
-async function getGeoCode (addr){
-    try{
-    const response = await fetch('https://addressvalidation.googleapis.com/v1:validateAddress?key=AIzaSyDYGr_HjF-fweWsSFmtKc2_Jc802Dcb7Fc', 
-    {
-        method: 'POST',
-        headers : {'Content-Type' : 'application/json'},
-        body : JSON.stringify({ 
-            "address": 
-            {
-                "regionCode" : "SG",
-                "addressLines": [addr],
+    const [allCarparks, setAllCarparks] = useState([])
+    const [filteredCarparks,setFilteredCarparks] = useState([])
+    const [searchCoords, setSeachCoords] = useState([])
+    const XOFFSET = -501.28664295390627
+    const YOFFSET = -498.10469814208045
     
-            }
-        })
-    })
-    const responseData = await response.json()
-    console.log(responseData.result)
-        if(responseData.result.address.addressComponents[0].confirmationLevel != "CONFIRMED" ){
-            alert("Enter a valid location")
-        }
-        else{
-            const geoCode = responseData.result.geocode.location
-            return geoCode
-        }
-    }
-    catch (err){
-        console.log(err)
-    }
 
-}
-/*
 
-*/ 
     // async function getSearchResults(input){
     //     const searchVal  = input
     //     let num = 1
@@ -79,14 +43,55 @@ async function getGeoCode (addr){
     //         </div>
     //     )
     // })
-    const handleClick = async() =>{
-        console.log("HI")
+    const handleSearch = async(event) =>{
+        
+        event.preventDefault();
+        setPrevSearch(search)
+        const carparks = await getCarpark()
+        setAllCarparks(carparks)
+        const geoCode = await getGeoCode(search)
+        console.log("fetched geocode->", geoCode)
+        const coords = await convertLatLngToCoords(geoCode.latitude, geoCode.longitude)
+        console.log("Fetched coods", coords)
+        setSeachCoords([coords.X,coords.Y])
         //const response = await fetch('https://developers.onemap.sg/commonapi/convert/4326to3414?latitude=1.319728905&longitude=103.8421581', {
-        const response = await fetch("http://127.0.0.1:8000/carpark")
-        console.log("HII")
-        const responseData = await response.json()
-        console.log(responseData)
+        // console.log(responseData)
+       
     }
+    useEffect(()=>{
+        console.log("In useEffect")
+        let arr = []
+        allCarparks.map((a) =>{
+            
+            const geom = a.geometries[0].coordinates.toString()
+            const geomArr = geom.split(",")
+            const Xdiff = Math.abs(+geomArr[0] - searchCoords[0])
+            const Ydiff = Math.abs(+geomArr[1] - searchCoords[1])
+            const totaldiff = Xdiff + Ydiff
+            if(Xdiff<50000 && Ydiff<50000){
+               // console.log([a,totaldiff])
+                arr.push([a,totaldiff])
+            }
+        })
+        arr.sort((function(index){
+            return function(a, b){
+                return (a[index] === b[index] ? 0 : (a[index] < b[index] ? -1 : 1));
+            };
+        })(1));
+        console.log(arr)
+        arr.length > 5 ? setFilteredCarparks(arr.slice(0,5)) : setFilteredCarparks(arr)
+    }, [searchCoords])
+
+    useEffect(() =>{
+        console.log("Set CarparkMarker", filteredCarparks)
+        setCarparkMarker(filteredCarparks)}
+        , [filteredCarparks])
+
+    const displayCarparks = filteredCarparks.map((a) =>[
+        <div>
+            {a[0].carparkNo}
+        </div>
+    ])
     return (
         <div className="search-ride">
             
@@ -94,6 +99,7 @@ async function getGeoCode (addr){
                 
                 <img src ="assets/carparkIcon.png" width="30px" style={{marginTop:"10px"}}></img>
                 <h1 className="search-ride-headerText">Carparks availability</h1>
+                <button onClick={() => {setSelection("")}}>Close</button>
             </div>
             <div className = "search-ride-upper">
                 <div className="search-ride-searchbar">
@@ -101,19 +107,15 @@ async function getGeoCode (addr){
                     </textarea>
                     <div className="search-ride-searchIcon">
                         <img src = "assets/searchIcon.png" width="15px" style={{marginTop:"40%"}} onClick ={handleSearch}></img>
-                        
                     </div>
                 </div>
                 <div className="search-ride-result">
                     <h4 >Searched: </h4><h4 style= {{borderBottom : "solid"}}>{prevSearch}</h4>
-                </div>
+                </div> 
             </div>
             <div className="search-ride-body">
-                <button onClick= {handleClick}> click</button>
-            </div>
-        
-            
-        
+                {displayCarparks}
+            </div> 
         </div>
     )
 }

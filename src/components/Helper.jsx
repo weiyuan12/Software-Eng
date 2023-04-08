@@ -33,3 +33,25 @@ export async function getGeoCode (addr){
     }
 
 }
+export async function convertLatLngToCoords (lat, lng){
+    const response = await fetch(`https://developers.onemap.sg/commonapi/convert/4326to3414?latitude=${lat}&longitude=${lng}`)
+    return response.json()
+}
+
+export async function getCarpark(){
+    const response = await fetch("http://127.0.0.1:8000/carpark/")
+        .then(res => res.json())
+    const data = response.data.Result
+    return data
+}
+export async function convertCoordsToLatLng(carpark){
+    const geom = carpark[0].geometries[0].coordinates.toString()
+    const geomArr = geom.split(",")
+    const X = geomArr[0]
+    const Y = geomArr[1]
+
+    const response = await fetch(`https://developers.onemap.sg/commonapi/convert/3414to4326?X=${X}&Y=${Y}`).then(res => res.json())
+   
+    return {lat:response.latitude, lng: response.longitude}
+    
+}

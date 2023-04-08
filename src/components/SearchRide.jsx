@@ -1,14 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import { createRoutesFromChildren } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import "../styles/SearchRide.css"
 import {Link} from "react-router-dom"
-
+import {Marker1Context, Marker2Context } from "./Usercontext";
 /**
  * Returns a search ride UI that allows user to search for a ride by location
  * @returns SearchRide UI
  */
 export default function SearchRide (props){
+     const {marker1, setMarker1} = useContext(Marker1Context);
+     const {marker2, setMarker2} = useContext(Marker2Context);
     const [step ,setStep] = useState("Search") //Search, Book, Complete
     const [search, setSearch] = useState("")     //Constantly changing search 
     const [prevSearch, setPrevSearch] = useState("-")   //Sets the search based on the last search when u click on search button
@@ -29,6 +31,10 @@ export default function SearchRide (props){
     const handleBooking =() =>{
         setStep("Book")
         
+    }
+    const handleMarker = (a) =>{
+        setMarker1(a.startlatlng)
+        setMarker2(a.endlatlng)
     }
     const handleComplete = (complete) =>{
         props.parentCallBack(complete)
@@ -55,11 +61,13 @@ export default function SearchRide (props){
         {
             "id " : "1",
             "Driver" : "John",
-            "Pick-up Location" : "Bukit Timah2",
-            "Destination" : "harbourfront2",
+            "Pick-up Location" : "bukit timah",
+            "Destination" : "boon lay",
             "Car model" : "mazda 3",
             "type" : "Personal Car",
-            "seats" : 2
+            "seats" : 2,
+            "startlatlng" : {"lat": 1.3294113, "lng": 103.8020777},
+            "endlatlng" : {"lat": 1.3142556, "lng": 103.7093099}
         },
         {   
             "id " : "2",
@@ -68,7 +76,9 @@ export default function SearchRide (props){
             "Destination" : "harbourfront2",
             "Car model" : "mazda 2",
             "type" : "Personal Car",
-            "seats" : 2
+            "seats" : 2,
+            "startlatlng" : {"lat": 1.3244113, "lng": 103.8140777},
+            "endlatlng" : {"lat": 1.3342456, "lng": 103.3093099}
         },
         {   
             "id " : "3",
@@ -77,7 +87,9 @@ export default function SearchRide (props){
             "Destination" : "harbourfront2",
             "Car model" : "mazda 2",
             "type" : "Taxi",
-            "seats" : 2
+            "seats" : 2,
+            "startlatlng" : {"lat": 1.3744113, "lng": 103.8140777},
+            "endlatlng" : {"lat": 1.3442456, "lng": 103.3293099}
         },
         {   
             "id " : "4",
@@ -86,7 +98,9 @@ export default function SearchRide (props){
             "Destination" : "harbourfront2",
             "Car model" : "mazda 2",
             "type" : "Taxi",
-            "seats" : 2
+            "seats" : 2,
+            "startlatlng" : {"lat": 1.3114113, "lng": 103.8240777},
+            "endlatlng" : {"lat": 1.3232456, "lng": 103.3493099}
         }
     ]
     const handleCallBack = (step)=>{
@@ -188,7 +202,7 @@ export default function SearchRide (props){
                     </div> 
                     }
                 </div>
-                <button className="book-button" onClick={() => {setSelection(a); handleBooking()}}> Book Now</button>
+                <button className="book-button" onClick={() => {setSelection(a); handleBooking();handleMarker(a) }}> Book Now</button>
             </div>
 
         )

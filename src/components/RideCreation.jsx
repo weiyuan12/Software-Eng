@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import {Link} from "react-router-dom"
+import React, { useEffect, useState, useContext } from "react";
 import "../styles/RideCreation.css"
 import DateTimePicker from "react-datetime-picker";
-
 import { getGeoCode } from "./Helper";
+import { Marker1Context } from "./Usercontext";
+import { Marker } from "google-maps-react";
+import { Marker2Context } from "./Usercontext";
 
 
 /**
@@ -11,22 +12,20 @@ import { getGeoCode } from "./Helper";
  * @param {parentCallBack} props complete
  * @returns the CreateRideUI
  */
-function getMarker(){
-    console.log(document.getElementById(1))
-}
+
+
 export default function RideCreation(props) {
 
     const handleSubmit = (event) =>{
         event.preventDefault();
         
     }
-    const [start, setStart] = useState({})
-    const [end, setEnd] = useState({})
+
     const [type, setType] = useState("Personal Car") 
     const [step, setStep] = useState(0)
     const [complete, setComplete] = useState(false)
     let details = {}; 
-    const handleCallback = (childData, step,start,end) =>{
+    const handleCallback = (childData, step) =>{
         details = childData
         setStep(step);
         console.log("now ->",step)
@@ -37,15 +36,6 @@ export default function RideCreation(props) {
         console.log(complete)
         props.parentCallBack(complete)
     }
-    const handleGeoCallBack = (field, location)=>{
-        field === "start"? setStart(location) : setEnd(location)
-    }
-    useEffect(()=>{
-       props.marker1CallBack({lat:start.latitude, lng:start.longitude})
-    },[start])
-    useEffect(()=>{
-        props.marker2CallBack({lat:end.latitude, lng:end.longitude})
-     },[end])
 
     return (
         
@@ -62,7 +52,7 @@ export default function RideCreation(props) {
                     <h1 className="ride-header-button-text">Taxi</h1>
                 </button>
             </div>
-            {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback} geoCallBack = {handleGeoCallBack}/>   : <DisplayComplete parentCallBack = {handleComplete}/> }
+            {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback}/>   : <DisplayComplete parentCallBack = {handleComplete}/> }
         </div> 
         
          
@@ -76,6 +66,8 @@ export default function RideCreation(props) {
  * @returns ride details input form
  */
 const CreateRide = (props) =>{
+    const {marker1, setMarker1} = useContext(Marker1Context)
+    const {marker2, setMarker2} = useContext(Marker2Context)
     
     const [verify1, setVerify1] = useState(false)
     const [verify2, setVerify2] = useState(false)
@@ -86,7 +78,9 @@ const CreateRide = (props) =>{
         time : new Date(),
         seats : 0,
         recurring : false,
-        type : ""
+        type : "",
+        startlatlng : {},
+        endlatlng:{}
     })
     useEffect(() => {
         setDetails({...details, type : props.type});
@@ -120,11 +114,24 @@ const CreateRide = (props) =>{
     const handleVerify = async (event, field,props)=>{
         event.preventDefault()
         const location = document.getElementById(field).value
-        const geoLocation = await getGeoCode(location)
+        let geoLocation = await getGeoCode(location)
+        geoLocation = {lat: geoLocation.latitude, lng:geoLocation.longitude}
         if (geoLocation !== null){
             console.log("accepted")
-            field === "start"? setVerify1(true) : setVerify2(true)
-            props.geoCallBack(field,geoLocation)
+            field === "start"? 
+                (
+                    setVerify1(true),
+                    setDetails({...details, startlatlng:geoLocation}),
+                    setMarker1(geoLocation),
+                    console.log("Marker 1 set at->", geoLocation)
+            
+                ) : 
+                (
+                    setVerify2(true),
+                    setDetails({...details, endlatlng:geoLocation}),
+                    setMarker2(geoLocation),
+                    console.log("Marker 2 set at->", geoLocation)
+                )
         }
         else{
             field === "start"? setVerify1(false) : setVerify2(false)
@@ -172,6 +179,7 @@ const CreateRide = (props) =>{
 const DisplayComplete = (props) =>{
     const closeWindow = () =>{
         props.parentCallBack("")
+        
     }
     return(
         <div>

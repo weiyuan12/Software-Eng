@@ -1,4 +1,9 @@
-import { createContext, useContext, useState } from "react";
+import { createContext } from "react";
 
 export const UserContext = createContext(null);
 export const SelectionContext = createContext("blank");
+export const Marker1Context = createContext({lat: 1.352178, 
+    lng: 103.804899});
+export const Marker2Context = createContext({lat: 1.352178, 
+    lng: 103.804899});
+export const CarparkMarkerContext = createContext([])

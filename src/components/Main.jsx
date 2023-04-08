@@ -1,8 +1,8 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Navbar from "./NavGuest.jsx";
 import NavMain from "./NavMain";
 import DynamicMap from "./Map";
-import { UserContext, SelectionContext } from "./Usercontext";
+import { UserContext, SelectionContext, Marker1Context, Marker2Context } from "./Usercontext";
 import { Navigate } from "react-router-dom";
 import RideCreation from "./RideCreation.jsx";
 import "../styles/main.css"
@@ -20,43 +20,31 @@ const handleSelection =  (selection) => {
     }
 
 function Main(){
+    
     const {user} = useContext(UserContext);
     const {selection, setSelection} = useContext(SelectionContext);
-    const [startMarker, setStartMarker] = useState({
-        lat: 1.352178, 
-        lng: 103.804899
-      })
-    const [endMarker, setEndMarker] = useState({
-        lat:1.352178,
-        lng:103.904899
-    })
+    const {marker1, setMarker1} = useContext(Marker1Context);
+    const {marker2, setMarker2} = useContext(Marker2Context);
     console.log(selection); 
     const handleSelection =(complete)=>{
         setSelection(complete)
     }
-    const HandleMarker1 =(start) =>{
-        console.log(start)
-        setStartMarker(start)
-    }
-    const HandleMarker2 =(end) =>{
-        console.log(end)
-        setEndMarker(end)
-    }
-    
+    useEffect(()=>{setMarker1({}) , setMarker2({}), console.log("Markers cleared")},[selection])
+
+
     return(
         <div>
         <div className="page">
             <div className="form">
-                {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection} marker1CallBack = {HandleMarker1} marker2CallBack = {HandleMarker2}/>};
+                {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection}/>};
                 {selection==="Search Ride" && <SearchRide parentCallBack = {handleSelection}/>};
                 {selection==="My Rides" && <MyRides/>};
                 {selection==="Carparks" && <Carpark/>}
             </div>
             {!user.id && <Navigate to="/"/>}
-            
         </div>
         <div className="map">
-                <DynamicMap  className="map" start = {startMarker} end = {endMarker}/> 
+                <DynamicMap  className="map"/> 
             </div>
             
         </div>
