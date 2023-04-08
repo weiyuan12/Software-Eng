@@ -9,7 +9,7 @@ import "../styles/MyRides.css"
 export default function MyRides() {
   const { user, setUser } = useContext(UserContext);
   const [myrideselection, setMyRideSelection] = useState("My Rides");
-  const [rideData, setRideData] = useState([{}]);
+  const [rideData, setRideData] = useState([{ride:{creator:{}}}]);
   useEffect(() => {
     fetch('http://127.0.0.1:8000/core/rides/', {
       method: 'GET',
@@ -26,7 +26,7 @@ export default function MyRides() {
 
   const Rides = () => {
     const upcoming = rideData.filter((ride) => {
-      return ride['date_time'] >= (new Date().toISOString());
+      return ride['ride']['date_time'] >= (new Date().toISOString());
     }).map((item) => {
       return (
         <li>
@@ -34,20 +34,20 @@ export default function MyRides() {
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
-                {new Date(item['date_time']).toLocaleString()}
+                {new Date(item['ride']['date_time']).toLocaleString()}
               </p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Driver:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{ }</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['creator']['first_name']} {item['ride']['creator']['last_name']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['origin']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['origin']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Destination:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['destination']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
@@ -63,7 +63,7 @@ export default function MyRides() {
     });
 
     const past = rideData.filter((ride) => {
-      return ride['date_time'] < (new Date().toISOString());
+      return ride['ride']['date_time'] < (new Date().toISOString());
     }).map((item) => {
       return (
         <li>
@@ -71,20 +71,20 @@ export default function MyRides() {
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
-                {new Date(item['date_time']).toLocaleString()}
+                {new Date(item['ride']['date_time']).toLocaleString()}
               </p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Driver:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{user.email}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['creator']['first_name'] } {item['ride']['creator']['last_name']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['origin']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['origin']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Destination:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['destination']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
