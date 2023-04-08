@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react"
 import "../styles/EntranceScreen.css"
 import "../styles/Settings.css"
 import { UserContext } from "./Usercontext"
+import { Navigate } from "react-router-dom"
 
 
 export default function Settings() {
@@ -9,6 +10,7 @@ export default function Settings() {
     const [settingselection, setSettingselection] = useState("Settings");
     return (
         <div className="settings-body">
+            {!user.token && <Navigate to='/'/>}
             <div style={{ display: "flex", flexDirection: "row", marginTop: "50px" }}>
                 <div className="settings-leftnav">
                     <ul style={{ listStyle: "none", margin: "0px" }}>
@@ -69,9 +71,8 @@ function Configurations() {
                 <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
                     <button>Edit Profile</button>
                 </div>
-
             </div>
-            <button onClick={() => { setUser({ name: null, id: null }) }}>Logout</button> {/*where to put this*/}
+            <button onClick={() => { setUser({token: null}); set }}>Logout</button>
         </div>
     )
 }

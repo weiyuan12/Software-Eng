@@ -9,7 +9,9 @@ import "../styles/MyRides.css"
 export default function MyRides() {
   const { user, setUser } = useContext(UserContext);
   const [myrideselection, setMyRideSelection] = useState("My Rides");
-  const [rideData, setRideData] = useState([{ride:{creator:{}}}]);
+  const [ridedisplayselection, setRidedisplayselection] = useState("def");
+  const [ridedisplay, setRidedisplay] = useState([]);
+  const [rideData, setRideData] = useState([{ ride: { creator: {} } }]);
   useEffect(() => {
     fetch('http://127.0.0.1:8000/core/rides/', {
       method: 'GET',
@@ -51,7 +53,7 @@ export default function MyRides() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-                <button>View Details</button>
+                <button onClick={() => { setMyRideSelection('Ridedetails'); setRidedisplay(item) }}>View Details</button>
               </div>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
                 <button>Help</button>
@@ -76,7 +78,7 @@ export default function MyRides() {
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Driver:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['creator']['first_name'] } {item['ride']['creator']['last_name']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['creator']['first_name']} {item['ride']['creator']['last_name']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
@@ -88,7 +90,7 @@ export default function MyRides() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-                <button>View Details</button>
+                <button onClick={() => { setMyRideSelection('Ridedetails'); setRidedisplay(item) }}>View Details</button>
               </div>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
                 <button>Help</button>
@@ -143,6 +145,61 @@ export default function MyRides() {
 
   }
 
+  const Ridedetails = () => {
+    return (
+      <>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <img alt="icon" src='/assets/IconRidedetail.png' style={{ height: '30px' }} />
+          <h3 style={{ margin: '0px', padding: '0px' }}>
+            Ride Details
+          </h3>
+        </div>
+        <div className="MyRide__rightbody__Ridedetails">
+          <div className="MyRide__rightbody__Ridedetails__info">
+            <img alt="profile pic"></img>
+            <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
+              <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
+                <p>
+                  {new Date(ridedisplay['ride']['date_time']).toLocaleString()}
+                </p>
+              </div>
+              <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
+                <h4 style={{ margin: "0px" }}>Driver:</h4>
+                <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['ride']['creator']['first_name']} {ridedisplay['ride']['creator']['last_name']}</p>
+              </div>
+              <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+                <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
+                <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['ride']['origin']}</p>
+              </div>
+              <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+                <h4 style={{ margin: "0px" }}>Destination:</h4>
+                <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['ride']['destination']}</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+                <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
+                  <button onClick={() => { setRidedisplayselection('Ridedetails') }}>Chat</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="MyRide__rightbody__Ridedetails__body">
+            {ridedisplayselection === 'Ridedetails' && <Chat />}
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  const Chat = () => {
+    const chatlog = ['hello', 'bye']
+    const dchatlog = chatlog.map((log) => <div>{log}</div>)
+    return (
+      <div className="MyRide__rightbody__Ridedetails__body__Chat">
+        {dchatlog}
+      </div>
+    )
+  }
+
 
   return (
     <div className="MyRide__body">
@@ -167,6 +224,7 @@ export default function MyRides() {
           {myrideselection === 'My Rides' && <Rides />}
           {myrideselection === 'Help' && <Help />}
           {myrideselection === 'FAQ' && <Faq />}
+          {myrideselection === 'Ridedetails' && <Ridedetails />}
         </div>
       </div>
     </div>
