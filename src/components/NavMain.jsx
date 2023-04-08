@@ -17,7 +17,7 @@ export default function NavMain(props) {
             }
         })
         .then(response => response.json())
-        .then(data => {console.log(data) ;setUserName(data.data.username); console.log(UserName);})
+        .then(data => {setUserName(data.data.username);})
         .catch(error => console.error(error));
     },[user])
 
@@ -26,7 +26,7 @@ export default function NavMain(props) {
     const renderedlist = selectionlist.map((a)=>{
         if(a===selection){
             return (
-                <li key={a} className='nav-tab-selected' onClick={()=>{setSelection(a)}}>
+                <li key={a} className='nav-tab-selected' onClick={()=>{setSelection("")}}>
                     <Link style={{height:"100%", width:"100%",display:"flex",alignItems:"center"}} to="/main">{a}</Link>
                 </li>
             )

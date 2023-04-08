@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
-import styles from "../styles/main.css"
 
 export function DynamicMap(props) {
     // initial center is singapore

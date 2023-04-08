@@ -8,21 +8,7 @@ import Navblank from "./Navblank";
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [fdata, setFdata] = useState({});
   const {user, setUser} = useContext(UserContext);
-  // useEffect(() => {
-  //   if(fdata.username === username && fdata.password===password){
-  //     setUser({
-  //       name: fdata.name,
-  //       phonenumber: "87654321",
-  //       email: "Johnjohn@gmail.com",
-  //       dateofbirth: fdata.dob, 
-  //       homeaddress: fdata.address, 
-  //       member: fdata.member,
-  //       id:fdata.id,
-  //     })
-  //   }
-  // },[fdata]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -37,8 +23,7 @@ export default function LoginScreen() {
       })
     })
     .then((response) => response.json())
-    .then((data) => {console.log(data); data["token"] && setUser(data)})
-    .then(console.log("user is "+user));
+    .then((data) => {data["token"] && setUser(data)})
     console.log("submitted");
   }
   

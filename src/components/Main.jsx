@@ -12,7 +12,6 @@ import MyRides from "./MyRides.jsx"
 
 
 const handleSelection =  (selection) => {
-        
         switch (selection.selection){
             case "Create Ride" :
                 return <RideCreation/>
@@ -42,7 +41,6 @@ function Main(){
         console.log(end)
         setEndMarker(end)
     }
-    // can juz use usecontext for this
     
     return(
         <div>
@@ -55,9 +53,11 @@ function Main(){
             {!user && <Navigate to="/"/>}
         </div>
             {selection==="My Rides" && <MyRides/>}
-        <div className="map">
+            {selection!=='My Rides' &&
+            <div className="map">
                 <DynamicMap  className="map"/> 
             </div>
+            }
             
         </div>
 

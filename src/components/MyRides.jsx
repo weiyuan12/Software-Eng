@@ -9,14 +9,96 @@ import "../styles/MyRides.css"
 export default function MyRides() {
   const { user, setUser } = useContext(UserContext);
   const [myrideselection, setMyRideSelection] = useState("My Rides");
-  useEffect(()=>{
-    fetch("http://127.0.0.1:8000/polls/"+user.auth)
-    .then((response) => response.json())
-    .then((data) => {console.log(data); setFdata(data)});
+  const [rideData, setRideData] = useState([{}]);
+  useEffect(() => {
+    fetch('http://127.0.0.1:8000/core/rides/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + user.token
+      }
+    })
+      .then(response => response.json())
+      .then(data => { setRideData(data) })
+      .catch(error => console.log(error));
     console.log("submitted");
-  },[])
+  }, [])
 
   const Rides = () => {
+    const upcoming = rideData.filter((ride) => {
+      return ride['date_time'] >= (new Date().toISOString());
+    }).map((item) => {
+      return (
+        <li>
+          <img alt="profile pic"></img>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
+            <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
+              <p>
+                {new Date(item['date_time']).toLocaleString()}
+              </p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
+              <h4 style={{ margin: "0px" }}>Driver:</h4>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{ }</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+              <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['origin']}</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+              <h4 style={{ margin: "0px" }}>Destination:</h4>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+              <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
+                <button>View Details</button>
+              </div>
+              <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
+                <button>Help</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      )
+    });
+
+    const past = rideData.filter((ride) => {
+      return ride['date_time'] < (new Date().toISOString());
+    }).map((item) => {
+      return (
+        <li>
+          <img alt="profile pic"></img>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
+            <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
+              <p>
+                {new Date(item['date_time']).toLocaleString()}
+              </p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
+              <h4 style={{ margin: "0px" }}>Driver:</h4>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{user.email}</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+              <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['origin']}</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+              <h4 style={{ margin: "0px" }}>Destination:</h4>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+              <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
+                <button>View Details</button>
+              </div>
+              <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
+                <button>Help</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      )
+    });
+    console.log(rideData);
     return (
       <>
         <div className='MyRide__rightbody__header'>
@@ -24,9 +106,16 @@ export default function MyRides() {
         </div>
         <div className="MyRide__rightbody__upcoming">
           <h2>Upcoming Trips</h2>
+          <ul className="MyRide__rightbody__upcoming__List">
+            {upcoming}
+          </ul>
+
         </div>
         <div className="MyRide__rightbody__pasttrip">
           <h2>Past Trips</h2>
+          <ul className="MyRide__rightbody__pasttrip__List">
+            {past}
+          </ul>
 
         </div>
       </>
