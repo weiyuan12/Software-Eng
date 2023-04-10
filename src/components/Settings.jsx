@@ -46,8 +46,6 @@ function Configurations() {
       .catch(error => console.error(error));
   }, [editprofile])
 
-  const inputRef = useRef(null);
-
   useEffect(() => {
     if (inputRef.current !== null) {
       inputRef.current.focus();
