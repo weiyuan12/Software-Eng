@@ -10,7 +10,7 @@ import Navbar from './components/NavGuest';
 import NavMain from './components/NavMain';
 import "./styles/DefaultStyles.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { UserContext ,SelectionContext , Marker1Context, Marker2Context, CarparkMarkerContext} from './components/Usercontext';
+import { UserContext ,SelectionContext , Marker1Context, Marker2Context, CarparkMarkerContext, PathContext} from './components/Usercontext';
 import Settings from './components/Settings';
 
 
@@ -20,6 +20,7 @@ export default function App(){
     const [marker1, setMarker1] = useState("");
     const [marker2, setMarker2] = useState("");
     const [carparkMarker, setCarparkMarker] = useState([])
+    const [path, setPath] = useState([])
     
     return(
         <div>
@@ -29,6 +30,7 @@ export default function App(){
                         <Marker1Context.Provider value = {{marker1, setMarker1}}>
                         <Marker2Context.Provider value = {{marker2, setMarker2}}>
                         <CarparkMarkerContext.Provider value = {{carparkMarker, setCarparkMarker}}>
+                        <PathContext.Provider value={{path, setPath}}>
                     {user.id ? <NavMain/> : <Navbar/>}
                     <Routes>
                         <Route path="/" element={<EntranceScreen/>}/>
@@ -38,6 +40,7 @@ export default function App(){
                         <Route path="/main" element={<Main/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>
+                    </PathContext.Provider>
                     </CarparkMarkerContext.Provider>
                     </Marker2Context.Provider>
                     </Marker1Context.Provider>

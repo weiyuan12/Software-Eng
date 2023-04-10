@@ -1,3 +1,6 @@
+import { useContext, useState } from "react"
+import { PathContext } from "./Usercontext"
+
 export async function getGeoCode (addr){
     if (addr === ""){
         alert("Enter a valid location")
@@ -57,4 +60,28 @@ export async function convertCoordsToLatLng(carpark){
    
     return {lat:response.latitude, lng: response.longitude}
     
+}
+
+export async function calculateRoute(origin, destination) {
+    let path = []
+    
+    const directionsService = new google.maps.DirectionsService()
+    
+    const results = await directionsService.route(
+        {
+            origin: origin,
+            destination: destination,
+            travelMode: google.maps.TravelMode.DRIVING
+        }
+    )
+        if(!path[0]){
+            for (var i=0; i<results.routes[0].overview_path.length;i++) {
+                let tempCoords = {lat: results.routes[0].overview_path[i].lat(), lng: results.routes[0].overview_path[i].lng()}
+                path.push(tempCoords)
+                
+            }
+        }
+    
+    return path
+
 }

@@ -7,3 +7,4 @@ export const Marker1Context = createContext({lat: 1.352178,
 export const Marker2Context = createContext({lat: 1.352178, 
     lng: 103.804899});
 export const CarparkMarkerContext = createContext([])
+export const PathContext = createContext([])

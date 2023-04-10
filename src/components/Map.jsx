@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
-import { Marker1Context, Marker2Context, CarparkMarkerContext } from './Usercontext';
+import { Map, GoogleApiWrapper, Marker, InfoWindow, Polyline } from 'google-maps-react';
+import { Marker1Context, Marker2Context, CarparkMarkerContext, PathContext } from './Usercontext';
 import { convertCoordsToLatLng } from './Helper';
 import "../styles/map.css"
 
 export function DynamicMap(props) {
     // initial center is singapore
-    const [display, setDisplay] = useState("All")
-    const [showInfo, setShowInfo] = useState(false)
+    const {path, setPath} = useContext(PathContext)
     const [active, setActive] = useState({})
     const {marker1, setMarker1} = useContext(Marker1Context);
     const {marker2, setMarker2} = useContext(Marker2Context);
@@ -35,7 +34,6 @@ export function DynamicMap(props) {
         console.log(carparkMarker)
         const arr =  carparkMarker.map(async(marker) =>{
             const pos =  await convertCoordsToLatLng(marker)
-            console.log("coord->", marker[0].geometries[0].coordinates, " Pos->", pos)
             return pos
         })
         Promise.all(arr).then(values => setCoords(values))
@@ -59,33 +57,10 @@ export function DynamicMap(props) {
     }
     )
     
-
     const handleMarkerClick =(e) =>{
         setActive(e)
-        setShowInfo(!showInfo)
-        console.log(e)
-        
-
     }
-    // const displayAllCarparkInfo = coords.map((coord)=>{
-    //         if (carparkMarker.length !== 0) {
-    //             return(
-    //                 <InfoWindow title = "Info" id = {"A" + coords.indexOf(coord)} key = {coords.indexOf(coord)} position = {coord} visible={true}>
-    //                     <div >
-    //                         <img src='assets/parkingLogo.png' style={{width:"20px"}}/>
-    //                         <div>
-    //                             <h4>{carparkMarker[coords.indexOf(coord)][0].carparkNo}</h4>
-    //                         </div>
-    //                     </div>
-    //                 </InfoWindow>
-    //             )
-    //         }
-    //     })
-    const displayMarkerInfo = () =>{
-        console.log("Display Marker Info")
-        console.log(active)
-    }
-
+    
 
     return (
         <Map
@@ -122,13 +97,16 @@ export function DynamicMap(props) {
                 }
             </InfoWindow>
             {displayAllCarparks}
-           
-            
-            
+            <Polyline
+                path={path}
+                strokeColor="#FF0000"
+                strokeOpacity={0.8}
+                strokeWeight={2} />
             
         </Map>
     );
-}   
+}
+
 
 export default GoogleApiWrapper({
     apiKey: "AIzaSyDYGr_HjF-fweWsSFmtKc2_Jc802Dcb7Fc",

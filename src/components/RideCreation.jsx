@@ -2,10 +2,10 @@ import React, { useEffect, useState, useContext } from "react";
 import "../styles/RideCreation.css"
 import DateTimePicker from "react-datetime-picker";
 import { getGeoCode } from "./Helper";
-import { Marker1Context } from "./Usercontext";
+import { Marker1Context, PathContext } from "./Usercontext";
 import { Marker } from "google-maps-react";
 import { Marker2Context } from "./Usercontext";
-
+import {calculateRoute} from "./Helper"
 
 /**
  * Rerturns the CreateRideUI that allows Users to select "Drive" or "Taxi"
@@ -64,7 +64,7 @@ export default function RideCreation(props) {
 const CreateRide = (props) =>{
     const {marker1, setMarker1} = useContext(Marker1Context)
     const {marker2, setMarker2} = useContext(Marker2Context)
-    
+    const {path, setPath} = useContext(PathContext)
     const [verify1, setVerify1] = useState(false)
     const [verify2, setVerify2] = useState(false)
     const [value, onChange] = useState(new Date())
@@ -81,6 +81,7 @@ const CreateRide = (props) =>{
     useEffect(() => {
         setDetails({...details, type : props.type});
       }, [props.type]);
+    
 
     const text = ["Enter your drive details","Enter your ride details"]
     
@@ -91,6 +92,7 @@ const CreateRide = (props) =>{
             console.log(details.time.toDateString)
             console.log(typeof details.seats)
             props.parentCallBack(details,1)
+           
         }
         else if (!verify1){
             alert("Please Verify Start location")
@@ -116,6 +118,7 @@ const CreateRide = (props) =>{
             console.log("accepted")
             field === "start"? 
                 (
+                    test(verify2,1, geoLocation),
                     setVerify1(true),
                     setDetails({...details, startlatlng:geoLocation}),
                     setMarker1(geoLocation),
@@ -123,6 +126,7 @@ const CreateRide = (props) =>{
             
                 ) : 
                 (
+                    test(verify1,2, geoLocation),
                     setVerify2(true),
                     setDetails({...details, endlatlng:geoLocation}),
                     setMarker2(geoLocation),
@@ -132,6 +136,16 @@ const CreateRide = (props) =>{
         else{
             field === "start"? setVerify1(false) : setVerify2(false)
             document.getElementById(field).value = ""
+        }
+    }
+    const test = async(verify,id, geoLocation) =>{
+        if(verify && id === 1){
+            let path1 = await calculateRoute(geoLocation, marker2)
+            setPath(path1)
+        }
+        if(verify && id == 2){
+            let path1 = await calculateRoute(marker1, geoLocation)
+            setPath(path1)
         }
     }
     
