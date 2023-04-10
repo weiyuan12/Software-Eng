@@ -32,7 +32,7 @@ export default function LoginScreen() {
         {user.token && <Navigate to="/"/>}
         <div className='bodymain'>
           <div className='Interface_login'>
-            <form className="form-group" onSubmit={handleSubmit}>
+            <form className="login__form" onSubmit={handleSubmit}>
               <div style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
                 <h2 style={{color:"white", display:"flex",justifyContent:"center"}}>Login Page</h2> 
                 <input type="text" placeholder='Username' className="login-input" onChange={e => setUsername(e.target.value)} />

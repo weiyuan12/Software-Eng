@@ -1,5 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback, useRef } from "react";
 import { UserContext, SelectionContext } from "./Usercontext";
+import { FaStar } from "react-icons/fa";
+import { IconContext } from "react-icons";
 import "../styles/MyRides.css"
 
 /**
@@ -8,12 +10,30 @@ import "../styles/MyRides.css"
  */
 export default function MyRides() {
   const { user, setUser } = useContext(UserContext);
+  const inputRef = useRef(null);
   const [myrideselection, setMyRideSelection] = useState("My Rides");
   const [ridedisplayselection, setRidedisplayselection] = useState("def");
   const [ridedisplay, setRidedisplay] = useState([]);
-  const [rideData, setRideData] = useState([{ ride: { creator: {} } }]);
+  const [textinput, setTextinput] = useState("");
+  const [curchat, setCurchat] = useState([{ created_by: { id: '' }, }]);
+  const [rideData, setRideData] = useState([{ ride: { creator: { id: '' }, id: '' } }]);
+
+  // useEffect(()=>{
+  //   fetch('http://127.0.0.1:8000/conversation/', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'Token ' + user.token
+  //     }
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => { console.log(data); data.length > 0 ? setRideData(data) : setRideData([{ ride: { creator: {} } }]) })
+  //     .catch(error => console.log(error));
+  //   console.log("submitted");
+  // })
+
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/core/rides/', {
+    fetch('http://127.0.0.1:8000/core/myrides/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -21,10 +41,38 @@ export default function MyRides() {
       }
     })
       .then(response => response.json())
-      .then(data => { setRideData(data) })
+      .then(data => { console.log(data); data.length > 0 ? setRideData(data) : setRideData([{ ride: { creator: {} } }]) })
       .catch(error => console.log(error));
     console.log("submitted");
   }, [])
+
+  useEffect(() => {
+    try {
+      fetch('http://127.0.0.1:8000/conversation/chat/' + ridedisplay.ride.id + '/' + ridedisplay.ride.creator.id + '/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token ' + user.token
+        }
+      })
+        .then((response) => response.json())
+        .then(data => setCurchat(data))
+        .catch((e) => console.log(e));
+    }
+    catch {
+      console.log('error on fetching chat')
+    }
+
+
+  }, [ridedisplay])
+
+  const submitform = (event) => {
+    event.preventDefault();
+  }
+
+  const clearselections = () => {
+    setRidedisplayselection('')
+  }
 
   const Rides = () => {
     const upcoming = rideData.filter((ride) => {
@@ -56,7 +104,7 @@ export default function MyRides() {
                 <button onClick={() => { setMyRideSelection('Ridedetails'); setRidedisplay(item) }}>View Details</button>
               </div>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-                <button>Help</button>
+                <button onClick={() => { setMyRideSelection('Ridedetails'); setRidedisplayselection('rating'); setRidedisplay(item) }}>Rate</button>
               </div>
             </div>
           </div>
@@ -93,7 +141,7 @@ export default function MyRides() {
                 <button onClick={() => { setMyRideSelection('Ridedetails'); setRidedisplay(item) }}>View Details</button>
               </div>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-                <button>Help</button>
+                <button onClick={() => { setMyRideSelection('Ridedetails'); setRidedisplayselection('rating'); setRidedisplay(item) }}>Rate</button>
               </div>
             </div>
           </div>
@@ -124,11 +172,12 @@ export default function MyRides() {
     )
   }
 
-  const Help = () => {
+  const Riderequest = () => {
     return (
       <>
-        <h1>Help</h1>
-        <p>IDK WHAT TO PUT HERE</p>
+        <h1>Ride Requests</h1>
+        <h2>Pending</h2>
+        <h2>Accepted</h2>
       </>
     )
   }
@@ -146,6 +195,7 @@ export default function MyRides() {
   }
 
   const Ridedetails = () => {
+    console.log('ridedetails')
     return (
       <>
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
@@ -177,13 +227,14 @@ export default function MyRides() {
               </div>
               <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
                 <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-                  <button onClick={() => { setRidedisplayselection('Ridedetails') }}>Chat</button>
+                  <button onClick={() => { setRidedisplayselection('chat') }}>Chat</button>
                 </div>
               </div>
             </div>
           </div>
           <div className="MyRide__rightbody__Ridedetails__body">
-            {ridedisplayselection === 'Ridedetails' && <Chat />}
+            {ridedisplayselection === 'chat' && <Chat />}
+            {ridedisplayselection === 'rating' && <Rating />}
           </div>
         </div>
       </>
@@ -191,15 +242,85 @@ export default function MyRides() {
   }
 
   const Chat = () => {
-    const chatlog = ['hello', 'bye']
-    const dchatlog = chatlog.map((log) => <div>{log}</div>)
+    const sortedchat = curchat.sort((fitem, sitem) => {
+      if (fitem['created_at'] > sitem['created_at']) {
+        return -1;
+      }
+      else {
+        return 1;
+      }
+    })
+    const chatlog = sortedchat.map((item, index) => {
+      let display;
+      if (item.created_by.id === ridedisplay.ride.creator.id) {
+        display = (
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ padding: '5px', margin: '8px', marginBottom: '4px', backgroundColor: 'aqua', borderRadius: '10px', width: '100px' }}>
+              <p>
+                {item.content}
+              </p>
+            </div>
+          </div>
+        )
+      }
+      else {
+        display = (
+          <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+            <div style={{ padding: '5px', margin: '8px', marginBottom: '4px', backgroundColor: 'aqua', borderRadius: '10px', width: '100px' }}>
+              <p>
+                {item.content}
+              </p>
+            </div>
+          </div>
+        )
+      }
+      return (
+        <div key={index} className="MyRide__rightbody__Ridedetails__body__Chat__row">
+          {display}
+        </div>
+      )
+    })
+    console.log(textinput)
     return (
       <div className="MyRide__rightbody__Ridedetails__body__Chat">
-        {dchatlog}
+        <form className="MyRide__rightbody__Ridedetails__body__Chat__input" onSubmit={submitform}>
+          <input ref={inputRef} type="text" className='bbon' style={{ width: '90%' }} />
+          <button onClick={() => setTextinput(inputRef.current.value)}>
+            <img alt='icon' />
+          </button>
+        </form>
+        {chatlog}
       </div>
     )
   }
+  const [rating, setRating] = useState(0);
+  const Rating = () => {
 
+    const handleRatingHover = (index) => {
+      setRating(index + 1);
+    };
+    return (
+      <>
+        <div>
+          <p>Rate this ride:</p>
+          <div className="star-rating">
+            {[...Array(5)].map((_, index) => {
+              return (
+                <span
+                  key={index}
+                  className={`star ${index = rating ? "rated" : ""}`}
+                  onMouseEnter={() => handleRatingHover(index)}
+                  onMouseLeave={() => setRating(0)}
+                >
+                  <FaStar />
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      </>
+    )
+  }
 
   return (
     <div className="MyRide__body">
@@ -207,22 +328,22 @@ export default function MyRides() {
         <div className="MyRide__leftnav">
           <ul style={{ listStyle: "none", margin: "0px" }}>
             <li className={myrideselection === "My Rides" ? "MyRide__leftnav__listitems--selected" : "MyRide__leftnav__listitems"}
-              onClick={() => { setMyRideSelection("My Rides") }}>
+              onClick={() => { setMyRideSelection("My Rides"); clearselections() }}>
               <h3 style={{ margin: "0px" }}>MyRides</h3>
             </li>
             <li className={myrideselection === "Help" ? "MyRide__leftnav__listitems--selected" : "MyRide__leftnav__listitems"}
-              onClick={() => { setMyRideSelection("Help") }}>
-              <h3 style={{ margin: "0px" }}>Help</h3>
+              onClick={() => { setMyRideSelection("Riderequest"); clearselections() }}>
+              <h3 style={{ margin: "0px" }}>Ride Requests</h3>
             </li>
             <li className={myrideselection === "FAQ" ? "MyRide__leftnav__listitems--selected" : "MyRide__leftnav__listitems"}
-              onClick={() => { setMyRideSelection("FAQ") }}>
+              onClick={() => { setMyRideSelection("FAQ"); clearselections() }}>
               <h3 style={{ margin: "0px" }}>FAQ</h3>
             </li>
           </ul>
         </div>
         <div className="MyRide__rightbody" style={{ marginLeft: "5px" }}>
           {myrideselection === 'My Rides' && <Rides />}
-          {myrideselection === 'Help' && <Help />}
+          {myrideselection === 'Riderequest' && <Riderequest />}
           {myrideselection === 'FAQ' && <Faq />}
           {myrideselection === 'Ridedetails' && <Ridedetails />}
         </div>

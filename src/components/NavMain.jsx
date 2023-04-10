@@ -38,7 +38,6 @@ export default function NavMain(props) {
         );
     })
 
-    console.log(props);
     return (
         
         <nav className='header'> 
