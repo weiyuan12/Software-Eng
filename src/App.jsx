@@ -31,7 +31,7 @@ export default function App(){
                         <Marker2Context.Provider value = {{marker2, setMarker2}}>
                         <CarparkMarkerContext.Provider value = {{carparkMarker, setCarparkMarker}}>
                         <PathContext.Provider value={{path, setPath}}>
-                    {user.id ? <NavMain/> : <Navbar/>}
+                    {user.token ? <NavMain/> : <Navbar/>}
                     <Routes>
                         <Route path="/" element={<EntranceScreen/>}/>
                         <Route path="/dashboard" element={<Dashboard/>}/>

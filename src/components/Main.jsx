@@ -37,9 +37,8 @@ function Main(){
         <div>
         <div className="page">
             <div className="form">
-                {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection}/>};
-                {selection==="Search Ride" && <SearchRide parentCallBack = {handleSelection}/>};
-                {selection==="My Rides" && <MyRides/>};
+                {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection}/>}
+                {selection==="Search Ride" && <SearchRide parentCallBack = {handleSelection}/>}
                 {selection==="Carparks" && <Carpark/>}
             </div>
             {!user && <Navigate to="/"/>}

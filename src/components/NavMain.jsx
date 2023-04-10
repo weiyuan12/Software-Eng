@@ -8,6 +8,7 @@ export default function NavMain(props) {
     const {user} = useContext(UserContext);
     const {selection , setSelection} = useContext(SelectionContext);
     const [UserName, setUserName] = useState("");
+    console.log(user)
     useEffect(()=>{
         fetch('http://127.0.0.1:8000/core/user-info/', {
             method: 'GET',
