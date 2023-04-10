@@ -16,13 +16,6 @@ export default function EntranceScreen(){
                     <p className='textsub'>
                         Navigate with ease using Wanderful as we aim to support the lifestyle that you want!
                     </p>
-                    <div className='bookride'>
-                        <button className='bookridebutton'>
-                            <Link to ={user.id ? "/main" : "/login"}>
-                                Weiyuan search/create ride component
-                            </Link>
-                        </button>
-                    </div>
                 </div>
             </div>
         
