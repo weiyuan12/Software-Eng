@@ -49,7 +49,7 @@ export default function RideCreation(props) {
                 </button>  
                 <button type ="button" className={type === "Taxi" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("Taxi")}>
                     <img className = "img" src='assets/rideHailing.png'/>
-                    <h1 className="ride-header-button-text">Taxi</h1>
+                    <h1 className="ride-header-button-text">Ride</h1>
                 </button>
             </div>
             {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback}/>   : <DisplayComplete parentCallBack = {handleComplete}/> }
