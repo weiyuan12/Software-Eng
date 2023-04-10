@@ -1,10 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 import { Map, GoogleApiWrapper, Marker, InfoWindow, Polyline } from 'google-maps-react';
-import { Marker1Context, Marker2Context, CarparkMarkerContext, PathContext } from './Usercontext';
+import { Marker1Context, Marker2Context, CarparkMarkerContext, PathContext, TaxiContext, LocationContext } from './Usercontext';
 import { convertCoordsToLatLng } from './Helper';
-import "../styles/map.css"
-
+import "../styles/map.css";
+var parkingIcon = {
+    url: "assets/placeholder.png" ,
+    scaledSize: {width:40, height:40}
+  };
+var parkingIcon = {
+    url: "assets/taxi.png" ,
+    scaledSize: {width:40, height:40}
+  };
+  var personIcon = {
+    url: "assets/person.png" ,
+    scaledSize: {width:50, height:50}
+  };
 export function DynamicMap(props) {
     // initial center is singapore
     const {path, setPath} = useContext(PathContext)
@@ -12,6 +23,8 @@ export function DynamicMap(props) {
     const {marker1, setMarker1} = useContext(Marker1Context);
     const {marker2, setMarker2} = useContext(Marker2Context);
     const {carparkMarker, setCarparkMarker} = useContext(CarparkMarkerContext)
+    const {taxis, setTaxis} = useContext(TaxiContext)
+    const {location, setLocation} = useContext(LocationContext)
     const [coords, setCoords] = useState([])
     const [mapCenter, setMapCenter] = useState({
       lat: 1.352178, 
@@ -45,22 +58,45 @@ export function DynamicMap(props) {
         if(carparkMarker.length !== 0){
             return(
                 <Marker title = "Carpark" 
-                id = {coords.indexOf(coord)} 
-                key = {"B" + coords.indexOf(coord)} 
+                id = {"C" +coords.indexOf(coord)} 
+                key = {"C" + coords.indexOf(coord)} 
                 position = {coord}
+                icon = {parkingIcon}
                 onClick={(e)=>{handleMarkerClick(e)}}
                 data = {carparkMarker[coords.indexOf(coord)][0]}
                 />
-                
-                )
+            )
+        }
+    })
+    const displayTaxis = taxis.map((coord)=>{
+        if(taxis.length !== 0){
+            return(
+                <Marker title = "Taxi" 
+                id = {"T" + taxis.indexOf(coord)} 
+                key = {"T" + taxis.indexOf(coord)} 
+                position = {{lat:coord[0][1], lng: coord[0][0]}}
+                icon = {parkingIcon}
+                />     
+            )
+        }
+    })
+    const displayPerson = () =>{
+        
+        if (location.length !== 0){
+            console.log("Hello")
+            return (
+                <Marker
+                title ="Person"
+                position = {{lat: location.latitude, lng: location.longitude}}
+                icon ={personIcon}
+                />
+            )
         }
     }
-    )
     
     const handleMarkerClick =(e) =>{
         setActive(e)
     }
-    
 
     return (
         <Map
@@ -97,6 +133,8 @@ export function DynamicMap(props) {
                 }
             </InfoWindow>
             {displayAllCarparks}
+            {displayTaxis}
+            {displayPerson()}
             <Polyline
                 path={path}
                 strokeColor="#FF0000"

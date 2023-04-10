@@ -1,17 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../styles/RideCreation.css"
 import DateTimePicker from "react-datetime-picker";
-import { getGeoCode } from "./Helper";
-import { Marker1Context, PathContext } from "./Usercontext";
+
+import { Marker1Context, PathContext, UserContext } from "./Usercontext";
 import { Marker } from "google-maps-react";
 import { Marker2Context } from "./Usercontext";
-import {calculateRoute} from "./Helper"
+import {getGeoCode,calculateRoute, sendData} from "./Helper"
 
-/**
- * Rerturns the CreateRideUI that allows Users to select "Drive" or "Taxi"
- * @param {parentCallBack} props complete
- * @returns the CreateRideUI
- */
+
 
 
 export default function RideCreation(props) {
@@ -62,6 +58,7 @@ export default function RideCreation(props) {
  * @returns ride details input form
  */
 const CreateRide = (props) =>{
+    const {user} = useContext(UserContext)
     const {marker1, setMarker1} = useContext(Marker1Context)
     const {marker2, setMarker2} = useContext(Marker2Context)
     const {path, setPath} = useContext(PathContext)
@@ -76,7 +73,8 @@ const CreateRide = (props) =>{
         recurring : false,
         type : "",
         startlatlng : {},
-        endlatlng:{}
+        endlatlng:{},
+
     })
     useEffect(() => {
         setDetails({...details, type : props.type});
@@ -88,10 +86,23 @@ const CreateRide = (props) =>{
     const handleSubmit = async (event)=>{  
         event.preventDefault();
         if (verify1 && verify2){
-            setDetails({...details, time : value})
-            console.log(details.time.toDateString)
-            console.log(typeof details.seats)
+           
+            console.log(value)
+            const startlat = `{lat: ${details.startlatlng.lat}, lng: ${details.startlatlng.lng}}`
+            const endlat = `{lat: ${details.endlatlng.lat}, lng: ${details.endlatlng.lng}}`
+            await sendData({
+                origin: details.start,
+                destination: details.end,
+                date_time: value,
+                recurring: details.recurring ,
+                seats: details.seats,
+                start_lat:`{lat: ${details.startlatlng.lat}, lng: ${details.startlatlng.lng}}` ,
+                end_lat:`{lat: ${details.endlatlng.lat}, lng: ${details.endlatlng.lng}}`
+            } , user)
+            console.log(startlat, endlat)
+            console.log(details.startlatlng)
             props.parentCallBack(details,1)
+            
            
         }
         else if (!verify1){
@@ -118,6 +129,7 @@ const CreateRide = (props) =>{
             console.log("accepted")
             field === "start"? 
                 (
+                    console.log(value),
                     test(verify2,1, geoLocation),
                     setVerify1(true),
                     setDetails({...details, startlatlng:geoLocation}),
@@ -154,11 +166,11 @@ const CreateRide = (props) =>{
             
             <h1 className="ride-creation-body-header">{props.type=== "Personal Car"? text[0] : text[1]}</h1>
             <div className="input-field">
-                <input type= "text" id = "start" className = "ride-creation-input" placeholder="Add a pick-up location"value = {details.start} onChange={e => {setDetails({...details, start : e.target.value}) ,setVerify1(false)}} required/>
+                <input type= "text" id = "start" className = "ride-creation-input" placeholder="Add a pick-up location"value = {details.start} onChange={e => {setDetails({...details, start : e.target.value}) ,setVerify1(false), setPath([])}} required/>
                 {!verify1? <button onClick= {(e)=>handleVerify(e,"start",props)}>Verify</button> : <img src="assets/verified.png" width={"30px"} style={{marginleft:"10px"}}/>}
             </div>
             <div className="input-field">
-                <input type= "text" id = "end" className = "ride-creation-input" placeholder="Enter your destination" value = {details.end} onChange={e => {setDetails({...details, end : e.target.value}) ,setVerify2(false)}} required/>
+                <input type= "text" id = "end" className = "ride-creation-input" placeholder="Enter your destination" value = {details.end} onChange={e => {setDetails({...details, end : e.target.value}) ,setVerify2(false), setPath([]) }} required/>
                { !verify2? <button onClick= {(e)=>handleVerify(e,"end",props)}>Verify</button> : <img src="assets/verified.png" width={"30px"} style={{marginleft:"5px"}}/>}
             </div>
             <DateTimePicker className = "ride-creation-time" value = {value} onChange= {onChange} calendarIcon ={null} disableClock clearIcon={null} required/> 

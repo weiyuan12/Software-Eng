@@ -3,12 +3,13 @@ import { createRoutesFromChildren } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import "../styles/SearchRide.css"
 import {Link} from "react-router-dom"
-import {Marker1Context, Marker2Context } from "./Usercontext";
+import {Marker1Context, Marker2Context, PathContext } from "./Usercontext";
 /**
  * Returns a search ride UI that allows user to search for a ride by location
  * @returns SearchRide UI
  */
 export default function SearchRide (props){
+    const {path, setPath} = useContext(PathContext)
      const {marker1, setMarker1} = useContext(Marker1Context);
      const {marker2, setMarker2} = useContext(Marker2Context);
     const [step ,setStep] = useState("Search") //Search, Book, Complete
@@ -17,7 +18,7 @@ export default function SearchRide (props){
     const [re, setRe] = useState(new RegExp("none"))   //regex used to filter search
     const [display, setDisplay] = useState([])    //Returned array of filtered rides
     const [selection , setSelection] = useState({}) //Selected ride
-    const [status, setStatus] = useState("Unconfirmed")   //Unconfirmed, Confirmed
+  
 
     /**
      * sets search result to input
@@ -111,8 +112,6 @@ export default function SearchRide (props){
     const DisplayBooking = (props) =>{
         const handleComplete = (action) =>{
             {action === "return" ? props.parentCallBack("Search") : props.parentCallBack("Confirmed")} 
-            
-
         }
         return (
             <div className = "search-ride">
@@ -202,7 +201,7 @@ export default function SearchRide (props){
                     </div> 
                     }
                 </div>
-                <button className="book-button" onClick={() => {setSelection(a); handleBooking();handleMarker(a) }}> Book Now</button>
+                <button className="book-button" onClick={() => {setSelection(a); handleBooking();handleMarker(a), setPath(a.path)}}> Book Now</button>
             </div>
 
         )

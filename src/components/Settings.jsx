@@ -67,6 +67,7 @@ function Configurations() {
 }
 const SettingDef = () => {
   const { profile, setProfile , setEditprofile} = useContext(ProfileContext)
+  const { user, setUser } = useContext(UserContext);
   return (
     <>
       <div style={{ display: "flex", flexDirection: "row", }}>

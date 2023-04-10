@@ -10,7 +10,7 @@ import Navbar from './components/NavGuest';
 import NavMain from './components/NavMain';
 import "./styles/DefaultStyles.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { UserContext ,SelectionContext , Marker1Context, Marker2Context, CarparkMarkerContext, PathContext} from './components/Usercontext';
+import { UserContext ,SelectionContext , Marker1Context, Marker2Context, CarparkMarkerContext, PathContext, TaxiContext, LocationContext} from './components/Usercontext';
 import Settings from './components/Settings';
 
 
@@ -21,7 +21,8 @@ export default function App(){
     const [marker2, setMarker2] = useState("");
     const [carparkMarker, setCarparkMarker] = useState([])
     const [path, setPath] = useState([])
-    
+    const [taxis, setTaxis] = useState([])
+    const [location, setLocation] = useState([])
     return(
         <div>
             <BrowserRouter>
@@ -31,6 +32,8 @@ export default function App(){
                         <Marker2Context.Provider value = {{marker2, setMarker2}}>
                         <CarparkMarkerContext.Provider value = {{carparkMarker, setCarparkMarker}}>
                         <PathContext.Provider value={{path, setPath}}>
+                        <TaxiContext.Provider value ={{taxis, setTaxis}}>
+                        <LocationContext.Provider value = {{location, setLocation}}>
                     {user.token ? <NavMain/> : <Navbar/>}
                     <Routes>
                         <Route path="/" element={<EntranceScreen/>}/>
@@ -40,6 +43,8 @@ export default function App(){
                         <Route path="/main" element={<Main/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>
+                    </LocationContext.Provider>
+                    </TaxiContext.Provider>
                     </PathContext.Provider>
                     </CarparkMarkerContext.Provider>
                     </Marker2Context.Provider>

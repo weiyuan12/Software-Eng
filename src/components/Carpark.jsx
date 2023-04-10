@@ -13,11 +13,7 @@ export default function Carpark(){
     const [filteredCarparks1,setFilteredCarparks1] = useState([])
     const [filteredCarparks,setFilteredCarparks] = useState([])
     const [searchCoords, setSeachCoords] = useState([])
-    const XOFFSET = -501.28664295390627
-    const YOFFSET = -498.10469814208045
     
-
-
     // async function getSearchResults(input){
     //     const searchVal  = input
     //     let num = 1
@@ -115,7 +111,7 @@ export default function Carpark(){
                 
                 <img src ="assets/carparkIcon.png" width="30px" style={{marginTop:"10px"}}></img>
                 <h1 className="search-ride-headerText">Carparks availability</h1>
-                <button onClick={() => {setSelection("")}}>Close</button>
+
             </div>
             <div className = "search-ride-upper">
                 <div className="search-ride-searchbar">

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { PathContext } from "./Usercontext"
+import { PathContext, UserContext } from "./Usercontext"
 
 export async function getGeoCode (addr){
     if (addr === ""){
@@ -64,7 +64,6 @@ export async function convertCoordsToLatLng(carpark){
 
 export async function calculateRoute(origin, destination) {
     let path = []
-    
     const directionsService = new google.maps.DirectionsService()
     
     const results = await directionsService.route(
@@ -81,7 +80,30 @@ export async function calculateRoute(origin, destination) {
                 
             }
         }
+    console.log(path)
     
     return path
 
+}
+export async function sendData (data, user) {
+   
+    console.log(data)
+   
+        fetch("http://127.0.0.1:8000/core/rides/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token '+ user.token},
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(response =>console.log(response))
+        .catch(error => console.error(error));
+}
+
+export async function getTaxi(){
+    const response = await fetch("http://127.0.0.1:8000/api/taxi/")
+        .then(res => res.json())
+    const data = response.data.features
+    return data
 }

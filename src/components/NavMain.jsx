@@ -22,7 +22,7 @@ export default function NavMain(props) {
         .catch(error => console.error(error));
     },[user])
 
-    const selectionlist = ["Create Ride","Search Ride","My Rides","Carparks"];
+    const selectionlist = ["Create Ride","Search Ride","My Rides","Carparks", "Taxi"];
 
     const renderedlist = selectionlist.map((a)=>{
         if(a===selection){
