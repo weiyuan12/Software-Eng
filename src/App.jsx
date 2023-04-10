@@ -15,7 +15,7 @@ import Settings from './components/Settings';
 
 
 export default function App(){
-    const [user, setUser] = useState({name:"John",phonenumber:"87654321",email:"Johnjohn@gmail.com",dateofbirth:"00 Jan 0000", homeaddress:"FarAwayPlox", member:"paper",id:"404"});
+    const [user, setUser] = useState({token: '5ebe9b2e801e6a415ca3153039dd71a6e5e19585'});
     const [selection, setSelection] = useState("");
     const [marker1, setMarker1] = useState("");
     const [marker2, setMarker2] = useState("");

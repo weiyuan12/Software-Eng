@@ -7,13 +7,26 @@ import Settings from './Settings';
 export default function NavMain(props) {
     const {user} = useContext(UserContext);
     const {selection , setSelection} = useContext(SelectionContext);
+    const [UserName, setUserName] = useState("");
+    useEffect(()=>{
+        fetch('http://127.0.0.1:8000/core/user-info/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token '+ user.token
+            }
+        })
+        .then(response => response.json())
+        .then(data => {setUserName(data.data.username);})
+        .catch(error => console.error(error));
+    },[user])
 
     const selectionlist = ["Create Ride","Search Ride","My Rides","Carparks"];
 
     const renderedlist = selectionlist.map((a)=>{
         if(a===selection){
             return (
-                <li key={a} className='nav-tab-selected' onClick={()=>{setSelection(a)}}>
+                <li key={a} className='nav-tab-selected' onClick={()=>{setSelection("")}}>
                     <Link style={{height:"100%", width:"100%",display:"flex",alignItems:"center"}} to="/main">{a}</Link>
                 </li>
             )
@@ -25,7 +38,6 @@ export default function NavMain(props) {
         );
     })
 
-    console.log(props);
     return (
         
         <nav className='header'> 
@@ -44,11 +56,12 @@ export default function NavMain(props) {
                     <Link to="/settings">
                         <div style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
                          <img className='profile' src='assets/IconProfile.png'/>
-                            <p style={{margin:"0px"}}>Welcome {user.name}</p>
+                            <p style={{margin:"0px"}}>Welcome {UserName}</p>
                         </div>
                     </Link>
                 </button>
             </div>
+            
         </nav>
 
         

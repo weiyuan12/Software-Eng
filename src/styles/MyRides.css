@@ -1,4 +1,4 @@
-.MyRide__body{
+.MyRide__body {
     background-color: #DAF0F7;
     height: 1000px;
     width: 100%;
@@ -6,21 +6,142 @@
     flex-direction: row;
 }
 
-.MyRide__body h1{
+.MyRide__body h1 {
     margin: 0px;
 }
 
-.MyRide__body p{
+.MyRide__body p {
     display: block;
     margin: 0px;
     max-width: 100%;
     text-overflow: ellipsis;
 }
 
-.MyRide__rightbody{
+.MyRide__rightbody {
     width: calc(100% - 200px);
 }
-.MyRide__profileinfo{
+
+.MyRide__rightbody__pasttrip {
+    margin: 0px;
+}
+
+.MyRide__rightbody__pasttrip__List {
+    list-style: none;
+    padding: 0px;
+}
+
+.MyRide__rightbody__pasttrip__List li {
+    background-color: rgba(217, 217, 217, 0.75);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 700px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.MyRide__rightbody__upcoming {
+    margin: 0px;
+}
+
+.MyRide__rightbody__upcoming__List {
+    list-style: none;
+    padding: 0px;
+}
+
+.MyRide__rightbody__upcoming__List li {
+    background-color: rgba(217, 217, 217, 0.75);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 700px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.MyRide__rightbody__Ridedetails {
+    background-color: rgba(217, 217, 217, 0.75);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.MyRide__rightbody__Ridedetails__info {
+    width: 700px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #000000;
+}
+
+.MyRide__rightbody__Ridedetails__body {
+    min-height: 300px;
+}
+
+.MyRide__rightbody__Ridedetails__body__Chat {
+    display: flex;
+    flex-direction: column-reverse;
+    min-height: 500px;
+    overflow-y: scroll;
+}
+
+.MyRide__rightbody__Ridedetails__body__Chat__row {
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.MyRide__rightbody__Ridedetails__body__Chat__input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* test */
+.star-rating {
+    display: inline-block;
+    font-size: 2em;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label i.fa-star {
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #bbb;
+}
+
+.star-rating label i.fas.fa-star.yellow {
+    color: yellow;
+}
+
+
+.star:hover ~ .star:not(.rated) svg{
+    
+}
+.star:hover ~ .rated svg {
+  color: yellow;
+}
+
+
+
+
+
+
+
+
+
+
+.MyRide__profileinfo {
     background-color: rgba(217, 217, 217, 0.75);
     border: 1px solid #000000;
     border-radius: 10px;
@@ -28,25 +149,25 @@
     width: 700px;
 }
 
-.MyRide__leftnav{
-    margin: 0px;   
+.MyRide__leftnav {
+    margin: 0px;
     width: 200px;
 }
 
-.MyRide__leftnav__listitems{
-    margin:0px;
+.MyRide__leftnav__listitems {
+    margin: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
     cursor: pointer;
 }
 
-.MyRide__leftnav__listitems:hover{
+.MyRide__leftnav__listitems:hover {
     background-color: rgba(217, 217, 217, 0.75);
 }
 
-.MyRide__leftnav__listitems--selected{
+.MyRide__leftnav__listitems--selected {
     background-color: rgba(217, 217, 217, 0.75);
-    margin:0px;
+    margin: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
 }

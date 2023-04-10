@@ -12,7 +12,6 @@ import MyRides from "./MyRides.jsx"
 
 
 const handleSelection =  (selection) => {
-        
         switch (selection.selection){
             case "Create Ride" :
                 return <RideCreation/>
@@ -43,11 +42,14 @@ function Main(){
                 {selection==="My Rides" && <MyRides/>};
                 {selection==="Carparks" && <Carpark/>}
             </div>
-            {!user.id && <Navigate to="/"/>}
+            {!user && <Navigate to="/"/>}
         </div>
-        <div className="map">
+            {selection==="My Rides" && <MyRides/>}
+            {selection!=='My Rides' &&
+            <div className="map">
                 <DynamicMap  className="map"/> 
             </div>
+            }
             
         </div>
 
