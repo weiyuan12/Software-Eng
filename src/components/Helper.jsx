@@ -20,6 +20,7 @@ export async function getGeoCode (addr){
     const responseData = await response.json()
     console.log(responseData.result)
         if(responseData.result.address.addressComponents[0].confirmationLevel != "CONFIRMED" ){
+            console.log(responseData.result.address.addressComponents[0])
             alert("Enter a valid location")
             return null;
         }
@@ -33,13 +34,15 @@ export async function getGeoCode (addr){
     }
 
 }
+
 export async function convertLatLngToCoords (lat, lng){
     const response = await fetch(`https://developers.onemap.sg/commonapi/convert/4326to3414?latitude=${lat}&longitude=${lng}`)
     return response.json()
 }
 
+
 export async function getCarpark(){
-    const response = await fetch("http://127.0.0.1:8000/carpark/")
+    const response = await fetch("http://127.0.0.1:8000/api/carpark/")
         .then(res => res.json())
     const data = response.data.Result
     return data

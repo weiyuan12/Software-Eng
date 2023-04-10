@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import Navbar from "./NavGuest.jsx";
 import NavMain from "./NavMain";
 import DynamicMap from "./Map";
-import { UserContext, SelectionContext, Marker1Context, Marker2Context } from "./Usercontext";
+import { UserContext, SelectionContext, Marker1Context, Marker2Context, CarparkMarkerContext} from "./Usercontext";
 import { Navigate } from "react-router-dom";
 import RideCreation from "./RideCreation.jsx";
 import "../styles/main.css"
@@ -25,11 +25,12 @@ function Main(){
     const {selection, setSelection} = useContext(SelectionContext);
     const {marker1, setMarker1} = useContext(Marker1Context);
     const {marker2, setMarker2} = useContext(Marker2Context);
+    const {carparkMarker, setCarparkMarker} = useContext(CarparkMarkerContext)
     console.log(selection); 
     const handleSelection =(complete)=>{
         setSelection(complete)
     }
-    useEffect(()=>{setMarker1({}) , setMarker2({}), console.log("Markers cleared")},[selection])
+    useEffect(()=>{setMarker1({}) , setMarker2({}), setCarparkMarker([]), console.log("Markers cleared")},[selection])
 
 
     return(

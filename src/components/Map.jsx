@@ -3,11 +3,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import { Marker1Context, Marker2Context, CarparkMarkerContext } from './Usercontext';
 import { convertCoordsToLatLng } from './Helper';
-import styles from "../styles/main.css"
+import "../styles/map.css"
 
 export function DynamicMap(props) {
     // initial center is singapore
     const [display, setDisplay] = useState("All")
+    const [showInfo, setShowInfo] = useState(false)
+    const [active, setActive] = useState({})
     const {marker1, setMarker1} = useContext(Marker1Context);
     const {marker2, setMarker2} = useContext(Marker2Context);
     const {carparkMarker, setCarparkMarker} = useContext(CarparkMarkerContext)
@@ -16,9 +18,7 @@ export function DynamicMap(props) {
       lat: 1.352178, 
       lng: 103.804899
     });
-    const [a, seta] = useState([{lat: 1.352178, 
-        lng: 103.804899}, {lat: 1.362178, 
-            lng: 103.804899}])
+
     const mapStyle = {
         width: "90%", 
         height: "90%",
@@ -30,46 +30,61 @@ export function DynamicMap(props) {
         width:"80px"
     }
 
-
+    
     useEffect(()=>{
         console.log(carparkMarker)
-        console.log(setCarpark())
-        
-    },[carparkMarker])
-    const setCarpark =  () =>{
         const arr =  carparkMarker.map(async(marker) =>{
             const pos =  await convertCoordsToLatLng(marker)
             console.log("coord->", marker[0].geometries[0].coordinates, " Pos->", pos)
             return pos
         })
         Promise.all(arr).then(values => setCoords(values))
-    }
-
-    useEffect(()=>{
-        console.log(coords)
         
-    },[coords])
+    },[carparkMarker])
 
-    const displayAllCarparks = coords.map((coord)=>{
-            console.log(coord)
-            return(
-                <Marker title = "Carpark" id = {"M"+ coords.indexOf(coord)} key = {coords.indexOf(coord)} position = {coord}/>
-            )
-        })
     
-    const displayAllCarparkInfo = coords.map((coord)=>{
-            console.log(coord)
+    const displayAllCarparks = coords.map((coord)=>{
+        if(carparkMarker.length !== 0){
             return(
-                <InfoWindow key = {coords.indexOf(coord)} position = {coord} visible={true}>
-                <div >
-                    <img src='assets/parkingLogo.png' style={{width:"20px"}}/>
-                    <h4>
-                        Carpark
-                    </h4>
-                </div>
-                </InfoWindow>
-            )
-        })
+                <Marker title = "Carpark" 
+                id = {coords.indexOf(coord)} 
+                key = {"B" + coords.indexOf(coord)} 
+                position = {coord}
+                onClick={(e)=>{handleMarkerClick(e)}}
+                data = {carparkMarker[coords.indexOf(coord)][0]}
+                />
+                
+                )
+        }
+    }
+    )
+    
+
+    const handleMarkerClick =(e) =>{
+        setActive(e)
+        setShowInfo(!showInfo)
+        console.log(e)
+        
+
+    }
+    // const displayAllCarparkInfo = coords.map((coord)=>{
+    //         if (carparkMarker.length !== 0) {
+    //             return(
+    //                 <InfoWindow title = "Info" id = {"A" + coords.indexOf(coord)} key = {coords.indexOf(coord)} position = {coord} visible={true}>
+    //                     <div >
+    //                         <img src='assets/parkingLogo.png' style={{width:"20px"}}/>
+    //                         <div>
+    //                             <h4>{carparkMarker[coords.indexOf(coord)][0].carparkNo}</h4>
+    //                         </div>
+    //                     </div>
+    //                 </InfoWindow>
+    //             )
+    //         }
+    //     })
+    const displayMarkerInfo = () =>{
+        console.log("Display Marker Info")
+        console.log(active)
+    }
 
 
     return (
@@ -83,28 +98,34 @@ export function DynamicMap(props) {
         >
             <Marker title = "Location 1" id = {1} position = {marker1}/>
             <Marker title = "Location 2" id = {2} position = {marker2}/>
-            {/* {displayAllCarparks} */}
-            {displayAllCarparkInfo}
-            {/* {coords.map((coord)=>{
-                console.log(coord)
-                return(
-                    <InfoWindow
-                    style={infoStyle}
-                    position = {coord}
-                    id = {coords.indexOf(coord)}
-                    key = {coords.indexOf(coord)} 
-                    visible={true}>
-                        <div >
-                            <img src='assets/parkingLogo.png' style={{width:"10px"}}/>
-                            
-                            <h4>
-                                Hello
-                            </h4>
-                        </div>
-                        {console.log("HIIII")}
-                    </InfoWindow>
-                )
-            })} */}
+            <InfoWindow
+                marker = {active}
+                visible = {true}
+                position = {active.position}
+            >
+                {active.data !== undefined ? 
+                <div className='infowindow'>
+                    <div>
+                        <strong>
+                        {active.data.carparkNo}
+                        </strong>
+                    </div>
+                        
+                    <div style={{display : "flex" , flexDirection : "row"}}>
+                        <h4>Lots: </h4>
+                        
+                        {active.data.lotsAvailable}
+                        
+                    </div>
+                </div> 
+                : <></>
+                }
+            </InfoWindow>
+            {displayAllCarparks}
+           
+            
+            
+            
         </Map>
     );
 }   

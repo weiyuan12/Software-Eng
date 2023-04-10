@@ -1,14 +1,16 @@
 import React , {useContext, useEffect, useState} from "react";
-import { getGeoCode , convertLatLngToCoords, getCarpark } from "./Helper";
+import { getGeoCode , convertLatLngToCoords, getCarpark} from "./Helper";
 import { CarparkMarkerContext, SelectionContext } from "./Usercontext";
 import "../styles/SearchRide.css"
 
 export default function Carpark(){
+    const [filter, setFilter] = useState("Lots")
     const {selection, setSelection} = useContext(SelectionContext)
     const {carparkMarker, setCarparkMarker} = useContext(CarparkMarkerContext)
     const [search, setSearch] = useState("")
     const [prevSearch, setPrevSearch] = useState("-")
     const [allCarparks, setAllCarparks] = useState([])
+    const [filteredCarparks1,setFilteredCarparks1] = useState([])
     const [filteredCarparks,setFilteredCarparks] = useState([])
     const [searchCoords, setSeachCoords] = useState([])
     const XOFFSET = -501.28664295390627
@@ -58,6 +60,7 @@ export default function Carpark(){
         // console.log(responseData)
        
     }
+    
     useEffect(()=>{
         console.log("In useEffect")
         let arr = []
@@ -68,28 +71,41 @@ export default function Carpark(){
             const Xdiff = Math.abs(+geomArr[0] - searchCoords[0])
             const Ydiff = Math.abs(+geomArr[1] - searchCoords[1])
             const totaldiff = Xdiff + Ydiff
-            if(Xdiff<50000 && Ydiff<50000){
+            if(Xdiff<5000 && Ydiff<5000){
                // console.log([a,totaldiff])
                 arr.push([a,totaldiff])
             }
         })
+        console.log("carpark arr",arr)
+        console.log(filter)
+        filter === "Distance" ? 
         arr.sort((function(index){
             return function(a, b){
                 return (a[index] === b[index] ? 0 : (a[index] < b[index] ? -1 : 1));
             };
-        })(1));
-        console.log(arr)
-        arr.length > 5 ? setFilteredCarparks(arr.slice(0,5)) : setFilteredCarparks(arr)
-    }, [searchCoords])
-
-    useEffect(() =>{
+        })(1)): 
+        arr.sort((function(index){
+            return function(a, b){
+                
+                return (+a[index].lotsAvailable === +b[index].lotsAvailable ? 0 : (+a[index].lotsAvailable > +b[index].lotsAvailable ? -1 : 1));
+            };
+        })(0));
+        arr.length > 5? setFilteredCarparks(arr.slice(0,5)) : setFilteredCarparks(arr)
         console.log("Set CarparkMarker", filteredCarparks)
-        setCarparkMarker(filteredCarparks)}
-        , [filteredCarparks])
+        setCarparkMarker([])
+    }
+        , [searchCoords, filter])
 
     const displayCarparks = filteredCarparks.map((a) =>[
-        <div>
-            {a[0].carparkNo}
+        <div className="search-result-entry" style={{height:"20%", alignItems:"center"}} key = {filteredCarparks.indexOf(a)}>
+            <img src="assets/parkingLogo.png" width={"15%"} height={"80%"}></img>
+            <div style={{margin:"10px"}}>
+                {a[0].carparkNo}
+            </div>
+            <div>
+                Carpark lots available:
+               {a[0].lotsAvailable} 
+            </div>
         </div>
     ])
     return (
@@ -112,6 +128,17 @@ export default function Carpark(){
                 <div className="search-ride-result">
                     <h4 >Searched: </h4><h4 style= {{borderBottom : "solid"}}>{prevSearch}</h4>
                 </div> 
+            </div>
+            <div className="CarparkButtons">
+                <button onClick={() =>setCarparkMarker(filteredCarparks)}>
+                    Show all on map
+                </button>
+                <button onClick={()=>setFilter("Lots")}>
+                    Filter by lots available
+                </button>
+                <button onClick={()=>setFilter("Distance")}>
+                    Filter by distance
+                </button>
             </div>
             <div className="search-ride-body">
                 {displayCarparks}
