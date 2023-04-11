@@ -46,28 +46,18 @@ function Configurations() {
       .catch(error => console.error(error));
   }, [editprofile])
 
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    if (inputRef.current !== null) {
-      inputRef.current.focus();
-    }
-  }, []);
-
-
-
-
   return (
     <>
-      <ProfileContext.Provider value={{ profile, setProfile ,setEditprofile}}>
+      <ProfileContext.Provider value={{ profile, setProfile, setEditprofile }}>
         {editprofile ? <SettingEdit /> : <SettingDef />}
       </ProfileContext.Provider>
     </>
   )
 }
+
 const SettingDef = () => {
-  const { profile, setProfile , setEditprofile} = useContext(ProfileContext)
-  const { user, setUser } = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext)
+  const { profile, setProfile, setEditprofile } = useContext(ProfileContext)
   return (
     <>
       <div style={{ display: "flex", flexDirection: "row", }}>
@@ -78,10 +68,10 @@ const SettingDef = () => {
         <img src="assets/IconSettingsProfile.png" style={{ width: "50px", height: "50px" }}></img>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-around", marginLeft: "10px" }}>
           <h3 style={{ margin: "0px" }}>
-            {profile.user.first_name + ' ' + profile.user.last_name}
+            {profile.user.first_name}
           </h3>
           <p style={{ margin: "0px" }}>
-            {profile.phonenumber}
+            {profile.user.last_name}
           </p>
         </div>
       </div>
@@ -112,10 +102,29 @@ const SettingDef = () => {
 }
 
 const SettingEdit = () => {
+  const { user, setUser } = useContext(UserContext);
   const { profile, setProfile, setEditprofile } = useContext(ProfileContext)
-  console.log(profile)
   const updateProfile = () => {
-    fetch()
+    let body = {};
+    if (isNaN(Date.parse(profile['date_of_birth']))) {
+      alert("date_of_birth is invalid");
+      return;
+    }
+    body['date_of_birth'] = profile['date_of_birth'];
+    body['address'] = profile['address'];
+    body['bio'] = profile['bio'];
+    fetch('http://127.0.0.1:8000/core/userprofile/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + user.token
+      },
+      body: JSON.stringify(body)
+    })
+      .then(response => response.json())
+      .then(data => { setProfile(data) })
+      .catch(error => console.error(error));
+    ; setEditprofile(false)
   }
 
   return (
@@ -128,10 +137,10 @@ const SettingEdit = () => {
         <img src="assets/IconSettingsProfile.png" style={{ width: "50px", height: "50px" }}></img>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-around", marginLeft: "10px" }}>
           <h3 style={{ margin: "0px" }}>
-            {profile.user.first_name + ' ' + profile.user.last_name}
+            {profile.user.first_name}
           </h3>
           <p style={{ margin: "0px" }}>
-            {profile.phonenumber}
+            {profile.user.last_name}
           </p>
         </div>
       </div>
@@ -140,20 +149,20 @@ const SettingEdit = () => {
           <h4 style={{ margin: "0px" }}>Email:</h4>
           <p style={{ margin: "0px", marginLeft: "10px" }}>{profile.user.email}</p>
         </div>
-        <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+        <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }} >
           <h4 style={{ margin: "0px" }}>Date of Birth:</h4>
           <input style={{ margin: "0px", marginLeft: "10px" }} value={profile.date_of_birth} onChange={(event) => { setProfile({ ...profile, date_of_birth: event.target.value }) }} />
         </div>
         <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
           <h4 style={{ margin: "0px" }}>Home Address:</h4>
-          <p style={{ margin: "0px", marginLeft: "10px" }}>{profile.address}</p>
+          <input style={{ margin: "0px", marginLeft: "10px" }} value={profile.address} onChange={(event) => { setProfile({ ...profile, address: event.target.value }) }} />
         </div>
         <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
           <h4 style={{ margin: "0px" }}>Bio:</h4>
-          <p style={{ margin: "0px", marginLeft: "10px" }}>{profile.bio}</p>
+          <input style={{ minWidth: '600px', height: '200px', wordBreak: 'break-word', margin: "0px", marginLeft: "10px" }} value={profile.bio} onChange={(event) => { setProfile({ ...profile, bio: event.target.value }) }} />
         </div>
         <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-          <button onClick={() => { updateProfile(); setEditprofile(false) }}>Done</button>
+          <button onClick={() => { updateProfile() }}>Done</button>
         </div>
       </div>
     </>

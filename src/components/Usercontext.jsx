@@ -9,5 +9,6 @@ export const Marker2Context = createContext({lat: 1.352178,
 export const CarparkMarkerContext = createContext([])
 export const PathContext = createContext([])
 export const ProfileContext = createContext("blank");
+export const RidesContext = createContext("blank");
 export const TaxiContext = createContext([])
 export const LocationContext = createContext([])
