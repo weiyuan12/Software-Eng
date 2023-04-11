@@ -40,6 +40,13 @@ export default function Taxi(){
         })(1))
         arr.length > 10? setFilteredTaxi(arr.slice(0,10)) : setFilteredTaxi(arr)
     }, [allTaxi])
+    useEffect(()=>{
+        if(filteredTaxi.length > 0){
+            const el = document.getElementById("taxi-btn")
+            el.style.visibility = 'visible'
+        }
+
+    },[filteredTaxi])
     return(
         <div className="search-ride" style={{height:"200px"}}>
             <div className="search-ride-header">
@@ -59,7 +66,7 @@ export default function Taxi(){
                 </div> 
             </div>
             <div>
-                <button onClick={()=>{setTaxis(filteredTaxi) , setLocation(geoCode)}}>Show Taxis Nearby</button>
+                <button id="taxi-btn" style={{visibility:"hidden"}}onClick={()=>{setTaxis(filteredTaxi) , setLocation(geoCode)}}>Show Taxis Nearby</button>
             </div> 
         </div>
     )

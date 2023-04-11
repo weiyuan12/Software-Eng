@@ -89,8 +89,6 @@ const CreateRide = (props) =>{
         event.preventDefault();
         if (verify1 && verify2 && verifySeats){
             
-            value.setHours(value.getHours() + 8)
-            console.log(value)
             const startlat = JSON.stringify(details.startlatlng)
             const endlat =  JSON.stringify(details.endlatlng)
             await sendData({
