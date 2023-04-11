@@ -13,9 +13,6 @@ export default function Signup(props) {
     const [password, setPassword] = useState("");
     const [repassword, setRepassword] = useState("");
     const [validcheck, setValidcheck] = useState({ 'email': false, 'password': false, 'passmatch': false })
-    console.log(email.match(/.com$/) ? true : false)
-    console.log(password);
-    console.log(validcheck)
     useEffect(() => {
         let emailcheck = false, passcheck = false, passmatchcheck = false;
         if (password.match(/[A-Z]/) && password.match(/[a-z]/) && password.length>5) {
@@ -58,7 +55,11 @@ export default function Signup(props) {
                 "last_name": lastname
             })
         })
-        .then(response => {response.json(); navigate('/')})
+        .then(response => response.json())
+        .then(data => {let errs = "";
+                        console.log(data.errors);
+                        if(data.errors!==undefined){data.errors.username !== null && (errs += data.errors.username + "\n");  data.errors.email && (errs += data.errors.email + "\n"); alert(errs);}
+                        else{console.log(data); alert("User created successfully");navigate("/")}})
         .catch(error => console.log(error));
     }
 

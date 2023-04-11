@@ -72,7 +72,7 @@ const Rides = () => {
       }
     })
       .then(response => response.json())
-      .then(data => { console.log("here");console.log(data);setRideData(data)})
+      .then(data => { console.log("here"); console.log(data); setRideData(data) })
       .catch(error => console.log(error));
     console.log("submitted");
   }, [])
@@ -192,6 +192,7 @@ const Riderequest = () => {
       .catch(error => console.log(error));
     console.log("submitted");
   }, [updaterequest])
+
   const handleAccept = (item) => {
     const body = { "status": "Accepted", "request_id": item.reqid, "ride_id": item.rideid }
     console.log(body)
@@ -209,6 +210,25 @@ const Riderequest = () => {
     console.log("submitted");
     setUpdaterequest(updaterequest + 1)
   }
+
+  const handleReject = (item) => {
+    const body = { "status": "Rejected", "request_id": item.reqid, "ride_id": item.rideid }
+    console.log(body)
+    fetch('http://127.0.0.1:8000/core/handle-request/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + user.token
+      },
+      body: JSON.stringify(body)
+    })
+      .then(response => response.json())
+      .then(data => { console.log(data) })
+      .catch(error => console.log(error));
+    console.log("submitted");
+    setUpdaterequest(updaterequest + 1)
+  }
+
   try {
     const pending = riderequest.filter((ride) => {
       return ride['attributes']['status'] === 'Pending';
@@ -235,6 +255,9 @@ const Riderequest = () => {
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['attributes']['ride']['destination']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+              <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
+                <button onClick={() => { handleReject({ "reqid": item['id'], "rideid": item['attributes']['ride']['id'] }) }}>Reject</button>
+              </div>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
                 <button onClick={() => { handleAccept({ "reqid": item['id'], "rideid": item['attributes']['ride']['id'] }) }}>Accept</button>
               </div>
