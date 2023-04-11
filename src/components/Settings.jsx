@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef, useMemo } from "react"
 import "../styles/EntranceScreen.css"
 import "../styles/Settings.css"
-import { UserContext, ProfileContext } from "./Usercontext"
+import { UserContext, ProfileContext, ImgContext } from "./Usercontext"
 import { Navigate } from "react-router-dom"
 
 
@@ -58,6 +58,7 @@ function Configurations() {
 const SettingDef = () => {
   const {user, setUser} = useContext(UserContext)
   const { profile, setProfile, setEditprofile } = useContext(ProfileContext)
+  const {img, setImg} = useContext(ImgContext)
   return (
     <>
       <div style={{ display: "flex", flexDirection: "row", }}>
@@ -65,7 +66,7 @@ const SettingDef = () => {
         <h4 style={{ margin: "0px", marginLeft: "10px", display: "flex", alignItems: "center" }}>Settings</h4>
       </div>
       <div style={{ display: "flex", flexDirection: "row", marginTop: "30px" }}>
-        <img src="assets/IconSettingsProfile.png" style={{ width: "50px", height: "50px" }}></img>
+        <img src= {img} style={{ width: "100px", height: "90px" ,borderRadius:"50%"}}></img>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-around", marginLeft: "10px" }}>
           <h3 style={{ margin: "0px" }}>
             {profile.user.first_name}

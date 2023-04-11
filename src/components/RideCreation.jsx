@@ -5,8 +5,8 @@ import DateTimePicker from "react-datetime-picker";
 import { Marker1Context, PathContext, UserContext } from "./Usercontext";
 import { Marker } from "google-maps-react";
 import { Marker2Context } from "./Usercontext";
-import {getGeoCode,calculateRoute, sendData} from "./Helper"
-
+import {getGeoCode,calculateRoute, sendData, getUserProfile} from "./Helper"
+import btn from "../styles/button.css"
 
 
 
@@ -41,11 +41,11 @@ export default function RideCreation(props) {
             <div className = "ride-creation-header">
                 <button type ="button"className={type === "Personal Car" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("Personal Car")} >
                     <img className = "img" src='assets/steeringWheel.png'/>
-                    <h1 className="ride-header-button-text">Drive</h1>
+                    <h1 className="ride-header-button-text">Personal Car</h1>
                 </button>  
                 <button type ="button" className={type === "Taxi" ? "ride-header-button-selected" :"ride-header-button"  }onClick = {() => setType("Taxi")}>
                     <img className = "img" src='assets/rideHailing.png'/>
-                    <h1 className="ride-header-button-text">Ride</h1>
+                    <h1 className="ride-header-button-text">Taxi</h1>
                 </button>
             </div>
             {step === 0 ? <CreateRide type = {type} parentCallBack = {handleCallback}/>   : <DisplayComplete parentCallBack = {handleComplete}/> }
@@ -172,13 +172,15 @@ const CreateRide = (props) =>{
             <h1 className="ride-creation-body-header">{props.type=== "Personal Car"? text[0] : text[1]}</h1>
             <div className="input-field">
                 <input type= "text" id = "start" className = "ride-creation-input" placeholder="Add a pick-up location"value = {details.start} onChange={e => {setDetails({...details, start : e.target.value}) ,setVerify1(false), setPath([])}} required/>
-                {!verify1? <button onClick= {(e)=>handleVerify(e,"start",props)}>Verify</button> : <img src="assets/verified.png" width={"30px"} style={{marginleft:"10px"}}/>}
+                {!verify1? <button className = "btn1" onClick= {(e)=>handleVerify(e,"start",props)}>Verify</button> : <img src="assets/verified.png" width={"30px"} style={{marginleft:"10px"}}/>}
             </div>
             <div className="input-field">
                 <input type= "text" id = "end" className = "ride-creation-input" placeholder="Enter your destination" value = {details.end} onChange={e => {setDetails({...details, end : e.target.value}) ,setVerify2(false), setPath([]) }} required/>
-               { !verify2? <button onClick= {(e)=>handleVerify(e,"end",props)}>Verify</button> : <img src="assets/verified.png" width={"30px"} style={{marginleft:"5px"}}/>}
+               { !verify2? <button className = "btn1" onClick= {(e)=>handleVerify(e,"end",props)}>Verify</button> : <img src="assets/verified.png" width={"30px"} style={{marginleft:"5px"}}/>}
             </div>
+            <label>DateTime: &nbsp; &nbsp;
             <DateTimePicker className = "ride-creation-time" value = {value} onChange= {onChange} calendarIcon ={null} disableClock clearIcon={null} required/> 
+            </label>
             { props.type === "Personal Car" ?
             <div className="ride-creation-misc">
                 
@@ -186,14 +188,19 @@ const CreateRide = (props) =>{
                     <button id = "but-1" className = "selected" onClick={(e) => handleClick(true)}>Recurring</button>
                     <button id = "but-2"onClick={(e) => handleClick(false)}>One-Time</button>
                 </div>
+                <label style={{display:"flex", flexDirection:"row", justifyContent:"flex-end"}}>Seats:&nbsp;
                 <input type= "number" className = "ride-creation-model"placeholder="seats" value = {details.seats} onChange={e => {setDetails({...details, seats : e.target.value})}} required/>
+                </label>
             </div> 
             :
             <div className="rid-creation-misc">
+            <label>
+            Passengers: &nbsp;
             <input type= "text" className = "ride-creation-model"placeholder="passengers" value = {details.seats} onChange={e => {setDetails({...details, seats : e.target.value})}} required/>
+            </label>
             </div>
             }
-            <button className = "ride-creation-submit"type="submit">
+            <button className = "btn"type="submit">
                 Submit
             </button> 
 
@@ -203,13 +210,17 @@ const CreateRide = (props) =>{
 
 
 const DisplayComplete = (props) =>{
+
     const closeWindow = () =>{
         props.parentCallBack("")
         
     }
+
+
     return(
         <div>
             <h1>Ride Created Successfully</h1>
+            {displayImg()}
             <div className="rideCreationButton">
                 <button className="closeButton" onClick={closeWindow}>Close</button>
             </div>

@@ -26,6 +26,7 @@ export default function SearchRide (props){
      * sets search result to input
      * @param {*} event user search input
      */
+    
     const handleSearch =(event) =>{
         event.preventDefault();
         setStep("Search")

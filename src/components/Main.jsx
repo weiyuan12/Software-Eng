@@ -35,7 +35,6 @@ function Main(){
     }
     useEffect(()=>{setMarker1({}) , setMarker2({}), setCarparkMarker([]), setPath([]) ,setTaxis([]), setLocation([]),console.log("Markers cleared")},[selection])
 
-
     return(
         <div>
         <div className="page">

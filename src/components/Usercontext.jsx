@@ -12,3 +12,4 @@ export const ProfileContext = createContext("blank");
 export const RidesContext = createContext("blank");
 export const TaxiContext = createContext([])
 export const LocationContext = createContext([])
+export const ImgContext = createContext("")

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import "../styles/Nav.css"
 import {Link} from "react-router-dom"
-import { SelectionContext, UserContext } from './Usercontext';
+import { ImgContext, SelectionContext, UserContext } from './Usercontext';
 import Settings from './Settings';
 
 export default function NavMain(props) {
     const {user} = useContext(UserContext);
     const {selection , setSelection} = useContext(SelectionContext);
     const [UserName, setUserName] = useState("");
+    const {img, setImg} = useContext(ImgContext)
     console.log(user)
     useEffect(()=>{
         fetch('http://127.0.0.1:8000/core/user-info/', {
@@ -56,7 +57,7 @@ export default function NavMain(props) {
                 <button className='invis' onClick={()=>setSelection("Settings")}>
                     <Link to="/settings">
                         <div style={{display:"flex",flexDirection:"row",alignItems:"center"}}>
-                         <img className='profile' src='assets/IconProfile.png'/>
+                         <img className='profile' src={img} style={{width:"70px", height:"60px", borderRadius:"50%"}}/>
                             <p style={{margin:"0px"}}>Welcome {UserName}</p>
                         </div>
                     </Link>

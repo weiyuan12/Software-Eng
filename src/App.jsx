@@ -10,12 +10,12 @@ import Navbar from './components/NavGuest';
 import NavMain from './components/NavMain';
 import "./styles/DefaultStyles.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { UserContext ,SelectionContext , Marker1Context, Marker2Context, CarparkMarkerContext, PathContext, TaxiContext, LocationContext} from './components/Usercontext';
+import { UserContext ,SelectionContext , Marker1Context, Marker2Context, CarparkMarkerContext, PathContext, TaxiContext, LocationContext, ImgContext} from './components/Usercontext';
 import Settings from './components/Settings';
 
 
 export default function App(){
-    const [user, setUser] = useState({token: '5ebe9b2e801e6a415ca3153039dd71a6e5e19585'});
+    const [user, setUser] = useState({token: null});
     const [selection, setSelection] = useState("");
     const [marker1, setMarker1] = useState("");
     const [marker2, setMarker2] = useState("");
@@ -23,6 +23,7 @@ export default function App(){
     const [path, setPath] = useState([])
     const [taxis, setTaxis] = useState([])
     const [location, setLocation] = useState([])
+    const [img, setImg] = useState("")
     return(
         <div>
             <BrowserRouter>
@@ -34,6 +35,7 @@ export default function App(){
                         <PathContext.Provider value={{path, setPath}}>
                         <TaxiContext.Provider value ={{taxis, setTaxis}}>
                         <LocationContext.Provider value = {{location, setLocation}}>
+                        <ImgContext.Provider value={{img, setImg}}>
                     {user.token ? <NavMain/> : <Navbar/>}
                     <Routes>
                         <Route path="/" element={<EntranceScreen/>}/>
@@ -43,6 +45,7 @@ export default function App(){
                         <Route path="/main" element={<Main/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>
+                    </ImgContext.Provider>
                     </LocationContext.Provider>
                     </TaxiContext.Provider>
                     </PathContext.Provider>
