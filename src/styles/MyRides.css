@@ -172,3 +172,6 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
+.MyRide__leftnav__listitems--selected > h3 {
+    border-left: 3px solid #000000;
+}

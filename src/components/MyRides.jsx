@@ -37,7 +37,7 @@ export default function MyRides() {
               onClick={() => { setMyRideSelection("My Rides"); clearselections() }}>
               <h3 style={{ margin: "0px" }}>MyRides</h3>
             </li>
-            <li className={myrideselection === "Help" ? "MyRide__leftnav__listitems--selected" : "MyRide__leftnav__listitems"}
+            <li className={myrideselection === "Riderequest" ? "MyRide__leftnav__listitems--selected" : "MyRide__leftnav__listitems"}
               onClick={() => { setMyRideSelection("Riderequest"); clearselections() }}>
               <h3 style={{ margin: "0px" }}>Ride Requests</h3>
             </li>
