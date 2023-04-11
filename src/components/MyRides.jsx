@@ -72,13 +72,13 @@ const Rides = () => {
       }
     })
       .then(response => response.json())
-      .then(data => { console.log(data); data.length > 0 ? setRideData(data) : setRideData([{ ride: { creator: {} } }]) })
+      .then(data => { console.log("here");console.log(data);setRideData(data)})
       .catch(error => console.log(error));
     console.log("submitted");
   }, [])
   try {
     const upcoming = rideData.filter((ride) => {
-      return ride['ride']['date_time'] >= (new Date().toISOString());
+      return ride['date_time'] >= (new Date().toISOString());
     }).map((item) => {
       return (
         <li>
@@ -86,20 +86,20 @@ const Rides = () => {
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
-                {new Date(item['ride']['date_time']).toLocaleString()}
+                {new Date(item['date_time']).toLocaleString()}
               </p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Driver:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['creator']['username']} </p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['creator']['username']} </p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['origin']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['origin']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Destination:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['destination']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
@@ -112,7 +112,7 @@ const Rides = () => {
     });
 
     const past = rideData.filter((ride) => {
-      return ride['ride']['date_time'] < (new Date().toISOString());
+      return ride['date_time'] < (new Date().toISOString());
     }).map((item) => {
       return (
         <li>
@@ -120,20 +120,20 @@ const Rides = () => {
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
-                {new Date(item['ride']['date_time']).toLocaleString()}
+                {new Date(item['date_time']).toLocaleString()}
               </p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Driver:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['creator']['username']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['creator']['username']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['origin']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['origin']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Destination:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['ride']['destination']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
@@ -322,7 +322,7 @@ const Ridedetails = () => {
   const [member, setMembers] = useState("")
   useEffect(() => {
     try {
-      fetch('http://127.0.0.1:8000/conversation/members/' + ridedisplay.ride.id + '/', {
+      fetch('http://127.0.0.1:8000/conversation/members/' + ridedisplay.id + '/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -337,6 +337,7 @@ const Ridedetails = () => {
       console.log('error on fetching members')
     }
   }, [])
+  console.log("here")
   console.log(member);
   let memberslist
   try {
@@ -363,20 +364,20 @@ const Ridedetails = () => {
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
-                {new Date(ridedisplay['ride']['date_time']).toLocaleString()}
+                {new Date(ridedisplay['date_time']).toLocaleString()}
               </p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Driver:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['ride']['creator']['username']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['creator']['username']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['ride']['origin']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['origin']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Destination:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['ride']['destination']}</p>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['destination']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
@@ -432,7 +433,7 @@ const Chat = () => {
 
   useEffect(() => {
     try {
-      fetch('http://127.0.0.1:8000/conversation/chat/' + ridedisplay.ride.id + '/', {
+      fetch('http://127.0.0.1:8000/conversation/chat/' + ridedisplay.id + '/', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -459,7 +460,7 @@ const Chat = () => {
     })
     const chatlog = sortedchat.map((item, index) => {
       let display;
-      if (item.created_by.id === ridedisplay.ride.creator.id) {
+      if (item.created_by.id !== ridedisplay.creator.id) {
         display = (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div style={{ padding: '5px', margin: '8px', marginBottom: '4px', backgroundColor: 'aqua', borderRadius: '10px', width: '100px' }}>
@@ -503,7 +504,7 @@ const Chat = () => {
       <div className="MyRide__rightbody__Ridedetails__body__Chat">
         <form className="MyRide__rightbody__Ridedetails__body__Chat__input" onSubmit={submitform}>
           <input ref={inputRef} type="text" className='bbon' style={{ width: '90%' }} />
-          <button style={{ padding: '0px' }} onClick={() => { sendchat({ "conversation_id": curchat[0].conversation.id, "content": inputRef.current.value }); setTextinput(inputRef.current.value); inputRef.current.value = "" }}>
+          <button style={{ padding: '0px' }} onClick={() => { sendchat({ "conversation_id": ridedisplay.id, "content": inputRef.current.value }); setTextinput(inputRef.current.value); inputRef.current.value = "" }}>
             <img src='/assets/Iconsend.png' style={{ width: '40px', height: '18px' }} alt='icon' />
           </button>
         </form>
@@ -516,7 +517,7 @@ const Chat = () => {
       <div className="MyRide__rightbody__Ridedetails__body__Chat">
         <form className="MyRide__rightbody__Ridedetails__body__Chat__input" onSubmit={submitform}>
           <input ref={inputRef} type="text" style={{ width: '90%' }} />
-          <button style={{ padding: '0px' }} onClick={() => { sendchat({ "conversation": curchat[0].conversation.id, "content": inputRef.current.value }); setTextinput(inputRef.current.value); inputRef.current.value = "" }}>
+          <button style={{ padding: '0px' }} onClick={() => { sendchat({ "conversation": ridedisplay.id, "content": inputRef.current.value }); setTextinput(inputRef.current.value); inputRef.current.value = "" }}>
             <img src='/assets/Iconsend.png' style={{ width: '40px', height: '18px' }} alt='icon' />
           </button>
         </form>
