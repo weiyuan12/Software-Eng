@@ -18,6 +18,14 @@
   border-radius: 10px;
 }
 
+.signup-input2{
+  width: 60%;
+  height: 6%;
+  margin-top: 15px;
+  border-radius: 10px;
+  background: rgba(0, 255, 0, 0.55);
+}
+
 .signup-button{
   width:150px;
   height: 50px;

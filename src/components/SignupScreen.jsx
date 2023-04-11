@@ -31,6 +31,18 @@ export default function Signup(props) {
     }, [email, password, repassword])
 
     const handleSignup = () => {
+        
+        if(!validcheck.email){
+            alert("Invalid Email");
+            return;
+        } else if(!validcheck.password){
+            alert("Invalid Password");
+            return;
+        } else if(!validcheck.passmatch){
+            alert("Passwords do not match");
+            return;
+        }
+
         if(!validcheck.email || !validcheck.password || !validcheck.passmatch){
             console.log("not valid");
             return;
@@ -55,12 +67,12 @@ export default function Signup(props) {
             <div className='bodymain'>
                 <div className='Interface_signup'>
                     <h3 style={{ color: 'white' }}>Signup Page</h3>
-                    <input className='signup-input' type='text' placeholder='First Name' onChange={(input) => setFirstname(input.target.value)} />
-                    <input className='signup-input' type='text' placeholder='Last Name' onChange={(input) => setLastname(input.target.value)} />
-                    <input className='signup-input' type='text' placeholder='E-mail' onChange={(input) => setEmail(input.target.value)} />
-                    <input className='signup-input' type='text' placeholder='Username' onChange={(input) => setUsername(input.target.value)} />
-                    <input className='signup-input' type='password' placeholder='Password (Minimum 1 upper case & 1 lower case)' onChange={(input) => setPassword(input.target.value)} />
-                    <input className='signup-input' type='password' placeholder='Re-enter Password' onChange={(input) => setRepassword(input.target.value)} />
+                    <input className={firstname ? 'signup-input2' : 'signup-input'} type='text' placeholder='First Name' onChange={(input) => setFirstname(input.target.value)} />
+                    <input className={lastname ? 'signup-input2' : 'signup-input'} type='text' placeholder='Last Name' onChange={(input) => setLastname(input.target.value)} />
+                    <input className={validcheck.email ? 'signup-input2' : 'signup-input'} type='text' placeholder='E-mail' onChange={(input) => setEmail(input.target.value)} />
+                    <input className={username ? 'signup-input2' : 'signup-input'} type='text' placeholder='Username' onChange={(input) => setUsername(input.target.value)} />
+                    <input className={validcheck.password && password? 'signup-input2' : 'signup-input'} type='password' placeholder='Password (Minimum 1 upper case & 1 lower case)' onChange={(input) => setPassword(input.target.value)} />
+                    <input className={validcheck.passmatch && repassword ? 'signup-input2' : 'signup-input'} type='password' placeholder='Re-enter Password' onChange={(input) => setRepassword(input.target.value)} />
                     <button className='invis' onClick={handleSignup}>
                         <Link className='signup-button'>Signup</Link>
                     </button>
