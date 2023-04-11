@@ -64,6 +64,7 @@ const CreateRide = (props) =>{
     const {path, setPath} = useContext(PathContext)
     const [verify1, setVerify1] = useState(false)
     const [verify2, setVerify2] = useState(false)
+    const [verifySeats, setVerifySeats] = useState(false)
     const [value, onChange] = useState(new Date())
     const [details, setDetails] = useState({
         start : "",
@@ -77,15 +78,16 @@ const CreateRide = (props) =>{
 
     })
     useEffect(() => {
+        setVerifySeats(details.seats>0)
         setDetails({...details, type : props.type});
-      }, [props.type]);
+      }, [props.type, details.seats]);
     
 
     const text = ["Enter your drive details","Enter your ride details"]
     
     const handleSubmit = async (event)=>{  
         event.preventDefault();
-        if (verify1 && verify2){
+        if (verify1 && verify2 && verifySeats){
            
             console.log(value)
             const startlat = `{lat: ${details.startlatlng.lat}, lng: ${details.startlatlng.lng}}`
@@ -110,6 +112,9 @@ const CreateRide = (props) =>{
         }
         else if (!verify2){
             alert("Please Verify End location")
+        }
+        else if(!verifySeats){
+            alert("Please enter number of seats")
         }
 
     }

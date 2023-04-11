@@ -31,6 +31,18 @@ export default function Signup(props) {
     }, [email, password, repassword])
 
     const handleSignup = () => {
+        
+        if(!validcheck.email){
+            alert("Invalid Email");
+            return;
+        } else if(!validcheck.password){
+            alert("Invalid Password");
+            return;
+        } else if(!validcheck.passmatch){
+            alert("Passwords do not match");
+            return;
+        }
+
         if(!validcheck.email || !validcheck.password || !validcheck.passmatch){
             console.log("not valid");
             return;
