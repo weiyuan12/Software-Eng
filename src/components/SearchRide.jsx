@@ -54,11 +54,8 @@ export default function SearchRide (props){
         setPath(path)
         
     }
-    const handleComplete = async (complete,selection) =>{
+    const handleComplete = async (complete) =>{
         props.parentCallBack(complete)
-        console.log(selection)
-        const response = await requestRide(user,selection.id)
-
     }
 
     const handleCallBack = (step)=>{
@@ -80,8 +77,18 @@ export default function SearchRide (props){
         }, []); 
     
     const DisplayBooking = (props) =>{
-        const handleComplete = (action) =>{
-            {action === "return" ? props.parentCallBack("Search") : props.parentCallBack("Confirmed")} 
+        const handleComplete = async(action) =>{
+            if(action === "return"){
+                props.parentCallBack("Search")
+                setPath([])
+                setMarker1({})
+                setMarker2({})
+            }
+            else{
+             props.parentCallBack("Confirmed")
+             const response = await requestRide(user, selection.id)
+             console.log(response)
+            }
         }
         return (
             <div className = "search-ride">

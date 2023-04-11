@@ -8,7 +8,7 @@ var parkingIcon = {
     url: "assets/placeholder.png" ,
     scaledSize: {width:40, height:40}
   };
-var parkingIcon = {
+var taxiIcon = {
     url: "assets/taxi.png" ,
     scaledSize: {width:40, height:40}
   };
@@ -75,7 +75,7 @@ export function DynamicMap(props) {
                 id = {"T" + taxis.indexOf(coord)} 
                 key = {"T" + taxis.indexOf(coord)} 
                 position = {{lat:coord[0][1], lng: coord[0][0]}}
-                icon = {parkingIcon}
+                icon = {taxiIcon}
                 />     
             )
         }

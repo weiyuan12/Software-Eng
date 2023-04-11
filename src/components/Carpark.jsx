@@ -10,7 +10,6 @@ export default function Carpark(){
     const [search, setSearch] = useState("")
     const [prevSearch, setPrevSearch] = useState("-")
     const [allCarparks, setAllCarparks] = useState([])
-    const [filteredCarparks1,setFilteredCarparks1] = useState([])
     const [filteredCarparks,setFilteredCarparks] = useState([])
     const [searchCoords, setSeachCoords] = useState([])
     
@@ -124,7 +123,7 @@ export default function Carpark(){
                 <div className="search-ride-result">
                     <h4 >Searched: </h4><h4 style= {{borderBottom : "solid"}}>{prevSearch}</h4>
                 </div> 
-                
+
             </div>
             <div className="CarparkButtons">
                 <button onClick={() =>setCarparkMarker(filteredCarparks)}>
