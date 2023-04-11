@@ -86,21 +86,20 @@ const CreateRide = (props) =>{
     const handleSubmit = async (event)=>{  
         event.preventDefault();
         if (verify1 && verify2){
-           
             console.log(value)
-            const startlat = `{lat: ${details.startlatlng.lat}, lng: ${details.startlatlng.lng}}`
-            const endlat = `{lat: ${details.endlatlng.lat}, lng: ${details.endlatlng.lng}}`
+            const startlat = JSON.stringify(details.startlatlng)
+            const endlat =  JSON.stringify(details.endlatlng)
             await sendData({
                 origin: details.start,
                 destination: details.end,
                 date_time: value,
                 recurring: details.recurring ,
                 seats: details.seats,
-                start_lat:`{lat: ${details.startlatlng.lat}, lng: ${details.startlatlng.lng}}` ,
-                end_lat:`{lat: ${details.endlatlng.lat}, lng: ${details.endlatlng.lng}}`
+                start_lat: startlat ,
+                end_lat: endlat,
+                type: details.type
             } , user)
-            console.log(startlat, endlat)
-            console.log(details.startlatlng)
+            console.log(details.type)
             props.parentCallBack(details,1)
             
            

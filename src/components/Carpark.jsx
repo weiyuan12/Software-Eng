@@ -124,6 +124,7 @@ export default function Carpark(){
                 <div className="search-ride-result">
                     <h4 >Searched: </h4><h4 style= {{borderBottom : "solid"}}>{prevSearch}</h4>
                 </div> 
+                
             </div>
             <div className="CarparkButtons">
                 <button onClick={() =>setCarparkMarker(filteredCarparks)}>

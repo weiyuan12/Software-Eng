@@ -3,7 +3,8 @@ import { createRoutesFromChildren } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import "../styles/SearchRide.css"
 import {Link} from "react-router-dom"
-import {Marker1Context, Marker2Context, PathContext } from "./Usercontext";
+import {Marker1Context, Marker2Context, PathContext, UserContext } from "./Usercontext";
+import { getRides, calculateRoute, requestRide } from "./Helper";
 /**
  * Returns a search ride UI that allows user to search for a ride by location
  * @returns SearchRide UI
@@ -18,7 +19,8 @@ export default function SearchRide (props){
     const [re, setRe] = useState(new RegExp("none"))   //regex used to filter search
     const [display, setDisplay] = useState([])    //Returned array of filtered rides
     const [selection , setSelection] = useState({}) //Selected ride
-  
+    const [allRides, setAllRides] = useState([])
+    const {user} = useContext(UserContext)
 
     /**
      * sets search result to input
@@ -28,86 +30,54 @@ export default function SearchRide (props){
         event.preventDefault();
         setStep("Search")
         setPrevSearch(search)
+        const re = new RegExp(search.toLowerCase())
+        setRe(re)
+        
+        let arr = []
+        allRides.map((a) => {
+            if(re.test(a.attributes.origin.toLowerCase())){
+                arr.push(a)
+            }
+        })
+        setDisplay(arr)
     }
     const handleBooking =() =>{
         setStep("Book")
         
     }
-    const handleMarker = (a) =>{
-        setMarker1(a.startlatlng)
-        setMarker2(a.endlatlng)
-    }
-    const handleComplete = (complete) =>{
-        props.parentCallBack(complete)
-        //Pass the selection
-        console.log(selection)
-    }
-    useEffect(() =>{
-        console.log("Changed search = ", prevSearch);
-        const re = new RegExp(prevSearch.toLowerCase())
-        setRe(re)
+    const handleMarker = async (a) =>{
+        const origin = JSON.parse(a.attributes.start_lat)
+        const dest = JSON.parse(a.attributes.end_lat)
+        setMarker1(origin)
+        setMarker2(dest)
+        const path = await calculateRoute(origin, dest)
+        setPath(path)
         
-        let arr = []
-        defaultVals.map((a) => {
-            if(re.test(a["Pick-up Location"].toLowerCase())){
-                arr.push(a)
-            }
-        })
-        setDisplay(arr)
+    }
+    const handleComplete = async (complete,selection) =>{
+        props.parentCallBack(complete)
+        console.log(selection)
+        const response = await requestRide(user,selection.id)
 
-    },[prevSearch])
-    
+    }
 
-    const defaultVals = [
-        {
-            "id " : "1",
-            "Driver" : "John",
-            "Pick-up Location" : "bukit timah",
-            "Destination" : "boon lay",
-            "Car model" : "mazda 3",
-            "type" : "Personal Car",
-            "seats" : 2,
-            "startlatlng" : {"lat": 1.3294113, "lng": 103.8020777},
-            "endlatlng" : {"lat": 1.3142556, "lng": 103.7093099}
-        },
-        {   
-            "id " : "2",
-            "Driver" : "John2",
-            "Pick-up Location" : "2nd place",
-            "Destination" : "harbourfront2",
-            "Car model" : "mazda 2",
-            "type" : "Personal Car",
-            "seats" : 2,
-            "startlatlng" : {"lat": 1.3244113, "lng": 103.8140777},
-            "endlatlng" : {"lat": 1.3342456, "lng": 103.3093099}
-        },
-        {   
-            "id " : "3",
-            "Driver" : "John2",
-            "Pick-up Location" : "BUKIT Timah3",
-            "Destination" : "harbourfront2",
-            "Car model" : "mazda 2",
-            "type" : "Taxi",
-            "seats" : 2,
-            "startlatlng" : {"lat": 1.3744113, "lng": 103.8140777},
-            "endlatlng" : {"lat": 1.3442456, "lng": 103.3293099}
-        },
-        {   
-            "id " : "4",
-            "Driver" : "John2",
-            "Pick-up Location" : "BUKIT Timah3",
-            "Destination" : "harbourfront2",
-            "Car model" : "mazda 2",
-            "type" : "Taxi",
-            "seats" : 2,
-            "startlatlng" : {"lat": 1.3114113, "lng": 103.8240777},
-            "endlatlng" : {"lat": 1.3232456, "lng": 103.3493099}
-        }
-    ]
     const handleCallBack = (step)=>{
         setStep(step)
     }
-
+    useEffect(() => {
+        async function getRides(user){
+            const response = await fetch("http://127.0.0.1:8000/core/rides/",{
+                method: "GET",
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Token '+ user.token
+                },
+            }).then(res => res.json())
+            console.log(response.data)
+           setAllRides(response.data)
+        }
+        getRides(user)
+        }, []); 
     
     const DisplayBooking = (props) =>{
         const handleComplete = (action) =>{
@@ -121,7 +91,7 @@ export default function SearchRide (props){
                 </div>
                 <div className="search-ride-body"  >       
                     <div className = "search-title-text" >
-                        {selection.type === "Personal Car" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
+                        {selection.attributes.types === "Personal Car" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
                     </div>
                     <div className="booking-body" style={{display:"flex", flexDirection: "row", justifyContent:"center", marginTop:"20px"}}>
                         <div className="profile-pic">
@@ -129,33 +99,32 @@ export default function SearchRide (props){
                         </div>
                         <div className="search-text" style={{marginBottom:"2em"}}>
                             <div className = "text">
-                                {selection.type === "Personal Car" ? <h1>Driver: </h1> : <h1>Name: </h1>}
-                                <h1>{selection.Driver}</h1>
+                                {selection.attributes.types === "Personal Car" ? <h1>Driver: </h1> : <h1>Name: </h1>}
+                                <h1>{selection.attributes.creator.username}</h1>
                             </div>
                             <div className = "text">
                                 <h1>Pick Up location:</h1>
-                                <h1>{selection["Pick-up Location"]}</h1></div>
+                                <h1>{selection.attributes.origin}</h1></div>
                             <div className = "text">
                                 <h1>Destination:</h1>  
-                                <h1>{selection.Destination}</h1>
+                                <h1>{selection.attributes.destination}</h1>
                             </div>
-                            {selection.type === "Personal Car" ? 
+                            {selection.attributes.types === "Personal Car" ? 
                             <div className = "text">
-                                <h1>{selection["Car model"]}</h1>
                                 <h1 style={{marginLeft:"20px"}}>Seats:</h1>
-                                <h1>{selection.seats}</h1>
+                                <h1>{selection.attributes.seats}</h1>
                             </div> :
                             <div className = "text">
                             
                                 <h1>Passangers:</h1>
-                                <h1>{selection.seats}</h1>
+                                <h1>{selection.attributes.seats}</h1>
                             </div> 
                             }
                         </div>
                     </div>
                     <div className="booking-buttons">
                         <button onClick={()=>handleComplete("return")}>&lt; Go back</button>
-                        <button onClick={()=>handleComplete("confirm")}>Confirm Booking &gt;</button>
+                        <button onClick={()=>handleComplete("confirm",selection)}>Confirm Booking &gt;</button>
                         
 
                     </div>
@@ -165,48 +134,54 @@ export default function SearchRide (props){
     }
     
     
-    const displayResults = display.map((a)=>{
+    const displayResults = display.map((a)=>{   
+    
         
         return(
             
-            <div className={a.type === "Personal Car" ? "search-result-entry" : "search-result-entry-2"} key={a["id "]}>
-                <div className="profile-pic">
-                    <h1>Insert image</h1>
-                </div>
-                <div className="search-result-entry-info">
-                    <div className = "search-title-text">
-                        {a.type === "Personal Car" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
-                    </div>
-                    <div className = "text">
-                        {a.type === "Personal Car" ? <h1>Driver: </h1> : <h1>Name: </h1>}
-                        <h1>{a.Driver}</h1>
-                    </div>
-                    <div className = "text">
-                        <h1>Pick Up location:</h1>
-                        <h1>{a["Pick-up Location"]}</h1></div>
-                    <div className = "text">
-                        <h1>Destination:</h1>  
-                        <h1>{a.Destination}</h1>
+            <div className={a.attributes.types === "Personal Car" ? "search-result-entry" : "search-result-entry-2"} key={a.id}>
+                <div className="profile-section">
+                    <div className="profile-pic">
+                        <h1>Insert image</h1>
                     </div>
                     {a.type === "Personal Car" ? 
                     <div className = "text">
-                        <h1>{a["Car model"]}</h1>
                         <h1 style={{marginLeft:"20px"}}>Seats:</h1>
-                        <h1>{a.seats}</h1>
+                        <h1>{a.attributes.seats}</h1>
                     </div> :
                     <div className = "text">
                     
                         <h1>Passangers:</h1>
-                        <h1>{a.seats}</h1>
+                        <h1>{a.attributes.seats}</h1>
                     </div> 
                     }
+                </div>
+                <div className="search-result-entry-info">
+                    <div className = "search-title-text">
+                        {a.attributes.types === "Personal Car" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
+                    </div>
+                    <div className = "text">
+                        {a.attributes.types === "Personal Car" ? <h1>Driver: </h1> : <h1>Name: </h1>}
+                        <h1>{a.attributes.creator.username}</h1>
+                    </div>
+                    <div className = "text">
+                        <h1>Time:</h1>
+                        <h1>{a.attributes.date_time}</h1>
+                    </div>
+                    <div className = "text">
+                        <h1>Pick Up location:</h1>
+                        <h1>{a.attributes.origin}</h1></div>
+                    <div className = "text">
+                        <h1>Destination:</h1>  
+                        <h1>{a.attributes.destination}</h1>
+                    </div>
                 </div>
                 <button className="book-button" onClick={() => {setSelection(a); handleBooking();handleMarker(a), setPath(a.path)}}> Book Now</button>
             </div>
 
         )
-    }
-    )
+    })
+
     const SearchRide = () =>{
         return(
         <div className="search-ride">
@@ -231,7 +206,8 @@ export default function SearchRide (props){
             </div>
             <div className="search-ride-body">
                {displayResults}
-            </div>  
+            </div> 
+             
         </div>
     )
     }
@@ -257,8 +233,7 @@ export default function SearchRide (props){
 
     return(
         <div>
-             {step === "Search" ? SearchRide() : step === "Book"? <DisplayBooking parentCallBack = {handleCallBack}/> : <DisplayComplete parentCallBack = {handleComplete}/>} 
-            
+             {step === "Search" ? SearchRide() : step === "Book"? <DisplayBooking parentCallBack = {handleCallBack}/> : <DisplayComplete parentCallBack = {handleComplete}/>}       
         </div>
     )
 }

@@ -107,3 +107,31 @@ export async function getTaxi(){
     const data = response.data.features
     return data
 }
+
+export async function getRides(user){
+    const response = await fetch("http://127.0.0.1:8000/core/rides/",{
+        method: "GET",
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': 'Token '+ user.token
+        },
+    })
+        .then(res => res.json())
+    const data = response.data
+   
+    return data
+}
+
+export async function requestRide(user, id){
+    const response = await fetch("http://127.0.0.1:8000/core/riderequest/",{
+        method: "POST",
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': 'Token '+ user.token
+        },
+        body: id
+    })
+    .then(res => res.json())
+    console.log(response)
+    return response
+}

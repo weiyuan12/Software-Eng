@@ -138,6 +138,11 @@ h4{
     border: 1px solid;
     
 }
+.profile-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .profile-pic{
     
     width: 130px;
