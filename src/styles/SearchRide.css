@@ -22,7 +22,7 @@
 .search-ride-headerText{
     margin:0%;
     margin-bottom: 10px;
-    font-size: 20px;
+    font-size: 1.5em !important;
 }
 .search-ride-body{
     overflow-y: auto;

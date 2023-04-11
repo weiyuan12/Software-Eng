@@ -224,15 +224,19 @@ export default function SearchRide (props){
             props.parentCallBack("My Rides")
         }
         return(
-            <div className = "search-ride">
+            <div className = "search-ride" style={{height:"300px"}}>
                 <div className="search-ride-header">
                     <img src ="assets/bookRideIcon.png" width="30px" style={{marginTop:"10px"}}></img>
                     <h1 className="search-ride-headerText">Booking Confirmed</h1>
                 </div>
-                <div className="search-ride-body" style={{border:"solid"}} >
-                    Booking Confirmed Successfully       
+                <div className="search-ride-body" style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+                    <div style={{margin:"20px"}}>
+                        <h1 style={{fontSize:"2em"}}>
+                            Booking confirmed successfully
+                        </h1>
+                    </div>
+                    <button onClick = {closeWindow}>Go to MyRides</button>   
                 </div>
-                <button onClick = {closeWindow}>Go to MyRides</button>
             </div>
         
         )
