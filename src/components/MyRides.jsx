@@ -257,7 +257,7 @@ const Riderequest = () => {
               </p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
-              <h4 style={{ margin: "0px" }}>Driver:</h4>
+              <h4 style={{ margin: "0px" }}>Passenger:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['attributes']['passenger']['username']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
