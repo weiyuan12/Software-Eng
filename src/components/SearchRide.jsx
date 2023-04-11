@@ -53,6 +53,7 @@ export default function SearchRide (props){
         const path = await calculateRoute(origin, dest)
         setPath(path)
         
+        
     }
     const handleComplete = async (complete) =>{
         props.parentCallBack(complete)
@@ -183,7 +184,7 @@ export default function SearchRide (props){
                         <h1>{a.attributes.destination}</h1>
                     </div>
                 </div>
-                <button className="book-button" onClick={() => {setSelection(a); handleBooking();handleMarker(a), setPath(a.path)}}> Book Now</button>
+                <button className="book-button" onClick={() => {setSelection(a); handleBooking();handleMarker(a)}}> Book Now</button>
             </div>
 
         )
