@@ -146,3 +146,16 @@ export async function getUserProfile(user){
         .then(res => res.json())
     return response
 }
+export async function getAllUserProfile(user){
+    const response = await fetch("http://127.0.0.1:8000/core/alluserprofiles/",{
+        method: "GET",
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization': 'Token '+ user.token
+        },
+    })
+        .then(res => res.json())
+    return response
+}
+
+

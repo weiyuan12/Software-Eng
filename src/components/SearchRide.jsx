@@ -21,6 +21,8 @@ export default function SearchRide (props){
     const [selection , setSelection] = useState({}) //Selected ride
     const [allRides, setAllRides] = useState([])
     const {user} = useContext(UserContext)
+    const [imgList, setImgList] = useState([])
+    const [imgDict, setImgDict]= useState({})
 
     /**
      * sets search result to input
@@ -75,10 +77,27 @@ export default function SearchRide (props){
             console.log(response.data)
            setAllRides(response.data)
         }
+        async function getAllUserProfile(user){
+            const response = await fetch("http://127.0.0.1:8000/core/alluserprofiles/",{
+                method: "GET",
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Token '+ user.token
+                },
+            }).then(res => res.json()).
+            then(res=>res.data);
+            const imgs = {}
+            response.map((data)=>{
+                imgs[data.attributes.user.username] = data.attributes.profile_pic
+            })
+            setImgDict(imgs)
+        }
         getRides(user)
+        getAllUserProfile(user)
         }, []); 
     
     const DisplayBooking = (props) =>{
+        const img = imgDict[selection.attributes.creator.username]
         const handleComplete = async(action) =>{
             if(action === "return"){
                 props.parentCallBack("Search")
@@ -102,9 +121,9 @@ export default function SearchRide (props){
                     <div className = "search-title-text" >
                         {selection.attributes.types === "Personal Car" ? <h1>Drive Offer</h1> : <h1>Taxi Request</h1>}
                     </div>
-                    <div className="booking-body" style={{display:"flex", flexDirection: "row", justifyContent:"center", marginTop:"20px"}}>
+                    <div className="booking-body" style={{display:"flex", flexDirection: "row", justifyContent:"space-evenly", marginTop:"20px"}}>
                         <div className="profile-pic">
-                            <h1>InsertPic</h1>
+                        <img src={img} style={{width:"100%", height:"150%", marginRight:"40px"}}></img>
                         </div>
                         <div className="search-text" style={{marginBottom:"2em"}}>
                             <div className = "text">
@@ -144,14 +163,14 @@ export default function SearchRide (props){
     
     
     const displayResults = display.map((a)=>{   
-    
+        const img = imgDict[a.attributes.creator.username]
         
         return(
             
             <div className={a.attributes.types === "Personal Car" ? "search-result-entry" : "search-result-entry-2"} key={a.id}>
                 <div className="profile-section">
                     <div className="profile-pic">
-                        <h1>Insert image</h1>
+                        <img src={img} style={{width:"80%", height:"130%", margin:"10px"}}></img>
                     </div>
                     {a.type === "Personal Car" ? 
                     <div className = "text">

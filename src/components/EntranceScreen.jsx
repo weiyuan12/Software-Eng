@@ -9,7 +9,6 @@ import { UserContext } from "./Usercontext"
 export default function EntranceScreen(){
     const {user} = useContext(UserContext);
     return(
-        
             <div className='bodycover'>
                 <div className='textbox'>
                     <h1 className='textmain'>Wander around safely and efficiently</h1>

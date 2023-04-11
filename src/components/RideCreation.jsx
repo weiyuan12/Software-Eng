@@ -220,7 +220,6 @@ const DisplayComplete = (props) =>{
     return(
         <div>
             <h1>Ride Created Successfully</h1>
-            {displayImg()}
             <div className="rideCreationButton">
                 <button className="closeButton" onClick={closeWindow}>Close</button>
             </div>
