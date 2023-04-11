@@ -21,7 +21,6 @@ export default function SearchRide (props){
     const [selection , setSelection] = useState({}) //Selected ride
     const [allRides, setAllRides] = useState([])
     const {user} = useContext(UserContext)
-    const [imgList, setImgList] = useState([])
     const [imgDict, setImgDict]= useState({})
 
     /**

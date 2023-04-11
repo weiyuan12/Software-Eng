@@ -83,12 +83,13 @@ const CreateRide = (props) =>{
       }, [props.type, details.seats]);
     
 
-    const text = ["Enter your drive details","Enter your ride details"]
+    const text = ["Enter your drive details","Enter taxi ride details"]
     
     const handleSubmit = async (event)=>{  
         event.preventDefault();
         if (verify1 && verify2 && verifySeats){
-           
+            
+            value.setHours(value.getHours() + 8)
             console.log(value)
             const startlat = JSON.stringify(details.startlatlng)
             const endlat =  JSON.stringify(details.endlatlng)
