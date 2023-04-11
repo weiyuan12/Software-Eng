@@ -179,3 +179,11 @@ h4{
 .booking-buttons button{
     height: 50px;
 }
+.btn2{
+    height: 30px;
+    width: auto;
+    margin: 5px;
+    background-color: #A8B5E0;
+    border-radius: 5px;
+    border:rgb(71, 71, 71) 1px solid
+}

@@ -51,6 +51,9 @@ export default function Carpark(){
         const coords = await convertLatLngToCoords(geoCode.latitude, geoCode.longitude)
         console.log("Fetched coods", coords)
         setSeachCoords([coords.X,coords.Y])
+        lots.style.backgroundColor =  "rgb(94, 184, 94)"
+        show.style.backgroundColor = "#A8B5E0"
+        dist.style.backgroundColor =  "#A8B5E0"
         //const response = await fetch('https://developers.onemap.sg/commonapi/convert/4326to3414?latitude=1.319728905&longitude=103.8421581', {
         // console.log(responseData)
        
@@ -88,7 +91,7 @@ export default function Carpark(){
         arr.length > 5? setFilteredCarparks(arr.slice(0,5)) : setFilteredCarparks(arr)
         console.log("Set CarparkMarker", filteredCarparks)
         setCarparkMarker([])
-    }
+    }   
         , [searchCoords, filter])
 
     const displayCarparks = filteredCarparks.map((a) =>[
@@ -103,6 +106,10 @@ export default function Carpark(){
             </div>
         </div>
     ])
+    const show = document.getElementById("show")
+    console.log(show)
+    const lots = document.getElementById("lots")
+    const dist = document.getElementById("dist")
     return (
         <div className="search-ride">
             
@@ -126,13 +133,26 @@ export default function Carpark(){
 
             </div>
             <div className="CarparkButtons">
-                <button onClick={() =>setCarparkMarker(filteredCarparks)}>
+                <button id="show"className="btn2"onClick={() =>{
+                    setCarparkMarker(filteredCarparks)
+                    show.style.backgroundColor =  "rgb(94, 184, 94)"
+                }}>
                     Show all on map
                 </button>
-                <button onClick={()=>setFilter("Lots")}>
+                <button id="lots"className="btn2"onClick={()=>{
+                    setFilter("Lots")
+                    show.style.backgroundColor = "#A8B5E0"
+                    lots.style.backgroundColor =  "rgb(94, 184, 94)"
+                    dist.style.backgroundColor =  "#A8B5E0"
+                    }}>
                     Filter by lots available
                 </button>
-                <button onClick={()=>setFilter("Distance")}>
+                <button id="dist"className="btn2"onClick={()=>{
+                    setFilter("Distance")
+                    dist.style.backgroundColor =  "rgb(94, 184, 94)"
+                    lots.style.backgroundColor =  "#A8B5E0"
+                    show.style.backgroundColor = "#A8B5E0"
+                    }}>
                     Filter by distance
                 </button>
             </div>

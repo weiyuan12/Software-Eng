@@ -66,7 +66,7 @@ export default function Taxi(){
                 </div> 
             </div>
             <div>
-                <button id="taxi-btn" style={{visibility:"hidden"}}onClick={()=>{setTaxis(filteredTaxi) , setLocation(geoCode)}}>Show Taxis Nearby</button>
+                <button id="taxi-btn" style={{visibility:"hidden",backgroundColor: "#A8B5E0", width:"150px",height:"30px",borderRadius:"5px"}}onClick={()=>{setTaxis(filteredTaxi) , setLocation(geoCode)}}>Show Taxis Nearby</button>
             </div> 
         </div>
     )
