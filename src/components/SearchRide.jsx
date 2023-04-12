@@ -127,7 +127,7 @@ export default function SearchRide (props){
                     </div>
                     <div className="booking-body" style={{display:"flex", flexDirection: "row", justifyContent:"space-evenly", marginTop:"20px"}}>
                         <div className="profile-pic">
-                        <img src={img} style={{width:"100%", height:"150%", marginRight:"40px"}}></img>
+                        <img src={img} style={{width:"100%", height:"150%", marginRight:"40px", marginTop:"10px"}}></img>
                         </div>
                         <div className="search-text" style={{marginBottom:"2em"}}>
                             <div className = "text">
@@ -147,12 +147,12 @@ export default function SearchRide (props){
                             </div>
                             {selection.attributes.types === "Personal Car" ? 
                             <div className = "text">
-                                <h1 >Seats:</h1>
+                                <h1 >Seats Remaining:</h1>
                                 <h1>{selection.attributes.seats}</h1>
                             </div> :
-                            <div className = "text">
+                            <div className = "text" >
                             
-                                <h1>Passangers:</h1>
+                                <h1>Seats Remaining:</h1>
                                 <h1>{selection.attributes.seats}</h1>
                             </div> 
                             }
@@ -198,13 +198,13 @@ export default function SearchRide (props){
                         <img src={img} style={{width:"80%", height:"130%", margin:"10px"}}></img>
                     </div>
                     {a.type === "Personal Car" ? 
-                    <div className = "text">
-                        <h1 style={{marginLeft:"20px"}}>Seats:</h1>
+                    <div className = "text1">
+                        <h1 >Seats Remaining:</h1>
                         <h1>{a.attributes.seats}</h1>
                     </div> :
-                    <div className = "text">
+                    <div className = "text1">
                     
-                        <h1>Passangers:</h1>
+                    <h1 >Seats Remaining:</h1>
                         <h1>{a.attributes.seats}</h1>
                     </div> 
                     }
