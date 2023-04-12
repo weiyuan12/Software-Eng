@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import "../styles/Nav.css"
 import {Link} from "react-router-dom"
-import { ImgContext, SelectionContext, UserContext } from './Usercontext';
+import { ImgContext, SelectionContext, UserContext, UserNameContext } from './Usercontext';
 import Settings from './Settings';
 
 export default function NavMain(props) {
     const {user} = useContext(UserContext);
+    const {UserName, setUserName} = useContext(UserNameContext);
     const {selection , setSelection} = useContext(SelectionContext);
-    const [UserName, setUserName] = useState("");
     const {img, setImg} = useContext(ImgContext)
     console.log(user)
     useEffect(()=>{

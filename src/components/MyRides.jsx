@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from "react";
-import { UserContext, SelectionContext, RidesContext, ImgContext } from "./Usercontext";
+import { UserContext, SelectionContext, RidesContext, ImgContext, UserNameContext } from "./Usercontext";
 import { FaStar } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import "../styles/MyRides.css"
@@ -245,7 +245,7 @@ const Riderequest = () => {
     }).map((item) => {
       return (
         <li>
-          <img src={img} style={{ width: "155px", height: "160px", borderRadius: '5%' }}></img>
+          <img src={img} style={{ width: "155px", height: "165px", borderRadius: '5%' }}></img>
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
@@ -266,10 +266,10 @@ const Riderequest = () => {
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-                <button onClick={() => { handleReject({ "reqid": item['id'], "rideid": item['attributes']['ride']['id'] }) }}>Reject</button>
+                <button className='invis' style={{ width: '100px', height: '30px', backgroundColor: "grey", borderRadius: '10px' }} onClick={() => { handleReject({ "reqid": item['id'], "rideid": item['attributes']['ride']['id'] }) }}>Reject</button>
               </div>
               <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-                <button onClick={() => { handleAccept({ "reqid": item['id'], "rideid": item['attributes']['ride']['id'] }) }}>Accept</button>
+                <button className='invis' style={{ width: '100px', height: '30px', backgroundColor: "grey", borderRadius: '10px' }} onClick={() => { handleAccept({ "reqid": item['id'], "rideid": item['attributes']['ride']['id'] }) }}>Accept</button>
               </div>
             </div>
           </div>
@@ -490,6 +490,7 @@ const Ridedetails = () => {
 
 const Chat = () => {
   const { user } = useContext(UserContext);
+  const {UserName, setUserName} = useContext(UserNameContext);
   const { rideData, setRideData, ridedisplayselection, setRidedisplayselection, ridedisplay, setRidedisplay, myrideselection, setMyRideSelection } = useContext(RidesContext);
   const [updatechat, setUpdatechat] = useState(0);
   const [curchat, setCurchat] = useState([]);
@@ -545,7 +546,7 @@ const Chat = () => {
     })
     const chatlog = sortedchat.map((item, index) => {
       let display;
-      if (item.created_by.id !== ridedisplay.creator.id) {
+      if (item.created_by.id === UserName) {
         display = (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div style={{ padding: '5px', margin: '8px', marginBottom: '4px', backgroundColor: 'aqua', borderRadius: '10px', width: '100px' }}>
