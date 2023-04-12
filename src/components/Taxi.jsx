@@ -51,7 +51,7 @@ export default function Taxi(){
         <div className="search-ride" style={{height:"200px"}}>
             <div className="search-ride-header">
                 <img src ="assets/bookRideIcon.png" width="30px" style={{marginTop:"10px"}}></img>
-                <h1 className="search-ride-headerText">Book Ride</h1>
+                <h1 className="search-ride-headerText">Find Taxi</h1>
             </div>
             <div className = "search-ride-upper">
                 <div className="search-ride-searchbar">
