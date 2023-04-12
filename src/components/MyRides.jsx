@@ -83,7 +83,7 @@ const Rides = () => {
     }).map((item) => {
       return (
         <li>
-          <img src={img} style={{ width: "155px", height: "165px", borderRadius: '5%' }}></img>
+          <img src={img} style={{ width: "155px", height: "167px", borderRadius: '5%' }}></img>
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
@@ -94,13 +94,17 @@ const Rides = () => {
               <h4 style={{ margin: "0px" }}>Driver:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['creator']['username']} </p>
             </div>
-            <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['origin']}</p>
             </div>
-            <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "8px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Destination:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "7px", marginLeft: "10px" }}>
+              <h4 style={{ margin: "0px" }}>Seats Remaining:</h4>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['seats']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ width: '100px', height: '30px', display: "flex", alignItems: 'center', justifyContent: 'center', marginBottom: "10px", marginRight: "10px", backgroundColor: "grey", borderRadius: '10px' }}>
@@ -117,7 +121,7 @@ const Rides = () => {
     }).map((item) => {
       return (
         <li>
-          <img src={img} style={{ width: "155px", height: "165px", borderRadius: '5%' }}></img>
+          <img src={img} style={{ width: "155px", height: "167px", borderRadius: '5%' }}></img>
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
@@ -128,13 +132,17 @@ const Rides = () => {
               <h4 style={{ margin: "0px" }}>Driver:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['creator']['username']}</p>
             </div>
-            <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['origin']}</p>
             </div>
-            <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "8px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Destination:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "7px", marginLeft: "10px" }}>
+              <h4 style={{ margin: "0px" }}>Seats remaining:</h4>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{item['seats']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ width: '100px', height: '30px', display: "flex", alignItems: 'center', justifyContent: 'center', marginBottom: "10px", marginRight: "10px", backgroundColor: "grey", borderRadius: '10px' }}>
@@ -444,12 +452,16 @@ const Ridedetails = () => {
               <h4 style={{ margin: "0px" }}>Driver:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['creator']['username']}</p>
             </div>
-            <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Pick-up location:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['origin']}</p>
             </div>
-            <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
               <h4 style={{ margin: "0px" }}>Destination:</h4>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['destination']}</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
+              <h4 style={{ margin: "0px" }}>Seats Remaining:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['destination']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
