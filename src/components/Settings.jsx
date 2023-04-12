@@ -153,15 +153,15 @@ const SettingEdit = () => {
         </div>
         <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }} >
           <h4 style={{ margin: "0px" }}>Date of Birth:</h4>
-          <input style={{ margin: "0px", marginLeft: "10px" }} value={profile.date_of_birth} onChange={(event) => { setProfile({ ...profile, date_of_birth: event.target.value }) }} />
+          <input style={{ margin: "0px", marginLeft: "10px" }} value={profile.date_of_birth} placeholder="YYYY-MM-DD" onChange={(event) => { setProfile({ ...profile, date_of_birth: event.target.value }) }} />
         </div>
         <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
           <h4 style={{ margin: "0px" }}>Home Address:</h4>
-          <input style={{ margin: "0px", marginLeft: "10px" }} value={profile.address} onChange={(event) => { setProfile({ ...profile, address: event.target.value }) }} />
+          <input style={{ margin: "0px", marginLeft: "10px" }} value={profile.address} placeholder="Your home address" onChange={(event) => { setProfile({ ...profile, address: event.target.value }) }} />
         </div>
         <div style={{ display: "flex", flexDirection: "row", marginTop: "20px", marginLeft: "10px" }}>
           <h4 style={{ margin: "0px" }}>Bio:</h4>
-          <input style={{ minWidth: '600px', height: '200px', wordBreak: 'break-word', margin: "0px", marginLeft: "10px" }} value={profile.bio} onChange={(event) => { setProfile({ ...profile, bio: event.target.value }) }} />
+          <input style={{ minWidth: '600px', height: '200px', wordBreak: 'break-word', margin: "0px", marginLeft: "10px" }} value={profile.bio} placeholder="Write something here"onChange={(event) => { setProfile({ ...profile, bio: event.target.value }) }} />
         </div>
         <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
           <button onClick={() => { updateProfile() }}>Done</button>
