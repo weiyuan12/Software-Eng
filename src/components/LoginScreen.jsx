@@ -25,7 +25,7 @@ export default function LoginScreen() {
       })
     })
     .then((response) => response.json())
-    .then((data) => {data["token"] && setUser(data)})
+    .then((data) => {data["token"] ? setUser(data) : alert("Failed to Login")})
     console.log("submitted");
   
   }
@@ -56,7 +56,6 @@ export default function LoginScreen() {
                 <h2 style={{color:"white", display:"flex",justifyContent:"center"}}>Login Page</h2> 
                 <input type="text" placeholder='Username' className="login-input" onChange={e => setUsername(e.target.value)} />
                 <input type="password" placeholder='Password' className="login-input" onChange={e => setPassword(e.target.value)} />
-                <Link to = "/dashboard" style={{width:'60%'}}>Forget Password?</Link>
                 <input type="submit" className='login-button' value="Login"/>
               </div>
             </form>

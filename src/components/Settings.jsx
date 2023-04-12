@@ -94,16 +94,17 @@ const SettingDef = () => {
           <p style={{ margin: "0px", marginLeft: "10px" }}>{profile.bio}</p>
         </div>
         <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-          <button onClick={() => { setEditprofile(true) }}>Edit Profile</button>
+          <button className='invis' style={{ width: '100px', height: '30px', backgroundColor: "grey", borderRadius: '10px' }}  onClick={() => { setEditprofile(true) }}>Edit Profile</button>
         </div>
       </div>
-      <button onClick={() => { setUser({ token: null }) }}>Logout</button>
+      <button className='invis' style={{ width: '100px', height: '30px', backgroundColor: "grey", borderRadius: '10px' }}  onClick={() => { setUser({ token: null }) }}>Logout</button>
     </>
   )
 }
 
 const SettingEdit = () => {
   const { user, setUser } = useContext(UserContext);
+  const {img, setImg} = useContext(ImgContext)
   const { profile, setProfile, setEditprofile } = useContext(ProfileContext)
   const updateProfile = () => {
     let body = {};
