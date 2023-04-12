@@ -103,7 +103,7 @@ const Rides = () => {
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "7px", marginLeft: "10px" }}>
-              <h4 style={{ margin: "0px" }}>Seats Remaining:</h4>
+              <h4 style={{ margin: "0px" }}>Seats remaining:</h4>
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['seats']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
@@ -461,8 +461,8 @@ const Ridedetails = () => {
               <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['destination']}</p>
             </div>
             <div style={{ display: "flex", flexDirection: "row", marginTop: "10px", marginLeft: "10px" }}>
-              <h4 style={{ margin: "0px" }}>Seats Remaining:</h4>
-              <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['destination']}</p>
+              <h4 style={{ margin: "0px" }}>Seats remaining:</h4>
+              <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['seats']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
               <div style={{ width: '100px', height: '30px', display: "flex", alignItems: 'center', justifyContent: 'center', marginBottom: "10px", marginRight: "10px", backgroundColor: "grey", borderRadius: '10px' }}>
