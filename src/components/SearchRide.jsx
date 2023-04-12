@@ -22,6 +22,8 @@ export default function SearchRide (props){
     const [allRides, setAllRides] = useState([])
     const {user} = useContext(UserContext)
     const [imgDict, setImgDict]= useState({})
+    const months = ['Jan', "Feb" ,"March", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const [Fdate, setFdate] =useState("")
 
     /**
      * sets search result to input
@@ -136,9 +138,13 @@ export default function SearchRide (props){
                                 <h1>Destination:</h1>  
                                 <h1>{selection.attributes.destination}</h1>
                             </div>
+                            <div className = "text">
+                                <h1>Time:</h1>
+                                <h1>{Fdate}</h1>
+                            </div>
                             {selection.attributes.types === "Personal Car" ? 
                             <div className = "text">
-                                <h1 style={{marginLeft:"20px"}}>Seats:</h1>
+                                <h1 >Seats:</h1>
                                 <h1>{selection.attributes.seats}</h1>
                             </div> :
                             <div className = "text">
@@ -163,6 +169,23 @@ export default function SearchRide (props){
     
     const displayResults = display.map((a)=>{   
         const img = imgDict[a.attributes.creator.username]
+        const date = new Date(a.attributes.date_time)
+        const month = months[date.getMonth()]
+        let hour = ""
+        if (date.getHours()<10){
+            hour = `0${date.getHours()}`
+        }
+        else{
+            hour = date.getHours()
+        }
+        let min = ""
+        if (date.getMinutes()<10){
+            min = `0${date.getMinutes()}`
+        }
+        else{
+            min = date.getMinutes()
+        }
+        const formatDate = `${date.getDate()} ${month} ${date.getFullYear()} ${hour}:${min}`
         
         return(
             
@@ -193,7 +216,7 @@ export default function SearchRide (props){
                     </div>
                     <div className = "text">
                         <h1>Time:</h1>
-                        <h1>{a.attributes.date_time}</h1>
+                        <h1>{formatDate}</h1>
                     </div>
                     <div className = "text">
                         <h1>Pick Up location:</h1>
@@ -203,7 +226,7 @@ export default function SearchRide (props){
                         <h1>{a.attributes.destination}</h1>
                     </div>
                 </div>
-                <button className="book-button" onClick={() => {setSelection(a); handleBooking();handleMarker(a)}}> Book Now</button>
+                <button className="book-button" onClick={() => {setSelection(a); handleBooking();handleMarker(a); setFdate(formatDate)}}> Book Now</button>
             </div>
 
         )

@@ -99,7 +99,7 @@ const CreateRide = (props) =>{
                 seats: details.seats,
                 start_lat: startlat ,
                 end_lat: endlat,
-                type: details.type
+                types: details.type
             } , user)
             console.log(details.type)
             props.parentCallBack(details,1)
