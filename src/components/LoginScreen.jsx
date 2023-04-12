@@ -25,7 +25,11 @@ export default function LoginScreen() {
       })
     })
     .then((response) => response.json())
-    .then((data) => {data["token"] ? setUser(data) : alert("Failed to Login")})
+    .then((data) => {if(data["token"]) {
+                      setUser(data); localStorage.setItem("user",data["token"])
+                    }else{
+                      alert("Failed to Login")
+                    }})
     console.log("submitted");
   
   }
@@ -40,6 +44,7 @@ export default function LoginScreen() {
       }).then(res => res.json())
       console.log(res)
       setImg(res.profile_pic)
+      localStorage.setItem("img",res.profile_pic)
       return res
     }
     getUserProfile(user)    

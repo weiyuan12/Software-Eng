@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import EntranceScreen from './components/EntranceScreen';
 import LoginScreen from './components/LoginScreen';
@@ -24,6 +24,10 @@ export default function App(){
     const [taxis, setTaxis] = useState([])
     const [location, setLocation] = useState([])
     const [img, setImg] = useState("")
+    useEffect(()=>{
+        setUser({token: localStorage.getItem("user")});
+        setImg(localStorage.getItem("img"))
+    },[])
     return(
         <div>
             <BrowserRouter>
