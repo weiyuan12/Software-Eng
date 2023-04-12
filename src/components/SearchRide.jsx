@@ -160,7 +160,7 @@ export default function SearchRide (props){
                     </div>
                     <div className="booking-buttons">
                         <button className ="btn3"onClick={()=>handleComplete("return")}>&lt; Go back</button>
-                        <button className ="btn4" onClick={()=>handleComplete("confirm",selection)}>Confirm Booking &gt;</button>
+                        <button className ="btn4" onClick={()=>handleComplete("confirm",selection)}>Send Request &gt;</button>
                         
 
                     </div>
@@ -229,7 +229,7 @@ export default function SearchRide (props){
                         <h1>{a.attributes.destination}</h1>
                     </div>
                 </div>
-                <button className="book-button" onClick={() => {setSelection(a); handleBooking();handleMarker(a); setFdate(formatDate)}}> Book Now</button>
+                <button className="book-button" onClick={() => {setSelection(a); handleBooking();handleMarker(a); setFdate(formatDate)}}> Request</button>
             </div>
 
         )
