@@ -10,7 +10,7 @@ import Navbar from './components/NavGuest';
 import NavMain from './components/NavMain';
 import "./styles/DefaultStyles.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { UserContext ,SelectionContext , Marker1Context, Marker2Context, CarparkMarkerContext, PathContext, TaxiContext, LocationContext, ImgContext} from './components/Usercontext';
+import { UserContext ,SelectionContext , UserNameContext, Marker1Context, Marker2Context, CarparkMarkerContext, PathContext, TaxiContext, LocationContext, ImgContext} from './components/Usercontext';
 import Settings from './components/Settings';
 
 
@@ -24,6 +24,8 @@ export default function App(){
     const [taxis, setTaxis] = useState([])
     const [location, setLocation] = useState([])
     const [img, setImg] = useState("")
+    const [UserName, setUserName] = useState("");
+
     useEffect(()=>{
         setUser({token: localStorage.getItem("user")});
         setImg(localStorage.getItem("img"))
@@ -32,6 +34,7 @@ export default function App(){
         <div>
             <BrowserRouter>
                 <UserContext.Provider value={{user, setUser}}>
+                    <UserNameContext.Provider value={{UserName, setUserName}}>
                     <SelectionContext.Provider value={{selection, setSelection}}>
                         <Marker1Context.Provider value = {{marker1, setMarker1}}>
                         <Marker2Context.Provider value = {{marker2, setMarker2}}>
@@ -56,7 +59,8 @@ export default function App(){
                     </CarparkMarkerContext.Provider>
                     </Marker2Context.Provider>
                     </Marker1Context.Provider>
-                </SelectionContext.Provider>
+                    </SelectionContext.Provider>
+                    </UserNameContext.Provider>
                 </UserContext.Provider>
             </BrowserRouter>
         </div>
