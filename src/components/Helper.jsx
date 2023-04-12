@@ -122,14 +122,15 @@ export async function getRides(user){
     return data
 }
 
-export async function requestRide(user, id){
+export async function requestRide(user, data){
     const response = await fetch("http://127.0.0.1:8000/core/riderequest/",{
         method: "POST",
         headers:{
             'Content-Type': 'application/json',
             'Authorization': 'Token '+ user.token
         },
-        body: id
+        body:JSON.stringify(data)
+     
     })
     .then(res => res.json())
     console.log(response)

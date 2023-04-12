@@ -108,7 +108,10 @@ export default function SearchRide (props){
             }
             else{
              props.parentCallBack("Confirmed")
-             const response = await requestRide(user, selection.id)
+             console.log(selection)
+             const data = {ride: selection.id }
+             console.log(data)
+             const response = await requestRide(user, data)
              console.log(response)
             }
         }
