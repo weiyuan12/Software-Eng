@@ -59,7 +59,7 @@ export default function Signup(props) {
         .then(data => {let errs = "";
                         console.log(data.errors);
                         if(data.errors!==undefined){data.errors.username !== null && (errs += data.errors.username + "\n");  data.errors.email && (errs += data.errors.email + "\n"); alert(errs);}
-                        else{console.log(data); alert("User created successfully");navigate("/")}})
+                        else{console.log(data); alert("User created successfully");navigate("/login")}})
         .catch(error => console.log(error));
     }
 
