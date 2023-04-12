@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow, Polyline } from 'google-maps-react';
 import { Marker1Context, Marker2Context, CarparkMarkerContext, PathContext, TaxiContext, LocationContext } from './Usercontext';
 import { convertCoordsToLatLng } from './Helper';
-import "../styles/map.css";
+
 var parkingIcon = {
     url: "assets/placeholder.png" ,
     scaledSize: {width:40, height:40}
