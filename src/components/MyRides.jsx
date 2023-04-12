@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from "react";
-import { UserContext, SelectionContext, RidesContext } from "./Usercontext";
+import { UserContext, SelectionContext, RidesContext, ImgContext } from "./Usercontext";
 import { FaStar } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import "../styles/MyRides.css"
@@ -62,6 +62,7 @@ export default function MyRides() {
 
 const Rides = () => {
   const { user } = useContext(UserContext);
+  const { img, setImg } = useContext(ImgContext);
   const { rideData, setRideData, ridedisplayselection, setRidedisplayselection, ridedisplay, setRidedisplay, myrideselection, setMyRideSelection } = useContext(RidesContext);
   useEffect(() => {
     fetch('http://127.0.0.1:8000/core/myrides/', {
@@ -82,7 +83,7 @@ const Rides = () => {
     }).map((item) => {
       return (
         <li>
-          <img alt="profile pic"></img>
+          <img src={img} style={{ width: "155px", height: "165px", borderRadius: '5%' }}></img>
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
@@ -102,8 +103,8 @@ const Rides = () => {
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-              <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-                <button onClick={() => { setMyRideSelection('Ridedetails'); setRidedisplay(item) }}>View Details</button>
+              <div style={{ width: '100px', height: '30px', display: "flex", alignItems: 'center', justifyContent: 'center', marginBottom: "10px", marginRight: "10px", backgroundColor: "grey", borderRadius: '10px' }}>
+                <button className="invis" onClick={() => { setMyRideSelection('Ridedetails'); setRidedisplay(item) }}>View Details</button>
               </div>
             </div>
           </div>
@@ -116,7 +117,7 @@ const Rides = () => {
     }).map((item) => {
       return (
         <li>
-          <img alt="profile pic"></img>
+          <img src={img} style={{ width: "155px", height: "165px", borderRadius: '5%' }}></img>
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
@@ -136,8 +137,8 @@ const Rides = () => {
               <p style={{ margin: "0px", marginLeft: "10px" }}>{item['destination']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-              <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-                <button onClick={() => { setMyRideSelection('Ridedetails'); setRidedisplay(item) }}>View Details</button>
+              <div style={{ width: '100px', height: '30px', display: "flex", alignItems: 'center', justifyContent: 'center', marginBottom: "10px", marginRight: "10px", backgroundColor: "grey", borderRadius: '10px' }}>
+                <button className="invis" onClick={() => { setMyRideSelection('Ridedetails'); setRidedisplay(item) }}>View Details</button>
               </div>
             </div>
           </div>
@@ -176,6 +177,7 @@ const Rides = () => {
 
 const Riderequest = () => {
   const { user, setUser } = useContext(UserContext)
+  const { img, setImg } = useContext(ImgContext)
   const { rideData, setRideData, ridedisplayselection, setRidedisplayselection, ridedisplay, setRidedisplay, myrideselection, setMyRideSelection } = useContext(RidesContext);
   const [riderequest, setRiderequest] = useState("");
   const [updaterequest, setUpdaterequest] = useState(0);
@@ -235,7 +237,7 @@ const Riderequest = () => {
     }).map((item) => {
       return (
         <li>
-          <img alt="profile pic"></img>
+          <img src={img} style={{ width: "155px", height: "160px", borderRadius: '5%' }}></img>
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
@@ -272,7 +274,7 @@ const Riderequest = () => {
     }).map((item) => {
       return (
         <li>
-          <img alt="profile pic"></img>
+          <img src={img} style={{ width: "155px", height: "160px", borderRadius: '5%' }}></img>
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
@@ -329,9 +331,56 @@ const Riderequest = () => {
 const Faq = () => {
   return (
     <>
-      <h1>FAQ Title</h1>
+      <h1>
+        FAQ
+      </h1>
+      <h2>
+        Administrative
+      </h2>
+      <h3>
+        What happens if my taxi doesn't arrive on time?
+      </h3>
       <p>
-        Lorem ipsum dolor sit amet,
+        We strive to be punctual with our services, but if your taxi doesn't arrive on time, please call our customer service hotline and we'll do our best to resolve the issue.
+      </p>
+      <h3>
+        Are your taxis safe and well-maintained?
+      </h3>
+      <p>
+        Yes, our taxis are regularly serviced and maintained to ensure they are safe and comfortable for our passengers.
+      </p>
+      <h3>
+        How do I recieve payment from my passengers?
+      </h3>
+      <p>
+        Passengers can choose to pay by cash directly to the driver, or by online payment/card through Wanderful and the money will be sent to your account once the ride is completed and processed by our system.
+      </p>
+      <h2>
+        Functional
+      </h2>
+      <h3>
+        If I take the same drive everyday, do I need to create a drive for every single day?
+      </h3>
+      <p>
+        No you do not need to create multiple drives, you may create a single drive and click on the "Recurring" option to indicate that this is a repeated drive.
+      </p>
+      <h3>
+        How do I book a ride?
+      </h3>
+      <p>
+        Go to the Create Ride page, and click on Ride. There you will be able to key in your pick-up location and destination, date and time of the ride as well as how many seats you require.
+      </p>
+      <h3>
+        How do I know if my drive/ride has been accepted?
+      </h3>
+      <p>
+        Go to My Rides page, click on Ride Requests and there you will be able to see your pending and accepted rides.
+      </p>
+      <h3>
+        I want to look at the rides available right now from where I am, how do I do that?
+      </h3>
+      <p>
+        Go to Search Ride, there you may input your pick-up location and will be able to browse through all the rides that pass by your pick-up location.
       </p>
     </>
   )
@@ -341,6 +390,7 @@ const Faq = () => {
 const Ridedetails = () => {
   console.log('ridedetails')
   const { user, setUser } = useContext(UserContext)
+  const { img, setImg } = useContext(ImgContext)
   const { rideData, setRideData, ridedisplayselection, setRidedisplayselection, ridedisplay, setRidedisplay, myrideselection, setMyRideSelection } = useContext(RidesContext);
   const [member, setMembers] = useState("")
   useEffect(() => {
@@ -383,7 +433,7 @@ const Ridedetails = () => {
       </div>
       <div className="MyRide__rightbody__Ridedetails">
         <div className="MyRide__rightbody__Ridedetails__info">
-          <img alt="profile pic"></img>
+          <img src={img} style={{ width: "155px", height: "160px", borderRadius: '5%' }}></img>
           <div style={{ display: 'flex', flexDirection: 'column', width: '80%' }}>
             <div style={{ display: 'flex', flexDirection: 'row-reverse', marginRight: '5px' }}>
               <p>
@@ -403,8 +453,8 @@ const Ridedetails = () => {
               <p style={{ margin: "0px", marginLeft: "10px" }}>{ridedisplay['destination']}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-              <div style={{ display: "flex", flexDirection: "row-reverse", marginBottom: "10px", marginRight: "10px" }}>
-                <button onClick={() => { setRidedisplayselection('chat') }}>Chat</button>
+              <div style={{ width: '100px', height: '30px', display: "flex", alignItems: 'center', justifyContent: 'center', marginBottom: "10px", marginRight: "10px", backgroundColor: "grey", borderRadius: '10px' }}>
+                <button className='invis' style={{ width: '100px', height: '30px', backgroundColor: "grey", borderRadius: '10px' }} onClick={() => { setRidedisplayselection('chat') }}>Chat</button>
               </div>
             </div>
           </div>
