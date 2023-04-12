@@ -156,8 +156,8 @@ export default function SearchRide (props){
                         </div>
                     </div>
                     <div className="booking-buttons">
-                        <button onClick={()=>handleComplete("return")}>&lt; Go back</button>
-                        <button onClick={()=>handleComplete("confirm",selection)}>Confirm Booking &gt;</button>
+                        <button className ="btn3"onClick={()=>handleComplete("return")}>&lt; Go back</button>
+                        <button className ="btn4" onClick={()=>handleComplete("confirm",selection)}>Confirm Booking &gt;</button>
                         
 
                     </div>
@@ -277,7 +277,7 @@ export default function SearchRide (props){
                             Booking confirmed successfully
                         </h1>
                     </div>
-                    <button onClick = {closeWindow}>Go to MyRides</button>   
+                    <button className="btn2" onClick = {closeWindow}>Go to MyRides</button>   
                 </div>
             </div>
         

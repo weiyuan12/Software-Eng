@@ -36,7 +36,7 @@ function Main(){
     useEffect(()=>{setMarker1({}) , setMarker2({}), setCarparkMarker([]), setPath([]) ,setTaxis([]), setLocation([]),console.log("Markers cleared")},[selection])
 
     return(
-        <div>
+        <div style={{backgroundColor:"green"}}>
         <div className="page">
             <div className="form">
                 {selection==="Create Ride" && <RideCreation parentCallBack = {handleSelection}/>}
@@ -48,9 +48,9 @@ function Main(){
         </div>
             {selection==="My Rides" && <MyRides/>}
             {selection!=='My Rides' &&
-            <div className="map">
-                <DynamicMap  className="map"/> 
-            </div>
+        <div className="map">
+            <DynamicMap  className="map"/> 
+         </div>
             }
             
         </div>

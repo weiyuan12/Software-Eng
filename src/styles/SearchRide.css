@@ -177,7 +177,7 @@ h4{
     justify-content: space-evenly;
 }
 .booking-buttons button{
-    height: 50px;
+    height: 40px;
 }
 .btn2{
     height: 30px;
@@ -186,4 +186,20 @@ h4{
     background-color: #A8B5E0;
     border-radius: 5px;
     border:rgb(71, 71, 71) 1px solid
+}
+.btn3{
+  
+    width: auto;
+    margin: 5px;
+    background-color: #ff8884;
+    border-radius: 5px;
+    border:rgb(130, 130, 130) 1px solid
+}
+.btn4{
+   
+    width: auto;
+    margin: 5px;
+    background-color: #21f661;
+    border-radius: 5px;
+    border:rgb(136, 135, 135) 1px solid
 }
