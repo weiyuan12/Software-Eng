@@ -79,7 +79,7 @@ const Rides = () => {
   }, [])
   try {
     const upcoming = rideData.filter((ride) => {
-      return ride['date_time'] >= (new Date().toISOString());
+      return new Date(ride['date_time']) >= new Date();
     }).map((item) => {
       return (
         <li>
@@ -117,7 +117,7 @@ const Rides = () => {
     });
 
     const past = rideData.filter((ride) => {
-      return ride['date_time'] < (new Date().toISOString());
+      return new Date(ride['date_time']) < new Date();
     }).map((item) => {
       return (
         <li>
