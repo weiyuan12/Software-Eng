@@ -194,7 +194,7 @@ const CreateRide = (props) =>{
             :
             <div className="rid-creation-misc">
             <label>
-            Passengers: &nbsp;
+            Seats: &nbsp;
             <input type= "text" className = "ride-creation-model"placeholder="passengers" value = {details.seats} onChange={e => {setDetails({...details, seats : e.target.value})}} required/>
             </label>
             </div>
